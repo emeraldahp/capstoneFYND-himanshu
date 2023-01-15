@@ -1,10 +1,11 @@
 const express = require('express');
 const { connectDB } = require('./db/connect');
-const { getAllCourses } = require('./controllers/courses.controller');
+const coursesApiRouter = require('./routes/courses.routes')
+
 
 const app = express();
 
-connectDB("mongodb://localhost:27017/courseappdb")
-app.get("/courses", getAllCourses)
+app.use('/courses', coursesApiRouter)
 
-app.listen(8000)
+connectDB("mongodb://localhost:27017/courseappdb")
+app.listen(8531)

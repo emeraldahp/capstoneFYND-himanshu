@@ -12,7 +12,9 @@ const getAllCourses = async (req, res, next) => {
 
 const postCourses = async (req, res, next) => {
     const data = req.body
-    console.log('hi', data)
+    courseData = await Course.create(data)
+    res.status(201).json({status: 'success sent', data:courseData})
+
 }
 
 module.exports = {

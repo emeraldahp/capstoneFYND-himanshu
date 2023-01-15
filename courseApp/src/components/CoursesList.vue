@@ -21,7 +21,20 @@ export default {
             const coursesResponse = await axios.get('http://localhost:8531/courses')
             console.log(coursesResponse.data.data)
             this.coursesData = coursesResponse.data.data
+        },
+        async postCourses() {
+            let coursePost = {
+                courseName: "MEVN Stack134",
+                adminName: "himanshu",
+                tutorName: "aragya",
+                courseDesc: "Learn web development with vue.",
+                courseImage: "default Img",
+                noOfSections: 3
+            }
+            const response = await axios.post('http://localhost:8531/courses', coursePost)
+            console.log(response)
         }
+
 
     }
 }
@@ -32,5 +45,6 @@ export default {
         Courses: {{d1}}
         <button @click="getAllCourses">ReloadCoursesList</button>
         <div v-for="course in coursesData" :key="course._id">{{course._id}} {{course.courseName}}</div>
+        <button @click="postCourses">PostACourse</button>
     </div>
 </template>

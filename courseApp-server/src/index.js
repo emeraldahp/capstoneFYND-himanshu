@@ -1,9 +1,14 @@
 const express = require('express');
 const { connectDB } = require('./db/connect');
 const coursesApiRouter = require('./routes/courses.routes')
-
+const cors = require('cors')
 
 const app = express();
+app.use(cors({
+    origin: "*"
+}))
+
+
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 

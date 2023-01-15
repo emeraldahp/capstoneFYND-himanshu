@@ -10,6 +10,12 @@ const getAllCourses = async (req, res, next) => {
     
 }
 
+const postCourses = async (req, res, next) => {
+    const data = req.body
+    console.log('hi', data)
+}
+
 module.exports = {
-    getAllCourses
+    getAllCourses,
+    postCourses
 }

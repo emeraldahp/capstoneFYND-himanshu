@@ -14,7 +14,9 @@ export default {
 
 <template>
     <div>
-        courseApp HomePage<RouterLink to="/userlogin"> Login </RouterLink>
+        courseApp HomePage <br> 
+        <RouterLink to="/userlogin"> Login </RouterLink> <br>
+        <RouterLink to="/courseview"> Course </RouterLink> <br>
         <courses-list/>
         <course-creator/>
         

@@ -3,6 +3,7 @@ const express = require('express');
 const { connectDB } = require('./db/connect');
 const coursesApiRouter = require('./routes/courses.routes')
 const usersApiRouter = require('./routes/users.routes')
+const structuresApiRouter = require('./routes/structures.routes')
 const cors = require('cors')
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.urlencoded({extended:false}))
 
 app.use('/courses', coursesApiRouter)
 app.use('/users', usersApiRouter)
+app.use('/structures', structuresApiRouter)
 
 connectDB(process.env.MONGO_URI)
 port = process.env.PORT || 8531

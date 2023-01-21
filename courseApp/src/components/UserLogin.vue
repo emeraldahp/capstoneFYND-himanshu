@@ -5,7 +5,7 @@ export default {
     data() {
         return {
             loginData: {
-                username:"",
+                userName:"",
                 password:""
             }
         }
@@ -15,6 +15,11 @@ export default {
             console.log("login function")
             const response = await axios.post('http://localhost:8531/users/login', this.loginData)
             console.log(response)
+            alert(response.data.data.status)
+            if(response.data.data.status == "loginsuccess") {   
+                this.$store.commit("updateUser", response.data.data.userName)
+                this.$router.push({name:'home'})
+            }
         }
     }
 }
@@ -22,9 +27,9 @@ export default {
 
 <template>
     <div>
-        UserLogin {{loginData.password}} {{loginData.username}}
+        UserLogin {{loginData.password}} {{loginData.userName}}
         <form @submit.prevent = "">
-            Username: <input type="text" v-model="loginData.username">
+            Username: <input type="text" v-model="loginData.userName">
             Password: <input type="text" v-model="loginData.password">
             <button v-on:click="login">Login</button>
         </form>

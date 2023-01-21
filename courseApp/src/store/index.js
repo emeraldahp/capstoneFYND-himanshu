@@ -1,9 +1,13 @@
 import {createStore} from "vuex";
 export default createStore({
     state: {
-        username: "no-user"
+        userName: "no-user"
     },
     getters: {},
-    mutations: {},
+    mutations: {
+        updateUser(state, payload){
+            state.userName = payload
+        }
+    },
     actions: {}
 })

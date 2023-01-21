@@ -2,20 +2,26 @@ const User = require('../models/User')
 
 const userLogin = async (req, res, next) => {
     const credentials = req.body
-    const {username, password} = credentials
-    const check = await User.findOne({username})
-    let status = ""
+    const {userName, password} = credentials
+    const check = await User.findOne({userName})
+    let info = {
+        status: "",
+        userName: ""
+    }
+    console.log("check", check, "req", req.body)
     if(check === null){
-        status = "No user found"
+        info.status = "No user found"
     }
     else{
-        if(check.password==password)
-            status = "user:"+username+"loginSuccess"
+        if(check.password==password) {
+            info.status = "loginsuccess"
+            info.userName = userName
+        }
         else
-            status = "wrong password"
+            info.status = "wrong password"
     }
-    console.log(status)
-    res.status(201).json({status: 'success', data:status})
+    console.log(info)
+    res.status(201).json({status: 'success', data:info})
 }
 
 module.exports = {

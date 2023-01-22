@@ -8,12 +8,21 @@ export default {
             enrollmentList: [],
             enrolledCourses: [],
             otherCourses: [],
-            d1:''
         }
     },
     mounted() {
-        this.d1 = "hello"
-        axios.get('http://localhost:8531/courses').then(res => {
+        this.load()
+            
+    },
+    methods:{
+        async getAllCourses() {
+            const coursesResponse = await axios.get('http://localhost:8531/courses')
+            console.log(coursesResponse.data.data)
+            this.coursesData = coursesResponse.data.data
+        },
+
+        load(){
+            axios.get('http://localhost:8531/courses').then(res => {
             //console.log(res.data.data)
             this.coursesData = res.data.data
 
@@ -38,23 +47,33 @@ export default {
                 })
             }
         
-        })
-        
-            
-    },
-    methods:{
-        async getAllCourses() {
-            const coursesResponse = await axios.get('http://localhost:8531/courses')
-            console.log(coursesResponse.data.data)
-            this.coursesData = coursesResponse.data.data
+            })
         },
 
         selectCourse(courseName) {
             this.$store.commit("updateCourse", courseName)
             this.$router.push({name:'courseview'})
         },
-        enrollCourse(courseName){
+        async enrollCourse(courseName, noOfSections){
             console.log("enroll", courseName)
+            const enrollmentData = {
+                userName: this.$store.state.userData.userName,
+                courseName: courseName,
+                isCourseComplete: false,
+                currentSection: 0,
+                noOfSections: noOfSections,
+                sectionProgress: null,
+                joinDate: new Date(),
+                finishDate: null
+            }
+            console.log(enrollmentData)
+            const response = await axios.post('http://localhost:8531/enrollments', enrollmentData)
+            console.log(response)
+
+            this.enrollmentList= [],
+            this.enrolledCourses= [],
+            this.otherCourses= [],
+            this.load()
         }
 
     }
@@ -66,7 +85,7 @@ export default {
         Welcome: User: {{this.$store.state.userData.userName}} <br>
         Status: LoggedIn: {{this.$store.state.userData.loggedIn}} <br>
         Enrollments: {{this.$store.state.userData.enrollments}} <br>
-        Courses: {{d1}} <br>
+        Courses: <br>
         <button @click="getAllCourses">ReloadCoursesList</button>
         <div v-if="$store.state.userData.loggedIn==false">
             <div v-for="course in coursesData" :key="course._id" @click="selectCourse(course.courseName)">
@@ -81,7 +100,7 @@ export default {
             OtherCourses <br>
             <div v-for = "course in otherCourses" :key="course._id">
                 {{course.courseName}}
-                <button @click="enrollCourse(course.courseName)">Enroll</button>
+                <button @click="enrollCourse(course.courseName, course.noOfSections)">Enroll</button>
             </div>
         </div>
 

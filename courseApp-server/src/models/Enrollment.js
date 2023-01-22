@@ -3,27 +3,35 @@ const mongoose = require('mongoose')
 const enrollmentSchema = new mongoose.Schema({
     userName: {
         type: String,
-        required: true
+        required: [true]
     },
     courseName: {
         type: String,
-        required: true
+        required: [true]
     },
     isCourseComplete: {
         type: Boolean,
-        required: true
+        required: [true]
     },
     currentSection: {
         type: Number,
-        required: true
+        required: [true]
     },
     noOfSections: {
         type: Number,
-        required: true
+        required: [true]
     },
     sectionProgress: {
         type: Array,
-        required: true
+        required: [false]
+    },
+    joinDate: {
+        type: Date,
+        required: [true]
+    },
+    finishDate: {
+        type: Date,
+        required: [false]
     }
 })
 

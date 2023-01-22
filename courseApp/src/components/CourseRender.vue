@@ -13,7 +13,7 @@ export default {
     },
     mounted() {
         this.testdata = 'hello'
-        this.currentCourse = 'MEVN Stack' 
+        this.currentCourse = this.$store.state.userData.currentCourse
         axios.get('http://localhost:8531/structures',{params:{currentCourse:this.currentCourse}}).then(res => {
             console.log(res.data.data)
             this.structureData = res.data.data
@@ -36,7 +36,7 @@ export default {
             SectionSelector <br>
             {{currentSection}} <br>
 
-            <div v-for="section, index in structureData.sections" :key="section.index" @click="selectSection(index)">
+            <div v-for="section, index in structureData.sections"  @click="selectSection(index)">
                 {{section.sectionName}}
             </div>
         </div>

@@ -7,7 +7,8 @@ export default {
             testdata : 'h',
             currentCourse: '',
             currentSection: 0,
-            structureData: null
+            //v-for was unable the render because the data was null.undefined and so
+            structureData: {sections:[{items:[]}]},
         }
     },
     mounted() {
@@ -17,6 +18,12 @@ export default {
             console.log(res.data.data)
             this.structureData = res.data.data
         })
+    },
+    methods: {
+        selectSection(index){
+            console.log(index)
+            this.currentSection = index
+        }
     }
 
 }
@@ -24,8 +31,21 @@ export default {
 <template>
     CourseRender <br>
     {{testdata}} <br>
-    SectionSelector <br>
-    {{currentSection}} <br>
-    CourseViewport <br>
-    {{structureData}}
+    <div>
+        <div>
+            SectionSelector <br>
+            {{currentSection}} <br>
+
+            <div v-for="section, index in structureData.sections" :key="section.index" @click="selectSection(index)">
+                {{section.sectionName}}
+            </div>
+        </div>
+        <div>
+            CourseViewport <br>
+            {{structureData.sections[currentSection].sectionName}}
+            <div v-for="item in structureData.sections[currentSection].items">
+                {{item.content}}
+            </div>
+        </div>
+    </div>
 </template>

@@ -18,6 +18,7 @@ export default {
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {   
                 this.$store.commit("updateUser", response.data.data.userName)
+                this.$store.commit("userLog", true)
                 this.$router.push({name:'home'})
             }
         }

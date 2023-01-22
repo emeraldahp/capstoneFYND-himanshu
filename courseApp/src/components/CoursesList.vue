@@ -34,8 +34,9 @@ export default {
 
 <template>
     <div>
-        Welcome: user: {{this.$store.state.userData.userName}}
-        Courses: {{d1}}
+        Welcome: User: {{this.$store.state.userData.userName}} <br>
+        Status: LoggedIn: {{this.$store.state.userData.loggedIn}} <br>
+        Courses: {{d1}} <br>
         <button @click="getAllCourses">ReloadCoursesList</button>
         <div v-for="course in coursesData" :key="course._id" @click="selectCourse(course.courseName)">
             {{course._id}} {{course.courseName}}

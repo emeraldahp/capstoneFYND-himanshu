@@ -5,6 +5,7 @@ const getEnrollments = async (req, res, next) => {
     const userName = req.query.userName
     enrollments = await Enrollment.find({userName})
     console.log(enrollments)
+    res.status(201).json({status: 'success sent', data:enrollments})
 }
 
 module.exports = {

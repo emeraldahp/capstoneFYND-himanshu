@@ -4,8 +4,7 @@ export default createStore({
         userData:{
             loggedIn: false,
             userName: "none",
-            currentCourse: "none",
-            enrollments: []
+            courseName: "none",
         }
     },
     getters: {},
@@ -17,10 +16,7 @@ export default createStore({
             state.userData.userName = payload
         },
         updateCourse(state, payload) {
-            state.userData.currentCourse = payload
-        },
-        setEnrollments(state, payload) {
-            state.userData.enrollments = payload
+            state.userData.courseName = payload
         }
     },
     actions: {}

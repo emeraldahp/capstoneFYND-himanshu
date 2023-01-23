@@ -15,8 +15,19 @@ const postEnrollment = async (req, res, next) => {
     const enrollmentData = await Enrollment.create(data)
     res.status(201).json({status: 'success sent', data:enrollmentData})
 }
+//for course status
+const getEnrollmentByCourseName = async (req, res, next) => {
+    data = req.query
+    console.log(req.query)
+    const {userName, courseName} = data
+    const enrollment = await Enrollment.findOne({userName, courseName})
+    console.log(enrollment)
+    res.status(201).json({status: 'success received', data:enrollment})
+
+}
 
 module.exports = {
     getEnrollments,
-    postEnrollment
+    postEnrollment,
+    getEnrollmentByCourseName
 }

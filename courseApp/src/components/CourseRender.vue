@@ -4,20 +4,28 @@ export default {
     name: "courserender",
     data() {
         return {
-            testdata : 'h',
             currentCourse: '',
             currentSection: 0,
             //v-for was unable the render because the data was null.undefined and so
             structureData: {sections:[{items:[]}]},
+            courseProgress:{}
         }
     },
     mounted() {
-        this.testdata = 'hello'
-        this.currentCourse = this.$store.state.userData.currentCourse
+        //for getting structure for selected course
+        this.currentCourse = this.$store.state.userData.courseName
         axios.get('http://localhost:8531/structures',{params:{currentCourse:this.currentCourse}}).then(res => {
-            console.log(res.data.data)
+            //console.log(res.data.data)
             this.structureData = res.data.data
         })
+        //for setting course status or progress
+        axios.get('http://localhost:8531/enrollments/course', {params:{userName: this.$store.state.userData.userName, courseName: this.currentCourse, }}).then(res=>{
+            console.log(res.data.data)
+            this.courseProgress = res.data.data
+            this.currentSection = this.courseProgress.currentSection
+            console.log(this.currentSection)
+        })
+
     },
     methods: {
         selectSection(index){
@@ -30,7 +38,6 @@ export default {
 </script>
 <template>
     CourseRender <br>
-    {{testdata}} <br>
     <div>
         <div>
             SectionSelector <br>

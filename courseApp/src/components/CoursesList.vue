@@ -5,6 +5,7 @@ export default {
     data() {
         return{
             coursesData: null,
+            enrollments:[],
             enrollmentList: [],
             enrolledCourses: [],
             otherCourses: [],
@@ -15,12 +16,6 @@ export default {
             
     },
     methods:{
-        async getAllCourses() {
-            const coursesResponse = await axios.get('http://localhost:8531/courses')
-            console.log(coursesResponse.data.data)
-            this.coursesData = coursesResponse.data.data
-        },
-
         load(){
             axios.get('http://localhost:8531/courses').then(res => {
             //console.log(res.data.data)
@@ -29,9 +24,9 @@ export default {
             if(this.$store.state.userData.loggedIn==true) {
                 axios.get('http://localhost:8531/enrollments', {params:{userName: this.$store.state.userData.userName}}).then(res=>{
                     //console.log(res.data.data)
-                    this.$store.commit("setEnrollments", res.data.data)
+                    this.enrollments = res.data.data
 
-                    this.$store.state.userData.enrollments.forEach(enrollment => {
+                    this.enrollments.forEach(enrollment => {
                         this.enrollmentList.push(enrollment.courseName)
                     })
                     console.log(this.enrollmentList)
@@ -54,6 +49,7 @@ export default {
             this.$store.commit("updateCourse", courseName)
             this.$router.push({name:'courseview'})
         },
+
         async enrollCourse(courseName, noOfSections){
             console.log("enroll", courseName)
             const enrollmentData = {
@@ -84,9 +80,8 @@ export default {
     <div>
         Welcome: User: {{this.$store.state.userData.userName}} <br>
         Status: LoggedIn: {{this.$store.state.userData.loggedIn}} <br>
-        Enrollments: {{this.$store.state.userData.enrollments}} <br>
+        currentCourse: {{this.$store.state.userData.courseName}} <br>
         Courses: <br>
-        <button @click="getAllCourses">ReloadCoursesList</button>
         <div v-if="$store.state.userData.loggedIn==false">
             <div v-for="course in coursesData" :key="course._id" @click="selectCourse(course.courseName)">
                 {{course._id}} {{course.courseName}}

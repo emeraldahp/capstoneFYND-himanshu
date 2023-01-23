@@ -56,13 +56,14 @@ export default {
                     const courseProgressPatch = {
                         userName: this.courseProgress.userName,
                         courseName: this.courseProgress.courseName,
+                        
                         isCourseComplete: this.courseProgress.isCourseComplete,
                         currentSection: this.courseProgress.currentSection,
                         sectionProgress: this.courseProgress.sectionProgress,
                         finishDate: this.courseProgress.finishDate
 
                     }
-                    axios.patch("http://localhost:8531/enrollments", {type:"firsttime_complete", data:courseProgressPatch})
+                    axios.patch("http://localhost:8531/enrollments", {type:"firsttime_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
                 }
                 else{
                     //if not complete then update currentSection, sectionProgress, 
@@ -72,7 +73,7 @@ export default {
                         currentSection: this.courseProgress.currentSection,
                         sectionProgress: this.courseProgress.sectionProgress
                     }
-                    axios.patch("http://localhost:8531/enrollments", {type:"not_complete", data:courseProgressPatch})
+                    axios.patch("http://localhost:8531/enrollments", {type:"not_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
                 }
             }
             else{
@@ -82,7 +83,7 @@ export default {
                     courseName: this.courseProgress.courseName,
                     currentSection: this.courseProgress.currentSection
                 }
-                axios.patch("http://localhost:8531/enrollments", {type:"already_complete", data:courseProgressPatch})
+                axios.patch("http://localhost:8531/enrollments", {type:"already_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
             }
 
             //for patching

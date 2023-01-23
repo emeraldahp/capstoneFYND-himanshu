@@ -29,6 +29,35 @@ const getEnrollmentByCourseName = async (req, res, next) => {
 const updateEnrollment = async (req, res, next) => {
     data = req.body
     console.log(data)
+    
+    let response
+    try{
+        if(data.type=="firsttime_complete") {
+            const {isCourseComplete, currentSection, sectionProgress, finishDate} = data.data
+            response = await Enrollment.findOneAndUpdate(req.query._id, {
+                isCourseComplete, currentSection, sectionProgress, finishDate
+            })
+            console.log("first time update", response.data, req.query)
+        }
+        else if(data.type=="not_complete") {
+            const {currentSection, sectionProgress} = data.data
+            response = await Enrollment.findOneAndUpdate(req.query._id, {
+                currentSection, sectionProgress
+            })    
+            console.log("not_complete", response.data, req.query)
+        }
+        else if(data.type=="already_complete"){
+            const {currentSection} = data.data
+            response = await Enrollment.findOneAndUpdate(req.query._id, {
+                currentSection
+            })
+            console.log("already", response.data, req.query)
+        }
+    }
+    catch(err){
+        console.log(err.message)
+    }
+    res.status(201).json({status: 'success', data:response})
 }
 
 module.exports = {

@@ -26,8 +26,14 @@ const getEnrollmentByCourseName = async (req, res, next) => {
 
 }
 
+const updateEnrollment = async (req, res, next) => {
+    data = req.body
+    console.log(data)
+}
+
 module.exports = {
     getEnrollments,
     postEnrollment,
-    getEnrollmentByCourseName
+    getEnrollmentByCourseName,
+    updateEnrollment
 }

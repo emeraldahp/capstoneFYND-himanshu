@@ -28,11 +28,13 @@ export default {
 
 <template>
     <div>
-        UserLogin {{loginData.password}} {{loginData.userName}}
+        UserLogin
         <form @submit.prevent = "">
             Username: <input type="text" v-model="loginData.userName">
             Password: <input type="text" v-model="loginData.password">
             <button v-on:click="login">Login</button>
         </form>
+        <br>
+        
     </div>
 </template>

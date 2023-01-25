@@ -12,8 +12,14 @@ const getAllCourses = async (req, res, next) => {
 
 const postCourses = async (req, res, next) => {
     const data = req.body
-    const courseData = await Course.create(data)
-    res.status(201).json({status: 'success sent', data:courseData})
+    try{
+        const courseData = await Course.create(data)
+        res.status(201).json({status: 'success sent', data:courseData})
+    }
+    catch(err) {
+        res.status(201).json({status: 'cant sent', data:err.message})
+    }
+    
 
 }
 

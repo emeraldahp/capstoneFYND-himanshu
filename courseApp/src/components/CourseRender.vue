@@ -34,7 +34,7 @@ export default {
 
     },
     methods: {
-        selectSection(index){
+        async selectSection(index){
             console.log(index)
             //for frontend
             this.currentSection = index
@@ -63,7 +63,8 @@ export default {
                         finishDate: this.courseProgress.finishDate
 
                     }
-                    axios.patch("http://localhost:8531/enrollments", {type:"firsttime_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                    const response = await axios.patch("http://localhost:8531/enrollments", {type:"firsttime_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                    console.log(response)
                 }
                 else{
                     //if not complete then update currentSection, sectionProgress, 
@@ -73,7 +74,8 @@ export default {
                         currentSection: this.courseProgress.currentSection,
                         sectionProgress: this.courseProgress.sectionProgress
                     }
-                    axios.patch("http://localhost:8531/enrollments", {type:"not_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                    const response = await axios.patch("http://localhost:8531/enrollments", {type:"not_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                    console.log(response)
                 }
             }
             else{
@@ -83,7 +85,8 @@ export default {
                     courseName: this.courseProgress.courseName,
                     currentSection: this.courseProgress.currentSection
                 }
-                axios.patch("http://localhost:8531/enrollments", {type:"already_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                const response = await axios.patch("http://localhost:8531/enrollments", {type:"already_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                console.log(response)
             }
 
             //for patching

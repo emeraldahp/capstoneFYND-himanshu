@@ -13,7 +13,7 @@ export default {
 <template>
     <div>
         courseApp HomePage <br> 
-        <RouterLink to="/userlogin"> Login </RouterLink> <br>
+        <RouterLink to="/loginview"> Login </RouterLink> <br>
         <courses-list/>
         
     </div>

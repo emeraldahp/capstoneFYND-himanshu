@@ -56,6 +56,7 @@ export default {
             if(response.data.data.status == "loginsuccess") {
                 this.$store.commit("updateAdmin", response.data.data.adminName)
                 this.$store.commit("adminLog", true)
+                this.$router.push({name:'adminview'})
             }
         }
     }

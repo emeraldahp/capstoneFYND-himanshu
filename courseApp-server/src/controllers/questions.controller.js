@@ -1,3 +1,4 @@
+const { update } = require('../models/Question')
 const Question = require('../models/Question')
 const {coursesListByTutor} = require('./courses.controller')
 
@@ -31,8 +32,13 @@ const getQuestionsByTutor = async (req, res, next) => {
     }
 }
 
+const addAnsById = async(req, res, next) => {
+    const {_id, ans} = req.body
+    console.log(req.body)
+}
+
 module.exports = {
     postQuestion,
-    getQuestionsByTutor
-
+    getQuestionsByTutor,
+    addAnsById
 }

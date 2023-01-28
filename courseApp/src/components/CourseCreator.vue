@@ -6,7 +6,8 @@ export default{
         return {
             check:{
                 tutorList: [],
-                courseList: []
+                courseList: [],
+                courseMsg:'none'
             },
             courseData: {
                 courseName: "",
@@ -42,6 +43,9 @@ export default{
         })
     },
     watch: {
+        "courseData.courseName": function(value) {
+            this.validateCourseName(value)
+        }
 
     },  
     methods:{     
@@ -129,11 +133,11 @@ export default{
                 this.structureData.sections[this.currentSection].items.splice(index, 1)
             }
         },
-        validateTutorName(tutorName) {
-
-        },
         validateCourseName(courseName) {
-
+            if(this.check.courseList.includes(courseName))
+                this.check.courseMsg = "notAvailable"
+            else
+                this.check.courseMsg = "available"
         }
 
     }
@@ -142,12 +146,13 @@ export default{
 <template>
     <div>
         {{check}} <br>
+        {{courseData}}
         {{structureData}} {{itemType}} <br>
         CourseCreator <br>
         <form @Submit.prevent="">
-            CourseName: <input type="text" v-model="courseData.courseName"> <br>
-            CourseDesc: <input type="text" v-model="courseData.courseDesc"> <br>
+            CourseName: <input type="text" v-model="courseData.courseName"> Msg:{{check.courseMsg}}<br>
             TutorName: <input type="text" v-model="courseData.tutorName"> <br>
+            CourseDesc: <input type="text" v-model="courseData.courseDesc"> <br>
             CourseImage: <input type="text" v-model="courseData.courseImage"> <br>
 
         </form>

@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import CourseView from '../views/CourseView.vue'
 import AdminView from '../views/AdminView.vue'
 import TutorView from '../views/TutorView.vue'
+import QuesView from '../views/QuesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/tutorview',
       name: 'tutorview',
       component: TutorView
+    },
+    {
+      path: '/quesview',
+      name: 'quesview',
+      component: QuesView
     }
   ]
 })

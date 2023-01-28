@@ -4,10 +4,13 @@ export default{
     name:"coursecreator",
     data() {
         return {
+            valid:{
+                tutorMsg: 'none',
+                courseMsg:'none'
+            },
             check:{
                 tutorList: [],
-                courseList: [],
-                courseMsg:'none'
+                courseList: []
             },
             courseData: {
                 courseName: "",
@@ -45,8 +48,11 @@ export default{
     watch: {
         "courseData.courseName": function(value) {
             this.validateCourseName(value)
+        },
+        "courseData.tutorName": function(value) {
+            this.validateTutorName(value)
         }
-
+        
     },  
     methods:{     
         async postCourses() {
@@ -135,9 +141,15 @@ export default{
         },
         validateCourseName(courseName) {
             if(this.check.courseList.includes(courseName))
-                this.check.courseMsg = "notAvailable"
+                this.valid.courseMsg = "notAvailable"
             else
-                this.check.courseMsg = "available"
+                this.valid.courseMsg = "available"
+        },
+        validateTutorName(tutorName) {
+            if(this.check.tutorList.includes(tutorName))
+                this.valid.tutorMsg ="selected"
+            else
+                this.valid.tutorMsg ="notSelected"
         }
 
     }
@@ -150,8 +162,11 @@ export default{
         {{structureData}} {{itemType}} <br>
         CourseCreator <br>
         <form @Submit.prevent="">
-            CourseName: <input type="text" v-model="courseData.courseName"> Msg:{{check.courseMsg}}<br>
-            TutorName: <input type="text" v-model="courseData.tutorName"> <br>
+            CourseName: <input type="text" v-model="courseData.courseName"> Msg:{{valid.courseMsg}}<br>
+            TutorName: <select v-model="courseData.tutorName">
+                <option disabled value="">SelectAnOption</option>
+                <option v-for="tutor in check.tutorList">{{tutor}}</option>
+            </select> Msg:{{valid.tutorMsg}}<br>
             CourseDesc: <input type="text" v-model="courseData.courseDesc"> <br>
             CourseImage: <input type="text" v-model="courseData.courseImage"> <br>
 

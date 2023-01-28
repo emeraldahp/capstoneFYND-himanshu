@@ -33,8 +33,16 @@ const getQuestionsByTutor = async (req, res, next) => {
 }
 
 const addAnsById = async(req, res, next) => {
-    const {_id, ans} = req.body
+    const {_id, answer} = req.body
     console.log(req.body)
+    let response
+    try {
+        response = await Question.findOneAndUpdate({_id},{answer})
+        res.status(201).json({status:'success sent', data:response})
+    }
+    catch(err) {
+        res.status(201).json({status:'failed', data:err.message})
+    }
 }
 
 module.exports = {

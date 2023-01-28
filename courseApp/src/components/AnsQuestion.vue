@@ -8,7 +8,7 @@ export default {
                 unanswered: []
             },
             allQuestions: [],
-            ans: null
+            answer: null
 
         }
     },
@@ -20,7 +20,7 @@ export default {
             axios.get('http://localhost:8531/questions', {params:{tutorName: this.$store.state.tutorData.tutorName}}).then(res => {
                 this.allQuestions = res.data.data 
                 this.allQuestions.forEach(element => {
-                    if(element.ans == null)
+                    if(element.answer == null)
                         this.questions.unanswered.push(element)
                     else
                         this.questions.answered.push(element)
@@ -28,12 +28,12 @@ export default {
             })
         },
         async ansQues(questionId) {
-            this.ans = prompt("Enter Answer")
-            console.log('hi',this.ans)
-            if(this.ans != null) {
+            this.answer = prompt("Enter Answer")
+            console.log('hi',this.answer)
+            if(this.answer != null) {
                 const ansData = {
                     _id: questionId,
-                    ans: this.ans
+                    answer: this.answer
                 }
                 const response = await axios.patch('http://localhost:8531/questions', ansData)
                 console.log(response)
@@ -55,6 +55,6 @@ export default {
     AnsweredQuestions <br>
     <div v-for="question in questions.answered" :key="question._id"> 
         Question:{{question.questionName}} <br>
-        Answer: {{question.ans}}
+        Answer: {{question.answer}}
     </div>
 </template>

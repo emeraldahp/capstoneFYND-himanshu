@@ -8,9 +8,17 @@ export default {
             currentSection: 0,
             //v-for was unable the render because the data was null.undefined and so
             structureData: {
+                courseName: '',
+                noOfSections: 0,
                 sections:[ 
-                    {
-                        items:[]
+                    {   sectionName: null,
+                        noOfItems: 0,
+                        items:[
+                            {
+                                type: '',
+                                content: ''
+                            }
+                        ]
                     }
                 ]
             },
@@ -128,7 +136,7 @@ export default {
                 {{section.sectionName}}
             </div>
         </div>
-        <div>
+        <div v-if="structureData.sections[0].sectionName != null" >
             CourseViewport <br>
             {{structureData.sections[currentSection].sectionName}}
             <div v-for="item in structureData.sections[currentSection].items">

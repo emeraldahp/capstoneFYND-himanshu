@@ -18,5 +18,6 @@ export default {
     <div>
         MyQuestions <br>
         {{questions}}
+        DeleteButton
     </div>
 </template>

@@ -4,9 +4,14 @@ export default{
     name:"coursecreator",
     data() {
         return {
+            courseData: {
+                courseName: "",
+                tutorName: "",
+                courseDesc: "",
+                courseImage: ""
+            },
             currentSection: 0,
             itemType: 'text',
-            courseData: {},
             structureData: {
                 courseName: '',
                 noOfSections: 0,
@@ -75,6 +80,39 @@ export default{
                 else
                     this.structureData.sections[this.currentSection].items.push(itemData)
             }
+        },
+        removeSection(index){
+            this.structureData.noOfSections--
+            if(this.structureData.noOfSections == 0){
+                this.structureData.sections = [ 
+                    {   sectionName: null,
+                        noOfItems: 0,
+                        items:[
+                            {
+                                type: '',
+                                content: ''
+                            }
+                        ]
+                    }
+                ]
+            }
+            else {
+                this.structureData.sections.splice(index, 1)
+            }
+        },
+        removeItem(index) {
+            this.structureData.sections[this.currentSection].noOfItems--
+            if(this.structureData.sections[this.currentSection].noOfItems == 0) {
+                this.structureData.sections[this.currentSection].items = [
+                    {
+                        type: '',
+                        content: ''
+                    }
+                ]
+            }
+            else {
+                this.structureData.sections[this.currentSection].items.splice(index, 1)
+            }
         }
 
     }
@@ -82,13 +120,21 @@ export default{
 </script>
 <template>
     <div>
+        {{structureData}} {{itemType}} <br>
+        CourseCreator <br>
+        <form @Submit.prevent="">
+            CourseName: <input type="text" v-model="courseData.courseName"> <br>
+            CourseDesc: <input type="text" v-model="courseData.courseDesc"> <br>
+            TutorName: <input type="text" v-model="courseData.tutorName"> <br>
+            CourseImage: <input type="text" v-model="courseData.courseImage"> <br>
+
+        </form>
         <div>
-            {{structureData}} {{itemType}} <br>
-            CourseCreator <br>
             SectionSelector------------------- <br>
             currentSection: {{currentSection}} <br>
             <button @click="addSection">AddSection</button>
             <div v-for="section, index in structureData.sections"  @click="selectSection(index)">
+                <button v-if="structureData.noOfSections != 0" @click="removeSection(index)">RemoveSection</button>
                 {{section.sectionName}}
             </div>
         </div>
@@ -102,7 +148,8 @@ export default{
                 <button @click="addItem">AddItem</button>
             </form>
             {{structureData.sections[currentSection].sectionName}}
-            <div v-for="item in structureData.sections[currentSection].items">
+            <div v-for="item, index in structureData.sections[currentSection].items">
+                <button v-if="structureData.sections[currentSection].noOfItems != 0" @click="removeItem(index)">RemoveItem</button>
                 {{item.content}}
             </div>
         </div>

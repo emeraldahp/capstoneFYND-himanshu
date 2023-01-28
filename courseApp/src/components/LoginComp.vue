@@ -41,6 +41,7 @@ export default {
             if(response.data.data.status == "loginsuccess") {
                 this.$store.commit("updateTutor", response.data.data.tutorName)
                 this.$store.commit("tutorLog", true)
+                this.$router.push({name:'tutorview'})
             }
         },
         async adminLogin() {

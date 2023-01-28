@@ -3,11 +3,11 @@ import axios from 'axios'
 export default {
     data() {
         return {
+            allQuestions: [],
             questions: {
                 answered:[],
                 unanswered: []
             },
-            allQuestions: [],
             answer: null
 
         }
@@ -37,6 +37,11 @@ export default {
                 }
                 const response = await axios.patch('http://localhost:8531/questions', ansData)
                 console.log(response)
+                this.questions.answered = []
+                this.questions.unanswered = []
+                this.answer = null
+                this.load()
+
             }
 
         }

@@ -32,7 +32,7 @@ const getQuestionsByTutor = async (req, res, next) => {
     }
 }
 
-const addAnsById = async(req, res, next) => {
+const addAnsById = async (req, res, next) => {
     const {_id, answer} = req.body
     console.log(req.body)
     let response
@@ -45,8 +45,21 @@ const addAnsById = async(req, res, next) => {
     }
 }
 
+const getQuestionsByUser = async (req, res, next) => {
+    const {userName} = req.query
+    console.log(req.query)
+    try {
+        response = await Question.find({userName})
+        res.status(201).json({status:'success received', data:response})
+    }
+    catch(err) {
+        res.status(201).json({status:'failed', data:err.message})
+    }
+}
+
 module.exports = {
     postQuestion,
     getQuestionsByTutor,
-    addAnsById
+    addAnsById,
+    getQuestionsByUser
 }

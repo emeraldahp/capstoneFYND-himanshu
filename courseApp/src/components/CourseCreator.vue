@@ -4,6 +4,10 @@ export default{
     name:"coursecreator",
     data() {
         return {
+            check:{
+                tutorList: [],
+                courseList: []
+            },
             courseData: {
                 courseName: "",
                 tutorName: "",
@@ -29,6 +33,17 @@ export default{
             }
         }
     },
+    mounted(){
+        axios.get('http://localhost:8531/tutors/list').then(res => {
+            this.check.tutorList = res.data.data
+        })
+        axios.get('http://localhost:8531/courses/list').then(res=>{
+            this.check.courseList = res.data.data
+        })
+    },
+    watch: {
+
+    },  
     methods:{     
         async postCourses() {
             let coursePost = {
@@ -113,6 +128,12 @@ export default{
             else {
                 this.structureData.sections[this.currentSection].items.splice(index, 1)
             }
+        },
+        validateTutorName(tutorName) {
+
+        },
+        validateCourseName(courseName) {
+
         }
 
     }
@@ -120,6 +141,7 @@ export default{
 </script>
 <template>
     <div>
+        {{check}} <br>
         {{structureData}} {{itemType}} <br>
         CourseCreator <br>
         <form @Submit.prevent="">

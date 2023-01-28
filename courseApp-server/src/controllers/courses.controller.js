@@ -43,8 +43,23 @@ const coursesListByTutor = async (tutorName) => {
     }
 }
 
+const getCourseList = async (req, res, next) => {
+    let courseList = []
+    try {
+        const courses = await Course.find({})
+        courses.forEach(element => {
+            courseList.push(element.courseName)
+        })
+        res.status(201).json({status:"success", data: courseList})
+    }
+    catch(err) {
+        res.status(201).json({status:"failed", data: err.message})
+    }
+}
+
 module.exports = {
     getAllCourses,
     postCourses,
-    coursesListByTutor
+    coursesListByTutor,
+    getCourseList
 }

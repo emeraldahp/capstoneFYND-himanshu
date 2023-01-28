@@ -29,6 +29,22 @@ const tutorLogin = async (req, res, next) => {
     }
 }
 
+const getTutorList = async (req, res, next) => {
+    let tutorList = []
+    try {
+        const tutors = await Tutor.find({}) 
+        tutors.forEach(element => {
+            tutorList.push(element.tutorName)
+        })
+        res.status(201).json({status: "success", data: tutorList})
+    }
+    catch(err) {
+        res.status(201).json({status: "failed", data: err.message})
+
+    }
+}
+
 module.exports = {
-    tutorLogin
+    tutorLogin,
+    getTutorList
 }

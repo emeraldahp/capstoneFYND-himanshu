@@ -3,26 +3,40 @@ const Enrollment = require('../models/Enrollment')
 const getEnrollments = async (req, res, next) => {
     console.log(req.query.userName)
     const userName = req.query.userName
-    enrollments = await Enrollment.find({userName})
-    console.log(enrollments)
-    res.status(201).json({status: 'success received', data:enrollments})
+    try{
+        enrollments = await Enrollment.find({userName})
+        console.log(enrollments)
+        res.status(201).json({status: 'success received', data:enrollments})
+    }
+    catch(err) {
+        res.status(201).json({status: 'failed', data:err.message})
+    }
 }
 
 const postEnrollment = async (req, res, next) => {
     console.log(req.body)
     const data = req.body
-
-    const enrollmentData = await Enrollment.create(data)
-    res.status(201).json({status: 'success sent', data:enrollmentData})
+    try{
+        const enrollmentData = await Enrollment.create(data)
+        res.status(201).json({status: 'success sent', data:enrollmentData})
+    }
+    catch(err) {
+        res.status(201).json({status: 'failed', data:err.message})
+    }
 }
 //for course status
 const getEnrollmentByCourseName = async (req, res, next) => {
     data = req.query
     console.log(req.query)
     const {userName, courseName} = data
+    try{
     const enrollment = await Enrollment.findOne({userName, courseName})
     console.log(enrollment)
     res.status(201).json({status: 'success received', data:enrollment})
+    }
+    catch(err) {
+        res.status(201).json({status: 'failed', data:err.message})
+    }
 
 }
 
@@ -54,11 +68,13 @@ const updateEnrollment = async (req, res, next) => {
             })
             console.log("already", response.data, req.query)
         }
+        res.status(201).json({status: 'success', data:response})
     }
     catch(err){
         console.log(err.message)
+        res.status(201).json({status: 'failed', data:err.message})
     }
-    res.status(201).json({status: 'success', data:response})
+    
 }
 
 module.exports = {

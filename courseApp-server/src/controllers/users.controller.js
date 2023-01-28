@@ -3,6 +3,7 @@ const User = require('../models/User')
 const userLogin = async (req, res, next) => {
     const credentials = req.body
     const {userName, password} = credentials
+    try {
     const check = await User.findOne({userName})
     let info = {
         status: "",
@@ -22,6 +23,10 @@ const userLogin = async (req, res, next) => {
     }
     console.log(info)
     res.status(201).json({status: 'success', data:info})
+    }
+    catch(err) {
+        res.status(201).json({status: 'failed', data:err.message})
+    }
 }
 
 module.exports = {

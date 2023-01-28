@@ -23,6 +23,9 @@ export default {
 
 <template>
     <div>
+        login Info User {{this.$store.state.userData}} <br>
+        login Info tutor {{this.$store.state.tutorData}} <br>
+        login Info admin {{this.$store.state.adminData}} <br>
         {{this.control}}
         LoginView <br>
         <div v-if="this.control.type=='login'">

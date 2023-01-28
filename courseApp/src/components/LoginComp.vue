@@ -31,9 +31,31 @@ export default {
         },
         async tutorLogin() {
             console.log("tutor login function")
+            const tutorData = {
+                tutorName: this.loginData.name,
+                password: this.loginData.password
+            }
+            const response = await axios.post('http://localhost:8531/tutors/login', tutorData)
+            console.log(response)
+            alert(response.data.data.status)
+            if(response.data.data.status == "loginsuccess") {
+                this.$store.commit("updateTutor", response.data.data.tutorName)
+                this.$store.commit("tutorLog", true)
+            }
         },
         async adminLogin() {
             console.log("admin login function")
+            const adminData = {
+                adminName: this.loginData.name,
+                password: this.loginData.password
+            }
+            const response = await axios.post('http://localhost:8531/admins/login', adminData)
+            console.log(response)
+            alert(response.data.data.status)
+            if(response.data.data.status == "loginsuccess") {
+                this.$store.commit("updateAdmin", response.data.data.adminName)
+                this.$store.commit("adminLog", true)
+            }
         }
     }
 }

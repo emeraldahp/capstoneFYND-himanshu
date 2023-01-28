@@ -7,7 +7,13 @@ export default {
             currentCourse: '',
             currentSection: 0,
             //v-for was unable the render because the data was null.undefined and so
-            structureData: {sections:[{items:[]}]},
+            structureData: {
+                sections:[ 
+                    {
+                        items:[]
+                    }
+                ]
+            },
             courseProgress:{}
         }
     },

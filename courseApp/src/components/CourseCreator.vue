@@ -48,6 +48,7 @@ export default{
     watch: {
         "courseData.courseName": function(value) {
             this.validateCourseName(value)
+            this.structureData.courseName = value
         },
         "courseData.tutorName": function(value) {
             this.validateTutorName(value)
@@ -56,16 +57,21 @@ export default{
     },  
     methods:{     
         async postCourses() {
-            let coursePost = {
-                courseName: "MEVN Stack134",
-                adminName: "himanshu",
-                tutorName: "arghya",
-                courseDesc: "Learn web development with vue.",
-                courseImage: "default Img",
-                noOfSections: 3
+            if(this.valid.courseMsg == "available" && this.valid.tutorMsg == "selected" && this.structureData.noOfSections != 0) {
+                let coursePost = {
+                    courseName: this.courseData.courseName,
+                    adminName: this.$store.state.adminData.adminName,
+                    tutorName: this.courseData.tutorName,
+                    courseDesc: this.courseData.courseDesc,
+                    courseImage: this.courseData.courseImage || "default img url",
+                    noOfSections: this.structureData.noOfSections
+                }
+                const response1 = await axios.post('http://localhost:8531/courses', coursePost)
+                console.log(response1)
+                let structurePost = this.structureData
+                const response2 = await axios.post('http://localhost:8531/structures', structurePost) 
+                console.log(response2)
             }
-            const response = await axios.post('http://localhost:8531/courses', coursePost)
-            console.log(response)
         },
         selectSection(index) {
             this.currentSection = index;
@@ -107,6 +113,7 @@ export default{
             }
         },
         removeSection(index){
+            if(this.currentSection == (this.structureData.noOfSections - 1) ) this.currentSection--
             this.structureData.noOfSections--
             if(this.structureData.noOfSections == 0){
                 this.structureData.sections = [ 

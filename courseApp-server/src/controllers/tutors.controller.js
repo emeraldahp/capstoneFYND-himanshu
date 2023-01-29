@@ -44,7 +44,19 @@ const getTutorList = async (req, res, next) => {
     }
 }
 
+const postTutor = async (req, res, next) => {
+    data = req.body
+    try {
+        const tutorData = await Tutor.create(data)
+        res.status(201).json({status: "success", data: tutorData})
+    }
+    catch(err) {
+        res.status(201).json({status: "failed", data: err.message})
+    }
+}
+
 module.exports = {
     tutorLogin,
-    getTutorList
+    getTutorList,
+    postTutor
 }

@@ -43,15 +43,43 @@ export default {
     methods: {
         async userRegister() {
             console.log("userRegister", this.registerData)
-            if(this.check.nameMsg == 'available') {
-                
+            if(this.valid.nameMsg == 'available') {
+                let userPost = {
+                    userName: this.registerData.name,
+                    email: this.registerData.email,
+                    password: this.registerData.password
+                }    
+                const response = await axios.post('http://localhost:8531/users/register', userPost)
+                console.log(response)
+                this.$router.push({name: 'home'})
             }
         },
         async tutorRegister() {
             console.log("tutorRegister", this.registerData)
+            if(this.valid.nameMsg == 'available') {
+                let tutorPost = {
+                    tutorName: this.registerData.name,
+                    email: this.registerData.email,
+                    password: this.registerData.password
+                }    
+                const response = await axios.post('http://localhost:8531/tutors/register', tutorPost)
+                console.log(response)
+                this.$router.push({name: 'home'})
+            }
         },
         async adminRegister() {
             console.log("adminRegister", this.registerData)
+            if(this.valid.nameMsg == 'available') {
+                let adminPost = {
+                    adminName: this.registerData.name,
+                    email: this.registerData.email,
+                    password: this.registerData.password
+                }    
+                const response = await axios.post('http://localhost:8531/admins/register', adminPost)
+                console.log(response)
+                this.$router.push({name: 'home'})
+            }
+            
         }
 
     }

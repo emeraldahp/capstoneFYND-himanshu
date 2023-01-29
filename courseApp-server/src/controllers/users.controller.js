@@ -43,7 +43,20 @@ const getUserList = async (req, res, next) => {
     }
 }
 
+const postUser = async (req, res, next) => {
+    data = req.body
+    try {
+        const userData = await User.create(data)
+        res.status(201).json({status: "success", data: userData})
+    }
+    catch(err) {
+        res.status(201).json({status: "failed", data: err.message})
+    }
+}
+
+
 module.exports = {
     userLogin,
-    getUserList
+    getUserList,
+    postUser
 }

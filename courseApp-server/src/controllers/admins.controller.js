@@ -44,7 +44,19 @@ const getAdminList = async (req, res, next) => {
     }
 }
 
+const postAdmin = async (req, res, next) => {
+    data = req.body
+    try {
+        const adminData = await Admin.create(data)
+        res.status(201).json({status: "success", data: adminData})
+    }
+    catch(err) {
+        res.status(201).json({status: "failed", data: err.message})
+    }
+}
+
 module.exports = {
     adminLogin,
-    getAdminList
+    getAdminList,
+    postAdmin
 }

@@ -6,6 +6,8 @@ const usersApiRouter = require('./routes/users.routes')
 const structuresApiRouter = require('./routes/structures.routes')
 const enrollmentsApiRouter = require('./routes/enrollments.routes')
 const questionApiRouter = require('./routes/questions.routes')
+const tutorApiRouter = require('./routes/tutor.routes')
+const adminApiRouter = require('./routes/admin.routes')
 const cors = require('cors')
 
 const app = express();
@@ -25,6 +27,8 @@ app.use('/users', usersApiRouter)
 app.use('/structures', structuresApiRouter)
 app.use('/enrollments', enrollmentsApiRouter)
 app.use('/questions', questionApiRouter)
+app.use('/tutors', tutorApiRouter)
+app.use('/admins', adminApiRouter)
 
 connectDB(process.env.MONGO_URI)
 port = process.env.PORT || 8531

@@ -20,7 +20,7 @@ export default {
                 questionDesc: this.questionData.questionDesc,
                 answer: null
             }
-            const response = await axios.post('http://localhost:8531/questions', questionPost)
+            const response = await axios.post(import.meta.env.VITE_API_URL + '/questions', questionPost)
             console.log(response)
         }
     }

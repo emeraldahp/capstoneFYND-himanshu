@@ -14,6 +14,8 @@ export default {
     <div>
         courseApp HomePage <br> 
         <RouterLink to="/loginview"> Login </RouterLink> <br>
+        <RouterLink to="/quesview"> MyQuestions </RouterLink> <br>
+        <RouterLink to="/profileview">MyProfile</RouterLink> <br>
         <courses-list/>
         
     </div>

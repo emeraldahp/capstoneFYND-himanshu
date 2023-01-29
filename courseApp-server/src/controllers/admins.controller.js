@@ -29,6 +29,22 @@ const adminLogin = async (req, res, next) => {
     }
 }
 
+const getAdminList = async (req, res, next) => {
+    let adminList = []
+    try {
+        const admins = await Admin.find({}) 
+        admins.forEach(element => {
+            adminList.push(element.adminName)
+        })
+        res.status(201).json({status: "success", data: adminList})
+    }
+    catch(err) {
+        res.status(201).json({status: "failed", data: err.message})
+
+    }
+}
+
 module.exports = {
-    adminLogin
+    adminLogin,
+    getAdminList
 }

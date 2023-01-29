@@ -29,6 +29,21 @@ const userLogin = async (req, res, next) => {
     }
 }
 
+const getUserList = async (req, res, next) => {
+    let userList = []
+    try {
+        const users = await User.find({}) 
+        users.forEach(element => {
+            userList.push(element.userName)
+        })
+        res.status(201).json({status: "success", data: userList})
+    }
+    catch(err) {
+        res.status(201).json({status: "failed", data: err.message})
+    }
+}
+
 module.exports = {
-    userLogin
+    userLogin,
+    getUserList
 }

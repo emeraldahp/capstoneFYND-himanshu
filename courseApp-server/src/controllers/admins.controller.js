@@ -14,7 +14,8 @@ const adminLogin = async (req, res, next) => {
             info.status = "No admin found"
         }
         else{
-            if(check.password==password) {
+            const isMatch = await check.checkPassword(password);
+            if(isMatch) {
                 info.status = "loginsuccess"
                 info.adminName = adminName
             }

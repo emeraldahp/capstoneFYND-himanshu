@@ -14,7 +14,8 @@ const tutorLogin = async (req, res, next) => {
             info.status = "No tutor found"
         }
         else{
-            if(check.password==password) {
+            const isMatch = await check.checkPassword(password);
+            if(isMatch) {
                 info.status = "loginsuccess"
                 info.tutorName = tutorName
             }

@@ -26,12 +26,12 @@ userSchema.pre('save', function (done) {
         done();
         return;
     }
-
+    //gen salt using salt factor then call
     bcrypt.genSalt(SALT_FACTOR, function (err, salt) {
         if (err) {
             return done(err);
         }
-
+        //gen hash using pass and salt then call
         bcrypt.hash(user.password, salt, function (err, hashedPassword) {
             if (err) {
                 return done(err);

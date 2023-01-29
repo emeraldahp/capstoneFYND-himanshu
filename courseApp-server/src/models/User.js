@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     userName: {
@@ -15,5 +16,39 @@ const userSchema = new mongoose.Schema({
         required: [true]
     }
 })
+
+const SALT_FACTOR = 10;
+
+userSchema.pre('save', function (done) {
+    const user = this;
+
+    if (!user.isModified('password')) {
+        done();
+        return;
+    }
+
+    bcrypt.genSalt(SALT_FACTOR, function (err, salt) {
+        if (err) {
+            return done(err);
+        }
+
+        bcrypt.hash(user.password, salt, function (err, hashedPassword) {
+            if (err) {
+                return done(err);
+            }
+
+            user.password = hashedPassword;
+            done();
+        });
+    });
+
+    console.log('executes immediately');
+});
+
+userSchema.methods.checkPassword = async function (plainTextPassword) {
+    const hashedPassword = this.password;
+    const isMatch = await bcrypt.compare(plainTextPassword, hashedPassword);
+    return isMatch;
+};
 
 module.exports = mongoose.model('User', userSchema)

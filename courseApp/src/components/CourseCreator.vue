@@ -38,10 +38,10 @@ export default{
         }
     },
     mounted(){
-        axios.get('http://localhost:8531/tutors/list').then(res => {
+        axios.get(import.meta.env.VITE_API_URL + '/tutors/list').then(res => {
             this.check.tutorList = res.data.data
         })
-        axios.get('http://localhost:8531/courses/list').then(res=>{
+        axios.get(import.meta.env.VITE_API_URL + '/courses/list').then(res=>{
             this.check.courseList = res.data.data
         })
     },
@@ -66,10 +66,10 @@ export default{
                     courseImage: this.courseData.courseImage || "default img url",
                     noOfSections: this.structureData.noOfSections
                 }
-                const response1 = await axios.post('http://localhost:8531/courses', coursePost)
+                const response1 = await axios.post(import.meta.env.VITE_API_URL + '/courses', coursePost)
                 console.log(response1)
                 let structurePost = this.structureData
-                const response2 = await axios.post('http://localhost:8531/structures', structurePost) 
+                const response2 = await axios.post(import.meta.env.VITE_API_URL + '/structures', structurePost) 
                 console.log(response2)
             }
         },

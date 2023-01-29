@@ -20,7 +20,7 @@ export default {
                 userName: this.loginData.name,
                 password: this.loginData.password
             } 
-            const response = await axios.post('http://localhost:8531/users/login', userData)
+            const response = await axios.post(import.meta.env.VITE_API_URL + '/users/login', userData)
             console.log(response)
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {   
@@ -35,7 +35,7 @@ export default {
                 tutorName: this.loginData.name,
                 password: this.loginData.password
             }
-            const response = await axios.post('http://localhost:8531/tutors/login', tutorData)
+            const response = await axios.post(import.meta.env.VITE_API_URL + '/tutors/login', tutorData)
             console.log(response)
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {
@@ -50,7 +50,7 @@ export default {
                 adminName: this.loginData.name,
                 password: this.loginData.password
             }
-            const response = await axios.post('http://localhost:8531/admins/login', adminData)
+            const response = await axios.post(import.meta.env.VITE_API_URL + '/admins/login', adminData)
             console.log(response)
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {

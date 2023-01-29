@@ -17,7 +17,7 @@ export default {
     },
     methods: {
         load() {
-            axios.get('http://localhost:8531/questions', {params:{tutorName: this.$store.state.tutorData.tutorName}}).then(res => {
+            axios.get(import.meta.env.VITE_API_URL + '/questions', {params:{tutorName: this.$store.state.tutorData.tutorName}}).then(res => {
                 this.allQuestions = res.data.data 
                 this.allQuestions.forEach(element => {
                     if(element.answer == null)
@@ -35,7 +35,7 @@ export default {
                     _id: questionId,
                     answer: this.answer
                 }
-                const response = await axios.patch('http://localhost:8531/questions', ansData)
+                const response = await axios.patch(import.meta.env.VITE_API_URL + '/questions', ansData)
                 console.log(response)
                 this.questions.answered = []
                 this.questions.unanswered = []

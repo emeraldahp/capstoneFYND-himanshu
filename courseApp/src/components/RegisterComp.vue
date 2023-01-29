@@ -22,13 +22,13 @@ export default {
         }
     },
     mounted() {
-        if(this.registerType == "user") axios.get('http://localhost:8531/users/list').then(res => {
+        if(this.registerType == "user") axios.get(import.meta.env.VITE_API_URL + '/users/list').then(res => {
             this.check.typeList = res.data.data
         })
-        else if(this.registerType == "tutor") axios.get('http://localhost:8531/tutors/list').then(res => {
+        else if(this.registerType == "tutor") axios.get(import.meta.env.VITE_API_URL + '/tutors/list').then(res => {
             this.check.typeList = res.data.data
         })
-        else if(this.registerType == "admin")axios.get('http://localhost:8531/admins/list').then(res => {
+        else if(this.registerType == "admin")axios.get(import.meta.env.VITE_API_URL + '/admins/list').then(res => {
             this.check.typeList = res.data.data
         })
     },
@@ -49,7 +49,7 @@ export default {
                     email: this.registerData.email,
                     password: this.registerData.password
                 }    
-                const response = await axios.post('http://localhost:8531/users/register', userPost)
+                const response = await axios.post(import.meta.env.VITE_API_URL + '/users/register', userPost)
                 console.log(response)
                 this.$router.push({name: 'home'})
             }
@@ -62,7 +62,7 @@ export default {
                     email: this.registerData.email,
                     password: this.registerData.password
                 }    
-                const response = await axios.post('http://localhost:8531/tutors/register', tutorPost)
+                const response = await axios.post(import.meta.env.VITE_API_URL + '/tutors/register', tutorPost)
                 console.log(response)
                 this.$router.push({name: 'home'})
             }
@@ -75,7 +75,7 @@ export default {
                     email: this.registerData.email,
                     password: this.registerData.password
                 }    
-                const response = await axios.post('http://localhost:8531/admins/register', adminPost)
+                const response = await axios.post(import.meta.env.VITE_API_URL + '/admins/register', adminPost)
                 console.log(response)
                 this.$router.push({name: 'home'})
             }

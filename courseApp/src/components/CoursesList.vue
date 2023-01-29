@@ -17,12 +17,12 @@ export default {
     },
     methods:{
         load(){
-            axios.get('http://localhost:8531/courses').then(res => {
+            axios.get(import.meta.env.VITE_API_URL + '/courses').then(res => {
             //console.log(res.data.data)
             this.coursesData = res.data.data
 
             if(this.$store.state.userData.loggedIn==true) {
-                axios.get('http://localhost:8531/enrollments', {params:{userName: this.$store.state.userData.userName}}).then(res=>{
+                axios.get(import.meta.env.VITE_API_URL + '/enrollments', {params:{userName: this.$store.state.userData.userName}}).then(res=>{
                     //console.log(res.data.data)
                     this.enrollments = res.data.data
 
@@ -63,7 +63,7 @@ export default {
                 finishDate: null
             }
             console.log(enrollmentData)
-            const response = await axios.post('http://localhost:8531/enrollments', enrollmentData)
+            const response = await axios.post(import.meta.env.VITE_API_URL + '/enrollments', enrollmentData)
             console.log(response)
 
             this.enrollmentList= [],

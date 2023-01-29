@@ -28,12 +28,12 @@ export default {
     mounted() {
         //for getting structure for selected course
         this.currentCourse = this.$store.state.userData.courseName
-        axios.get('http://localhost:8531/structures',{params:{currentCourse:this.currentCourse}}).then(res => {
+        axios.get(import.meta.env.VITE_API_URL + '/structures',{params:{currentCourse:this.currentCourse}}).then(res => {
             //console.log(res.data.data)
             this.structureData = res.data.data
         })
         //for setting course status or progress
-        axios.get('http://localhost:8531/enrollments/course', {params:{userName: this.$store.state.userData.userName, courseName: this.currentCourse }}).then(res=>{
+        axios.get(import.meta.env.VITE_API_URL + '/enrollments/course', {params:{userName: this.$store.state.userData.userName, courseName: this.currentCourse }}).then(res=>{
             console.log(res.data.data)
             this.courseProgress = res.data.data
             this.currentSection = this.courseProgress.currentSection
@@ -77,7 +77,7 @@ export default {
                         finishDate: this.courseProgress.finishDate
 
                     }
-                    const response = await axios.patch("http://localhost:8531/enrollments", {type:"firsttime_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                    const response = await axios.patch(import.meta.env.VITE_API_URL + '/enrollments', {type:"firsttime_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
                     console.log(response)
                 }
                 else{
@@ -88,7 +88,7 @@ export default {
                         currentSection: this.courseProgress.currentSection,
                         sectionProgress: this.courseProgress.sectionProgress
                     }
-                    const response = await axios.patch("http://localhost:8531/enrollments", {type:"not_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                    const response = await axios.patch(import.meta.env.VITE_API_URL + '/enrollments', {type:"not_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
                     console.log(response)
                 }
             }
@@ -99,7 +99,7 @@ export default {
                     courseName: this.courseProgress.courseName,
                     currentSection: this.courseProgress.currentSection
                 }
-                const response = await axios.patch("http://localhost:8531/enrollments", {type:"already_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                const response = await axios.patch(import.meta.env.VITE_API_URL + '/enrollments', {type:"already_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
                 console.log(response)
             }
 

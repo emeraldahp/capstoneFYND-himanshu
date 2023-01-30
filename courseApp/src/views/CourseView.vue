@@ -12,7 +12,6 @@ export default {
 </script>
 <template>
     <div>
-        CourseView <br>
         <course-render/>
         <ask-question/>
     </div>

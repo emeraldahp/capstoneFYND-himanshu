@@ -103,14 +103,6 @@ export default {
                 console.log(response)
             }
 
-            //for patching
-            //if course complete: then only update currentSection
-            //if course complete for the fist time: currentSection, sectionProgress, iscourse complete, finish date
-            //if not complete then update currentSection, sectionProgress, 
-            
-
-            
-            
         },
         checkCourseComplete() {
             let flag = null
@@ -125,23 +117,66 @@ export default {
 }
 </script>
 <template>
-    CourseRender <br>
-    <div>
-        <div>
-            SectionSelector <br>
-            {{currentSection}} <br>
-            courseStatus: {{courseProgress}} <br>
-
-            <div v-for="section, index in structureData.sections"  @click="selectSection(index)">
+    <h3>{{structureData.courseName}}</h3>
+    <div class="course-container">
+        <div class="sections">
+            Sections <br>
+            <div class="section-container">
+            <div class="section-item" v-for="section, index in structureData.sections"  @click="selectSection(index)">
                 {{section.sectionName}}
             </div>
+            </div>
         </div>
-        <div v-if="structureData.sections[0].sectionName != null" >
-            CourseViewport <br>
+        <div class="viewport" v-if="structureData.sections[0].sectionName != null" >
             {{structureData.sections[currentSection].sectionName}}
+            <div class="sitem-container">
             <div v-for="item in structureData.sections[currentSection].items">
                 {{item.content}}
             </div>
+            </div>
         </div>
     </div>
+    <div>
+        <hr>
+        debug:{{currentSection}} <br>
+            courseStatus: {{courseProgress}} <br>
+
+        <hr>
+    </div>
 </template>
+
+<style>
+.course-container {
+    display: flex;
+    flex-direction: row;
+}
+.sections{
+    flex-basis: auto;
+}
+.viewport{
+    flex-grow: 1;
+}
+
+
+.section-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.section-item {
+    width: 200px;
+    height: 50px;
+    background: var(--theme-color2);
+    transition: all 300ms;
+    margin: 0px 50px 5px 0px
+}
+.section-item:hover {
+    opacity: 0.8;
+}
+.sitem-container {
+    display: flex;
+    flex-direction: column;
+    background: var(--theme-color2);
+    margin-top: 10px;
+}
+</style>

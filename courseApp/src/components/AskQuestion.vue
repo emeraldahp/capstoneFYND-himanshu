@@ -33,7 +33,7 @@ export default {
     Ask a Question: <br>
     <form @submit.prevent="">
         Question Name: <input type="text" v-model="this.questionData.questionName"> <br>
-        Question Description: <input type="textbox" v-model="this.questionData.questionDesc"> <br>
+        Question Description: <input type="text" v-model="this.questionData.questionDesc"> <br>
         <button @click="postQuestion">Submit</button>
     </form>
     </div>

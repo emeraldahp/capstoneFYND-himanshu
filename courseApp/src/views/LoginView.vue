@@ -36,13 +36,13 @@ export default {
         <br>
         <div class="login-options">
             <div v-if="this.control.for == 'user' || this.control.for == 'admin'">
-                <button @click="this.control.for = 'tutor' ">Login as Tutor</button>
+                <button @click="this.control.for = 'tutor'; this.control.type ='login'">Login as Tutor</button>
             </div>
             <div v-if="this.control.for == 'user' || this.control.for == 'tutor'">
-                <button @click="this.control.for = 'admin'">Login as Admin</button>
+                <button @click="this.control.for = 'admin'; this.control.type ='login'">Login as Admin</button>
             </div>
             <div v-if="this.control.for == 'tutor' || this.control.for == 'admin'">
-                <button @click="this.control.for = 'user'">Login as User</button>
+                <button @click="this.control.for = 'user'; this.control.type ='login'">Login as User</button>
             </div>
         </div>
     </div>

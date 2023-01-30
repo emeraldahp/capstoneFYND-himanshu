@@ -11,8 +11,6 @@ export default {
 
 <template>
     <div>
-        courseApp HomePage <br> 
         <courses-list/>
-        
     </div>
 </template>

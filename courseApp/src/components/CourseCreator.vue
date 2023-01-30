@@ -149,6 +149,9 @@ export default{
         validateCourseName(courseName) {
             if(this.check.courseList.includes(courseName))
                 this.valid.courseMsg = "notAvailable"
+            else if(courseName == ''){
+                this.valid.courseMsg = "cantBeEmpty"
+            }
             else
                 this.valid.courseMsg = "available"
         },
@@ -179,7 +182,8 @@ export default{
 
         </form>
         <div>
-            SectionSelector------------------- <br>
+            <hr>
+            SectionSelector <br>
             currentSection: {{currentSection}} <br>
             <button @click="addSection">AddSection</button>
             <div v-for="section, index in structureData.sections"  @click="selectSection(index)">
@@ -188,7 +192,8 @@ export default{
             </div>
         </div>
         <div v-if="structureData.sections[0].sectionName != null">
-            CourseViewport------------------ <br>
+            <hr>
+            CourseViewport <br>
             <form @submit.prevent="">
                 SelectType: 
                 Text:<input type="radio" value="text" v-model="itemType">
@@ -202,7 +207,7 @@ export default{
                 {{item.content}}
             </div>
         </div>
-        ------------------------------- <br>
+        <hr>
         <button @click="postCourses">PostACourse</button>
     </div>
 </template>

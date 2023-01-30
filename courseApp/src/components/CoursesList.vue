@@ -81,17 +81,20 @@ export default {
         Welcome: User: {{this.$store.state.userData.userName}} <br>
         Status: LoggedIn: {{this.$store.state.userData.loggedIn}} <br>
         currentCourse: {{this.$store.state.userData.courseName}} <br>
+        <hr>
         Courses: <br>
         <div v-if="$store.state.userData.loggedIn==false">
-            <div v-for="course in coursesData" :key="course._id" @click="selectCourse(course.courseName)">
+            <div v-for="course in coursesData" :key="course._id" >
                 {{course._id}} {{course.courseName}}
             </div>
         </div>
         <div v-else>
+            <hr>
             EnrolledCourses <br>
             <div v-for = "course in enrolledCourses" :key="course._id" @click="selectCourse(course.courseName)">
                 {{course.courseName}}
             </div>
+            <hr>
             OtherCourses <br>
             <div v-for = "course in otherCourses" :key="course._id">
                 {{course.courseName}}

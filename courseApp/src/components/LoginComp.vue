@@ -65,6 +65,7 @@ export default {
 
 <template>
     <div>
+        <hr>
         Login Form type:{{loginType}}
         <form @submit.prevent = "">
             {{loginType}}name: <input type="text" v-model="this.loginData.name"> <br>

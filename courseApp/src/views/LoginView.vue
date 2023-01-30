@@ -38,8 +38,7 @@ export default {
             <register-comp :registerType="this.control.for"></register-comp>
             <button @click="this.control.type='login'">Login {{ this.control.for }}</button>
         </div>
-
-        <br>
+        <hr>
         <div v-if="this.control.for == 'user' || this.control.for == 'admin'">
             <button @click="this.control.for = 'tutor' ">Login as Tutor</button>
         </div>

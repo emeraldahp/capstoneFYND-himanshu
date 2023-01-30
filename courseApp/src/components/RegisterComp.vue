@@ -87,6 +87,7 @@ export default {
 </script>
 <template>
     <div>
+        <hr>
         Register Form
         <form @submit.prevent="">
         Enter {{registerType}}name: <input type="text" v-model="this.registerData.name"> {{valid.nameMsg}} <br>

@@ -25,8 +25,8 @@ export default {
 }
 </script>
 <template>
-    Navigation>
-    <RouterLink to="/"> Home </RouterLink> <br>
+<div class = "nav">    
+    <RouterLink to="/"> Home </RouterLink> 
     <div v-if="this.$store.state.userData.loggedIn == true">
         Welcome {{this.$store.state.userData.userName}} <br>
         <RouterLink to="/quesview"> MyQuestions </RouterLink> <br>
@@ -38,11 +38,12 @@ export default {
         <button @click="logOut('tutor')">LogOut</button>
     </div>
     <div v-else-if="this.$store.state.adminData.loggedIn == true">
-        Welcome {{this.$store.state.tutorData.adminName}} <br>
+        Welcome {{this.$store.state.adminData.adminName}} <br>
         <button @click="logOut('admin')">LogOut</button>
     </div>
     <div v-if="noOneLog()">
         <RouterLink to="/loginview"> Login </RouterLink> <br>
     </div>
     <hr>
+</div>
 </template>

@@ -64,15 +64,29 @@ export default {
 </script>
 
 <template>
-    <div>
-        <hr>
-        Login Form type:{{loginType}}
+    <div class="login-form">
+        <h3> <span class="login-type-text">{{loginType}}</span> Login </h3>
         <form @submit.prevent = "">
-            {{loginType}}name: <input type="text" v-model="this.loginData.name"> <br>
-            Password: <input type="text" v-model="this.loginData.password"> <br>
+            <span class="login-type-text">{{loginType}}</span>name: <br> 
+            <input type="text" placeholder="Enter your name." v-model="this.loginData.name"> <br> <br>
+            Password: <br> 
+            <input type="password" placeholder="Enter your password." v-model="this.loginData.password"> <br> <br>
             <button v-if="loginType=='user'" v-on:click="userLogin">User Login</button>
             <button v-if="loginType=='tutor'" v-on:click="tutorLogin">Tutor Login</button>
             <button v-if="loginType=='admin'" v-on:click="adminLogin">Admin login</button>
         </form>      
     </div>
 </template>
+
+<style>
+
+.login-type-text {
+    text-transform: capitalize ;
+}
+.login-form {
+    background: var(--theme-color2);
+    padding: 10px 10px 10px 10px;
+    margin: 5px;
+}
+
+</style>

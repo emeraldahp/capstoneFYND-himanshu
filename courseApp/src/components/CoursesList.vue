@@ -82,9 +82,9 @@ export default {
         Status: LoggedIn: {{this.$store.state.userData.loggedIn}} <br>
         currentCourse: {{this.$store.state.userData.courseName}} <br>
         <hr>
-        Courses: <br>
+        <h3> Courses: </h3> <br>
         <div v-if="$store.state.userData.loggedIn==false">
-            <div v-for="course in coursesData" :key="course._id" >
+            <div class="card" v-for="course in coursesData" :key="course._id" >
                 {{course._id}} {{course.courseName}}
             </div>
         </div>

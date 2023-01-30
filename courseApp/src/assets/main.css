@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+
+body {
+
+    --theme-color1:#1e1e1e;
+    --theme-color2:#282828;
+    --theme-color3:#A5C9CA;
+    --theme-color4:#E7F6F2;
+    
+
+    background-color: var(--theme-color1);
+    color: var(--theme-color3);
+    font-family: 'Poppins', sans-serif;
+}
+a {
+    text-decoration: none;
+    color: var(--theme-color4);
+}
+
+button {
+    padding: 0.3em 1.8em;
+    border: 1px solid var(--theme-color3);
+    position: relative;
+    overflow: hidden;
+    background-color: transparent;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    transition: .3s;
+    font-family: inherit;
+    color: var(--theme-color3);
+}
+button:hover {
+    color: var(--theme-color4);
+}
+
+input {
+    color: var(--theme-color4);
+    font-family: inherit;
+    font-size: 16px;
+    background-color: transparent;
+    width: 200px;
+    box-sizing: border-box;
+    padding-inline: 0.5em;
+    padding-block: 0.7em;
+    border: none;
+    border-bottom: 1px solid var(--theme-color3);
+    opacity: 0.8;
+}
+input:hover {
+    background: #4f4f4f1f;
+}
+input:focus {
+    outline: none;
+}
+
+.card {
+    width: 300px;
+    height: 100px;
+    background: var(--theme-color2);
+    transition: all 300ms;
+}
+.card:hover {
+    opacity: 0.8;
+}
+   
+
+
+#app {
+
+
+}

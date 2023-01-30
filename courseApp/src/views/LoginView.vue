@@ -23,30 +23,47 @@ export default {
 
 <template>
     <div>
+        <div class="login-container">
+            <div v-if="this.control.type=='login'">
+                <login-comp :loginType="this.control.for"></login-comp> <br>
+                <button @click="this.control.type='register'">Register {{ this.control.for }}</button>
+            </div>
+            <div v-if="this.control.type=='register'">
+                <register-comp :registerType="this.control.for"></register-comp> <br>
+                <button @click="this.control.type='login'">Login {{ this.control.for }}</button>
+            </div>
+        </div>
+        <br>
+        <div class="login-options">
+            <div v-if="this.control.for == 'user' || this.control.for == 'admin'">
+                <button @click="this.control.for = 'tutor' ">Login as Tutor</button>
+            </div>
+            <div v-if="this.control.for == 'user' || this.control.for == 'tutor'">
+                <button @click="this.control.for = 'admin'">Login as Admin</button>
+            </div>
+            <div v-if="this.control.for == 'tutor' || this.control.for == 'admin'">
+                <button @click="this.control.for = 'user'">Login as User</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <hr>
+        Debug:
         login Info User {{this.$store.state.userData}} <br>
         login Info tutor {{this.$store.state.tutorData}} <br>
         login Info admin {{this.$store.state.adminData}} <br>
         {{this.control}}
-        LoginView <br>
-        <div v-if="this.control.type=='login'">
-            {{ this.control.for }}Login <br>
-            <login-comp :loginType="this.control.for"></login-comp>
-            <button @click="this.control.type='register'">Register {{ this.control.for }}</button>
-        </div>
-        <div v-if="this.control.type=='register'">
-            {{ this.control.for }}Register <br>
-            <register-comp :registerType="this.control.for"></register-comp>
-            <button @click="this.control.type='login'">Login {{ this.control.for }}</button>
-        </div>
-        <hr>
-        <div v-if="this.control.for == 'user' || this.control.for == 'admin'">
-            <button @click="this.control.for = 'tutor' ">Login as Tutor</button>
-        </div>
-        <div v-if="this.control.for == 'user' || this.control.for == 'tutor'">
-            <button @click="this.control.for = 'admin'">Login as Admin</button>
-        </div>
-        <div v-if="this.control.for == 'tutor' || this.control.for == 'admin'">
-            <button @click="this.control.for = 'user'">Login as User</button>
-        </div>
     </div>
 </template>
+
+<style>
+.login-options {
+    display:flex ;
+    flex-direction: row;
+    justify-content: center;
+}
+.login-container {
+    display:flex;
+    justify-content: center;
+}
+</style>

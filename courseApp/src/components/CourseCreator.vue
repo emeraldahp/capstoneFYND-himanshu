@@ -149,7 +149,7 @@ export default{
         validateCourseName(courseName) {
             if(this.check.courseList.includes(courseName))
                 this.valid.courseMsg = "notAvailable"
-            else if(courseName == ''){
+            else if(!courseName.trim().length){
                 this.valid.courseMsg = "cantBeEmpty"
             }
             else

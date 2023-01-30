@@ -53,6 +53,7 @@ export default {
         login Info tutor {{this.$store.state.tutorData}} <br>
         login Info admin {{this.$store.state.adminData}} <br>
         {{this.control}}
+        <hr>
     </div>
 </template>
 

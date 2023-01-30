@@ -121,7 +121,7 @@ export default {
 }
 
 .hcourse-item {
-    width: 300px;
+    width: 270px;
     height: 200px;
     background: var(--theme-color2);
     transition: all 300ms;

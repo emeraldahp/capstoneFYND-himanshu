@@ -192,11 +192,12 @@ export default{
                 <input type="text" placeholder="Enter image server url." v-model="courseData.courseImage"> <br> <br>
             </div>
         </div>
+        <h4>Structure Details</h4>
         <div class="course-container">
         <div class="sections">
             SectionSelector <br>
             <button @click="addSection">AddSection</button>
-            <div class="section-container">
+            <div  class="section-container" v-if="structureData.sections[0].sectionName != null">
             <div class="section-item" v-for="section, index in structureData.sections"  @click="selectSection(index)">
                 <button v-if="structureData.noOfSections != 0" @click="removeSection(index)">X</button>
                 {{section.sectionName}}
@@ -204,15 +205,15 @@ export default{
             </div>
         </div>
         <div class="viewport" v-if="structureData.sections[0].sectionName != null">
-            CourseViewport <br>
-            <form @submit.prevent="">
-                SelectType: 
-                Text:<input type="radio" value="text" v-model="itemType">
-                Image:<input type="radio" value="image" v-model="itemType">
-                Video:<input type="radio" value="video" v-model="itemType">
+            CourseViewport: {{structureData.sections[currentSection].sectionName}} <br>
+            <form class="type-select" @submit.prevent="">
+                SelectType 
+                <img class="type-ico" src="../assets/textico.svg"> <input type="radio" value="text" v-model="itemType">
+                <img class="type-ico" src="../assets/imageico.svg"> <input type="radio" value="image" v-model="itemType">
+                <img class="type-ico" src="../assets/videoico.svg"> <input type="radio" value="video" v-model="itemType">
                 <button @click="addItem">AddItem</button>
             </form>
-            {{structureData.sections[currentSection].sectionName}}
+            
             <div class="sitem-container">
             <div v-for="item, index in structureData.sections[currentSection].items">
                 <button v-if="structureData.sections[currentSection].noOfItems != 0" @click="removeItem(index)">X</button>
@@ -230,6 +231,7 @@ export default{
         {{courseData}}
         {{structureData}} {{itemType}} <br>
         currentSection: {{currentSection}} <br>
+        <hr>
     </div>
 </template>
 
@@ -276,6 +278,15 @@ export default{
     flex-direction: column;
     background: var(--theme-color2);
     margin-top: 10px;
+}
+.type-select {
+    display: flex;
+    place-items: center;
+    gap: 2px;
+}
+.type-ico{
+    width: 30px;
+    height: 30px;
 }
 
 </style>

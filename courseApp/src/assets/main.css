@@ -73,6 +73,31 @@ input[type=text]:focus, input[type=password]:focus {
     outline: none;
 }
 
+input[type="radio"] {
+
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--form-background);
+    font: inherit;
+    color: var(--theme-color3);
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid var(--theme-color3);
+    border-radius: 50%;
+    box-shadow: inset 1em 1em var(--theme-color3);
+    opacity: 0.5;
+}
+
+input[type="radio"]:checked {
+    opacity: 1;
+
+}
+
+  
+input[type="radio"]:checked {
+    transform: scale(1);
+}
+
 .card {
     width: 300px;
     height: 100px;
@@ -86,6 +111,7 @@ input[type=text]:focus, input[type=password]:focus {
 
 
 #app {
-
-
+    max-width: 1290px;
+    min-width: 650px;
+    margin: auto;
 }

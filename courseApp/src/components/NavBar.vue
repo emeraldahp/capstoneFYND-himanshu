@@ -14,8 +14,8 @@ export default {
         },
         noOneLog() {
             if(this.$store.state.userData.loggedIn == false && 
-               this.$store.state.userData.loggedIn == false && 
-               this.$store.state.userData.loggedIn == false)
+               this.$store.state.tutorData.loggedIn == false && 
+               this.$store.state.adminData.loggedIn == false)
                 return true
             else
                 return false

@@ -15,12 +15,18 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 a {
-    text-decoration: none;
+    text-decoration: underline;
+    color: var(--theme-color3);
+
+}
+
+h3, h4 {
     color: var(--theme-color4);
 }
 
 button {
     padding: 0.3em 1.8em;
+    height: 2.3em;
     border: 1px solid var(--theme-color3);
     position: relative;
     overflow: hidden;
@@ -108,6 +114,12 @@ input[type="radio"]:checked {
     opacity: 0.8;
 }
 
+hr {
+    border:none;
+    border-bottom: solid 2px;
+    border-color: var(--theme-color3);
+    opacity: 0.5;
+}
 
 
 #app {

@@ -5,15 +5,84 @@ import AskQuestion from "../components/AskQuestion.vue"
 export default {
     name: "courseview",
     components: {
-    CourseRender,
-    AskQuestion
-}
+        CourseRender,
+        AskQuestion
+    },
+    data() {
+        return {
+            askQuestionToggle: false
+        }
+    }
+
 }
 </script>
 <template>
-    <div>
-        <course-render/>
-        <ask-question/>
+    <div class="course-view-container">
+        <div class="course-render-comp"><course-render/>
+            <button v-if="askQuestionToggle==false" @click="askQuestionToggle=true">Ask Question</button>
+        </div>
+        <div v-if="askQuestionToggle==true" class="bg-fade"></div>
+        <div class="ask-question-comp" v-if="askQuestionToggle==true">
+            <ask-question/>
+            <div class="ask-question-comp-closebtn"><button  v-if="askQuestionToggle==true" @click="askQuestionToggle=false">Close</button></div>
+        </div>
+        
     </div>
 
 </template>
+
+<style>
+.course-view-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.course-render-comp{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.bg-fade{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 5;
+}
+
+.ask-question-comp {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    animation: fadeIn .5s;
+}
+
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.ask-question-comp-closebtn {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    width: 400px;
+    background-color: var(--theme-color2);
+    padding-bottom: 10px;
+}
+
+</style>

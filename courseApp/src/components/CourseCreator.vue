@@ -71,6 +71,9 @@ export default{
                 let structurePost = this.structureData
                 const response2 = await axios.post(import.meta.env.VITE_API_URL + '/structures', structurePost) 
                 console.log(response2)
+
+                if(response1.data.status=="success sent" && response2.data.status=="success sent")
+                    alert("Course Added Successfully")
             }
         },
         selectSection(index) {

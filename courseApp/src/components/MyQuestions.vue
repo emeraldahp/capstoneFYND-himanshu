@@ -16,8 +16,14 @@ export default {
 </script>
 <template>
     <div>
-        MyQuestions <br>
-        {{questions}}
+        <h4>MyQuestions</h4>
+        <div v-for="question in questions" :key="question._id" >
+            courseName: {{question.courseName}} <br>
+            Question: {{question.questionName}} <br>
+            <div v-if="question.answer!=null" >Answer: {{question.answer}} </div>
+            <div v-else>NotAnswered</div>
+            <br>
+        </div>
         DeleteButton
     </div>
 </template>

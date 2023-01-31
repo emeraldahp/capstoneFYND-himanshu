@@ -39,5 +39,19 @@ export default createStore({
             state.adminData.adminName = payload
         }
     },
-    actions: {}
+    actions: {
+        userLogOut(context){
+            context.commit("userLog", false)
+            context.commit("updateUser", "none")
+            context.commit("updateCourse", "none")
+        },
+        tutorLogOut(context){
+            context.commit("tutorLog", false)
+            context.commit("updateTutor", "none")
+        },
+        adminLogOut(context){
+            context.commit("adminLog", false)
+            context.commit("updateAdmin", "none")
+        }
+    }
 })

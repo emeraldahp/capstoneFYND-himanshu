@@ -71,6 +71,9 @@ export default{
                 let structurePost = this.structureData
                 const response2 = await axios.post(import.meta.env.VITE_API_URL + '/structures', structurePost) 
                 console.log(response2)
+
+                if(response1.data.status=="success sent" && response2.data.status=="success sent")
+                    alert("Course Added Successfully")
             }
         },
         selectSection(index) {
@@ -149,6 +152,9 @@ export default{
         validateCourseName(courseName) {
             if(this.check.courseList.includes(courseName))
                 this.valid.courseMsg = "notAvailable"
+            else if(!courseName.trim().length){
+                this.valid.courseMsg = "cantBeEmpty"
+            }
             else
                 this.valid.courseMsg = "available"
         },
@@ -163,46 +169,127 @@ export default{
 }
 </script>
 <template>
+    <h3>CourseCreator</h3> <br>
     <div>
-        {{check}} <br>
-        {{courseData}}
-        {{structureData}} {{itemType}} <br>
-        CourseCreator <br>
-        <form @Submit.prevent="">
-            CourseName: <input type="text" v-model="courseData.courseName"> Msg:{{valid.courseMsg}}<br>
-            TutorName: <select v-model="courseData.tutorName">
-                <option disabled value="">SelectAnOption</option>
-                <option v-for="tutor in check.tutorList">{{tutor}}</option>
-            </select> Msg:{{valid.tutorMsg}}<br>
-            CourseDesc: <input type="text" v-model="courseData.courseDesc"> <br>
-            CourseImage: <input type="text" v-model="courseData.courseImage"> <br>
-
-        </form>
-        <div>
-            SectionSelector------------------- <br>
-            currentSection: {{currentSection}} <br>
+        <h4>Course Details</h4>
+        <div class="course-details-container">
+            <div>
+                Course Name: <br>
+                <input type="text" placeholder="Enter course name." v-model="courseData.courseName"> <br> 
+                Msg:{{valid.courseMsg}}<br> <br>
+            </div>
+            <div>
+                Tutor Name: <br>
+                <select v-model="courseData.tutorName">
+                    <option disabled value="">Select an option.</option>
+                    <option v-for="tutor in check.tutorList">{{tutor}}</option>
+                </select> <br>
+                Msg:{{valid.tutorMsg}}<br> <br>
+            </div>
+            <div>
+                Course Desc: <br>
+                <input type="text" placeholder="Enter course description." v-model="courseData.courseDesc"> <br> <br>
+            </div>
+            <div>
+                Course Image: <br>
+                <input type="text" placeholder="Enter image server url." v-model="courseData.courseImage"> <br> <br>
+            </div>
+        </div>
+        <h4>Structure Details</h4>
+        <div class="course-container">
+        <div class="sections">
+            SectionSelector <br>
             <button @click="addSection">AddSection</button>
-            <div v-for="section, index in structureData.sections"  @click="selectSection(index)">
-                <button v-if="structureData.noOfSections != 0" @click="removeSection(index)">RemoveSection</button>
+            <div  class="section-container" v-if="structureData.sections[0].sectionName != null">
+            <div class="section-item" v-for="section, index in structureData.sections"  @click="selectSection(index)">
+                <button v-if="structureData.noOfSections != 0" @click="removeSection(index)">X</button>
                 {{section.sectionName}}
             </div>
-        </div>
-        <div v-if="structureData.sections[0].sectionName != null">
-            CourseViewport------------------ <br>
-            <form @submit.prevent="">
-                SelectType: 
-                Text:<input type="radio" value="text" v-model="itemType">
-                Image:<input type="radio" value="image" v-model="itemType">
-                Video:<input type="radio" value="video" v-model="itemType">
-                <button @click="addItem">AddItem</button>
-            </form>
-            {{structureData.sections[currentSection].sectionName}}
-            <div v-for="item, index in structureData.sections[currentSection].items">
-                <button v-if="structureData.sections[currentSection].noOfItems != 0" @click="removeItem(index)">RemoveItem</button>
-                {{item.content}}
             </div>
         </div>
-        ------------------------------- <br>
-        <button @click="postCourses">PostACourse</button>
+        <div class="viewport" v-if="structureData.sections[0].sectionName != null">
+            CourseViewport: {{structureData.sections[currentSection].sectionName}} <br>
+            <form class="type-select" @submit.prevent="">
+                SelectType 
+                <img class="type-ico" src="../assets/textico.svg"> <input type="radio" value="text" v-model="itemType">
+                <img class="type-ico" src="../assets/imageico.svg"> <input type="radio" value="image" v-model="itemType">
+                <img class="type-ico" src="../assets/videoico.svg"> <input type="radio" value="video" v-model="itemType">
+                <button @click="addItem">AddItem</button>
+            </form>
+            
+            <div class="sitem-container">
+            <div v-for="item, index in structureData.sections[currentSection].items">
+                <button v-if="structureData.sections[currentSection].noOfItems != 0" @click="removeItem(index)">X</button>
+                {{item.content}}
+            </div>
+            </div>
+        </div>
+        </div>
+        <hr>
+        <button @click="postCourses">Post Course</button>
+    </div>
+    <div>
+        <hr>
+        Debug:{{check}} <br>
+        {{courseData}}
+        {{structureData}} {{itemType}} <br>
+        currentSection: {{currentSection}} <br>
+        <hr>
     </div>
 </template>
+
+<style>
+
+.course-details-container {
+    background: var(--theme-color2);
+    padding: 10px 10px 10px 10px;
+    margin: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.course-container {
+    display: flex;
+    flex-direction: row;
+}
+.sections{
+    flex-basis: auto;
+}
+.viewport{
+    flex-grow: 1;
+}
+
+.section-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.section-item {
+    width: 200px;
+    height: 50px;
+    background: var(--theme-color2);
+    transition: all 300ms;
+    margin: 0px 50px 5px 0px
+}
+.section-item:hover {
+    opacity: 0.8;
+}
+.sitem-container {
+    display: flex;
+    flex-direction: column;
+    background: var(--theme-color2);
+    margin-top: 10px;
+}
+.type-select {
+    display: flex;
+    place-items: center;
+    gap: 2px;
+}
+.type-ico{
+    width: 30px;
+    height: 30px;
+}
+
+</style>

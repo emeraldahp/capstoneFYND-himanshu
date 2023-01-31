@@ -78,26 +78,58 @@ export default {
 
 <template>
     <div>
-        Welcome: User: {{this.$store.state.userData.userName}} <br>
-        Status: LoggedIn: {{this.$store.state.userData.loggedIn}} <br>
-        currentCourse: {{this.$store.state.userData.courseName}} <br>
-        Courses: <br>
-        <div v-if="$store.state.userData.loggedIn==false">
-            <div v-for="course in coursesData" :key="course._id" @click="selectCourse(course.courseName)">
-                {{course._id}} {{course.courseName}}
+        
+        <h3 v-if="$store.state.userData.loggedIn==false"> Courses: </h3> <br>
+        <div class="hcourse-container" v-if="$store.state.userData.loggedIn==false">
+            <div class="hcourse-item" v-for="course in coursesData" :key="course._id" >
+                <h4>{{course.courseName}}</h4> <br>
+                {{course._id}} 
             </div>
         </div>
-        <div v-else>
-            EnrolledCourses <br>
-            <div v-for = "course in enrolledCourses" :key="course._id" @click="selectCourse(course.courseName)">
+        <div v-else>  
+            <h3>EnrolledCourses</h3> <br>
+            <div class="hcourse-container">
+            <div class="hcourse-item" v-for = "course in enrolledCourses" :key="course._id" @click="selectCourse(course.courseName)">
                 {{course.courseName}}
             </div>
-            OtherCourses <br>
-            <div v-for = "course in otherCourses" :key="course._id">
+            </div>
+            <h3>OtherCourses</h3> <br>
+            <div class="hcourse-container">
+            <div class="hcourse-item" v-for = "course in otherCourses" :key="course._id">
                 {{course.courseName}}
                 <button @click="enrollCourse(course.courseName, course.noOfSections)">Enroll</button>
+            </div>
             </div>
         </div>
 
     </div>
+    <div>
+        <hr>
+        Debug:Welcome: User: {{this.$store.state.userData.userName}} <br>
+        Status: LoggedIn: {{this.$store.state.userData.loggedIn}} <br>
+        currentCourse: {{this.$store.state.userData.courseName}} <br>
+        <hr>
+    </div>
 </template>
+
+<style>
+
+.hcourse-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.hcourse-item {
+    width: 270px;
+    height: 200px;
+    background: var(--theme-color2);
+    transition: all 300ms;
+    margin: 10px;
+    padding: 10px;
+}
+.course-item:hover {
+    opacity: 0.8;
+}  
+
+</style>

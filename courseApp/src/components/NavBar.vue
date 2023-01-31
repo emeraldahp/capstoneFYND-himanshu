@@ -41,16 +41,22 @@ export default {
         </div>
     </div>
     <div class="navbar2-container" v-else-if="this.$store.state.tutorData.loggedIn == true">
-        Welcome {{this.$store.state.tutorData.tutorName}}
-        <button class="navbar2-logout-item" @click="logOut('tutor')">LogOut</button>
+        <div class="navbar2-logout-item" >
+            Welcome {{this.$store.state.tutorData.tutorName}}
+            <button class="navbar2-logout-item" @click="logOut('tutor')">LogOut</button>
+        </div>
     </div>
     <div class="navbar2-container" v-else-if="this.$store.state.adminData.loggedIn == true">
-        Welcome {{this.$store.state.adminData.adminName}}
-        <button class="navbar2-logout-item" @click="logOut('admin')">LogOut</button>
+        <div class="navbar2-logout-item" >
+            Welcome {{this.$store.state.adminData.adminName}}
+            <button class="navbar2-logout-item" @click="logOut('admin')">LogOut</button>
+        </div>
     </div>
 
     <div class="navbar2-container" v-if="noOneLog()">
+        <div class="navbar2-login-item">
         <RouterLink to="/loginview"> Login </RouterLink>
+        </div>
     </div>
 
 </div>
@@ -81,11 +87,12 @@ export default {
     flex-grow: 1;
 }
 
+.navbar2-login-item,
 .navbar2-logout-item {
     display: flex;
     flex-direction: row;
     place-items: center;
-    margin-left: auto; /*to place logout send to end*/
+    margin-left: auto; /*to place logout, login send to end*/
     gap: 10px;
 }
 

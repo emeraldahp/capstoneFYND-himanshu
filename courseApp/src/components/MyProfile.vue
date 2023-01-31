@@ -1,4 +1,6 @@
-<script></script>
+<script>
+
+</script>
 <template>
     MyProfile <br>
     Completed Cources <br>

@@ -50,6 +50,11 @@ export default {
     methods: {
         async userRegister() {
             console.log("userRegister", this.registerData)
+            const err = this.validate()
+            if(err != 'none'){
+                alert(err)
+                return
+            }
             if(this.valid.nameMsg == 'available') {
                 let userPost = {
                     userName: this.registerData.name,
@@ -63,6 +68,11 @@ export default {
         },
         async tutorRegister() {
             console.log("tutorRegister", this.registerData)
+            const err = this.validate()
+            if(err != 'none'){
+                alert(err)
+                return
+            }
             if(this.valid.nameMsg == 'available') {
                 let tutorPost = {
                     tutorName: this.registerData.name,

@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const Course = require('../models/Course');
 
 
@@ -57,9 +58,23 @@ const getCourseList = async (req, res, next) => {
     }
 }
 
+const getTutorNameByCourse = async (req, res, next) => {
+    const {courseName} = req.query
+    let course
+    try {
+        course = await Course.findOne({courseName})
+        console.log(course)
+        res.status(201).json({status:"success received", data: course.tutorName})
+    }
+    catch(err) {
+        res.status(201).json({status:"failed", data: err.message})
+    }
+}
+
 module.exports = {
     getAllCourses,
     postCourses,
     coursesListByTutor,
-    getCourseList
+    getCourseList,
+    getTutorNameByCourse
 }

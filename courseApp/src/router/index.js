@@ -6,6 +6,7 @@ import AdminView from '../views/AdminView.vue'
 import TutorView from '../views/TutorView.vue'
 import QuesView from '../views/QuesView.vue'
 import ProfileView from '../views/ProfileView.vue'
+import CertView from '../views/CertView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,12 @@ const router = createRouter({
       path: '/profileview',
       name: 'profileview',
       component: ProfileView
+    },
+    {
+      path: '/certview',
+      name: 'certview',
+      component: CertView
+
     }
   ]
 })

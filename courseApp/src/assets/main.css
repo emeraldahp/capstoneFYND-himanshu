@@ -20,7 +20,7 @@ a {
 
 }
 
-h3, h4 {
+h2, h3, h4 {
     color: var(--theme-color4);
 }
 

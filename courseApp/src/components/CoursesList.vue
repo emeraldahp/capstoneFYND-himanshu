@@ -93,7 +93,7 @@ export default {
                 {{course.courseName}}
             </div>
             </div>
-            <h3>OtherCourses</h3> <br>
+            <div v-if="otherCourses.length != 0"><h3>OtherCourses</h3></div> <br>
             <div class="hcourse-container">
             <div class="hcourse-item" v-for = "course in otherCourses" :key="course._id">
                 {{course.courseName}}

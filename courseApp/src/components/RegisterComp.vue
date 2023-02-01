@@ -62,6 +62,10 @@ export default {
                     password: this.registerData.password
                 }    
                 const response = await axios.post(import.meta.env.VITE_API_URL + '/users/register', userPost)
+                if(response.data.data.status = "success")
+                    alert("User Registered Successfully.")
+                else
+                    alert("Failed.")
                 console.log(response)
                 this.$router.push({name: 'home'})
             }
@@ -80,6 +84,10 @@ export default {
                     password: this.registerData.password
                 }    
                 const response = await axios.post(import.meta.env.VITE_API_URL + '/tutors/register', tutorPost)
+                if(response.data.data.status = "success")
+                    alert("Tutor Registered Successfully.")
+                else
+                    alert("Failed.")
                 console.log(response)
                 this.$router.push({name: 'home'})
             }
@@ -98,6 +106,10 @@ export default {
                     password: this.registerData.password
                 }    
                 const response = await axios.post(import.meta.env.VITE_API_URL + '/admins/register', adminPost)
+                if(response.data.data.status = "success")
+                    alert("Admin Registered Successfully.")
+                else
+                    alert("Failed.")
                 console.log(response)
                 this.$router.push({name: 'home'})
             }
@@ -121,6 +133,8 @@ export default {
                 err = "Password didn't match."
             else if (this.registerData.name.trim() == '')
                 err = "Please enter a name."
+            else if (this.registerData.name.length > 30)
+                err = "Name too long. Max Length 30."
             return err
         }
 

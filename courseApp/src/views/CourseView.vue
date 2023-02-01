@@ -24,21 +24,21 @@ export default {
 }
 </script>
 <template>
-    <div class="course-view-container">
-        <div class="course-render-comp"><course-render/>
-            <button v-if="askQuestionToggle==false" @click="askQuestionToggle=true">Ask Question</button>
-        </div>
-        <div v-if="askQuestionToggle==true" class="bg-fade"></div>
-        <div class="ask-question-comp" v-if="askQuestionToggle==true">
-            <ask-question/>
-            <div class="ask-question-comp-sepr" ></div>
-            <div class="ask-question-comp-closebtn">
-                <button  v-if="askQuestionToggle==true" @click="askQuestionToggle=false">Close</button>
+    <div>
+        <div class="course-view-container">
+            <div class="course-render-comp"><course-render/>
+                <button v-if="askQuestionToggle==false" @click="askQuestionToggle=true">Ask Question</button>
+            </div>
+            <div v-if="askQuestionToggle==true" class="bg-fade"></div>
+            <div class="ask-question-comp" v-if="askQuestionToggle==true">
+                <ask-question/>
+                <div class="ask-question-comp-sepr" ></div>
+                <div class="ask-question-comp-closebtn">
+                    <button  v-if="askQuestionToggle==true" @click="askQuestionToggle=false">Close</button>
+                </div>
             </div>
         </div>
-        
     </div>
-
 </template>
 
 <style>

@@ -49,7 +49,6 @@ export default {
 }
 </script>
 <template>
-
     <div>
         <h4>Answer Questions</h4> <br>
         <div class="question-container">
@@ -66,11 +65,6 @@ export default {
             Answer: {{question.answer}}
         </div>
         </div>
-    </div>
-    <div>
-        <hr>
-        debug:{{allQuestions}} <br>
-        {{this.answer}}
         <hr>
     </div>
 </template>

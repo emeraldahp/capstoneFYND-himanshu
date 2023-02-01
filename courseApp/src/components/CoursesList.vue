@@ -82,14 +82,14 @@ export default {
         <h3 v-if="$store.state.userData.loggedIn==false"> Courses: </h3> <br>
         <div class="hcourse-container" v-if="$store.state.userData.loggedIn==false">
             <div class="hcourse-item" v-for="course in coursesData" :key="course._id" >
-                <div><img class="hcourse-image" :src="course.courseImage" ></div>
+                <div><img class="hcourse-image" :src="course.courseImage"></div>
                 <div class="hcourse-title">{{course.courseName}}</div>
                 <div class="hcourse-desc">{{course.courseDesc}}</div>
                 
             </div>
         </div>
         <div v-else>  
-            <h3>EnrolledCourses</h3> <br>
+            <h3>Enrolled Courses</h3> <br>
             <div class="hcourse-container">
             <div class="hcourse-item" v-for = "course in enrolledCourses" :key="course._id" @click="selectCourse(course.courseName)">
                 <div><img class="hcourse-image" :src="course.courseImage" ></div>
@@ -97,23 +97,16 @@ export default {
                 <div class="hcourse-desc">{{course.courseDesc}}</div>
             </div>
             </div>
-            <div v-if="otherCourses.length != 0"><h3>OtherCourses</h3></div> <br>
+            <div v-if="otherCourses.length != 0"><h3>Other Courses</h3></div> <br>
             <div class="hcourse-container">
             <div class="hcourse-item" v-for = "course in otherCourses" :key="course._id">
                 <div><img class="hcourse-image" :src="course.courseImage" ></div>
                 <div class="hcourse-title">{{course.courseName}}</div>
-                <div class="hcourse-desc">{{course.courseDesc}}</div>
                 <button @click="enrollCourse(course.courseName, course.noOfSections)">Enroll</button>
+                <div class="hcourse-desc">{{course.courseDesc}}</div>
             </div>
             </div>
         </div>
-
-    </div>
-    <div>
-        <hr>
-        Debug:Welcome: User: {{this.$store.state.userData.userName}} <br>
-        Status: LoggedIn: {{this.$store.state.userData.loggedIn}} <br>
-        currentCourse: {{this.$store.state.userData.courseName}} <br>
         <hr>
     </div>
 </template>
@@ -128,7 +121,7 @@ export default {
 
 .hcourse-item {
     width: 270px;
-    height: auto;
+    height: 250px;
     background: var(--theme-color2);
     transition: 0.5s;
     margin: 10px;

@@ -10,5 +10,7 @@ export default {
 }
 </script>
 <template>
-    <my-profile/>
+    <div>
+        <my-profile/>
+    </div>
 </template>

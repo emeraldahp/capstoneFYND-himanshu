@@ -55,15 +55,6 @@ export default {
             </div>
         </div>
     </div>
-    <div>
-        <hr>
-        Debug:
-        login Info User {{this.$store.state.userData}} <br>
-        login Info tutor {{this.$store.state.tutorData}} <br>
-        login Info admin {{this.$store.state.adminData}} <br>
-        {{this.control}}
-        <hr>
-    </div>
 </template>
 
 <style>

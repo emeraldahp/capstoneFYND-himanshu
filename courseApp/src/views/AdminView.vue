@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-<div>
-    <course-creator/>
-</div>
+    <div>
+        <course-creator/>
+    </div>
 </template>

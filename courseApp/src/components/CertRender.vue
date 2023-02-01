@@ -21,20 +21,24 @@ export default {
 
 </script>
 <template>
-    <div class="certificate-view">
-    <div class="certificate-container">
-        <div class="certificate-item" ><h1>Certificate of Completion</h1></div>
-        <div class="certificate-item">This is to certify that</div>
-        <div class="certificate-item"><h2>{{enrollment.userName}}</h2></div>
-        <div class="certificate-item">has successfully completed the course</div>
-        <div class="certificate-item"><h2>{{enrollment.courseName}}</h2></div>
-        <div class="certificate-item">Completion Date:</div>
-        <div class="certificate-item"><h3>{{enrollment.finishDate}}</h3></div>
-        <div class="certificate-item">ID: {{enrollment._id}}</div>
-        <div class="certificate-item">Issue Date: {{enrollment.finishDate}}</div>
-        <div class="certificate-item">Tutor: {{tutorName}}</div>
-    </div>  
-    </div> 
+    <div>
+        <div class="certificate-view">
+            <div class="certificate-container">
+                <div class="certificate-item" ><h1>Certificate of Completion</h1></div>
+                <div class="certificate-item">This is to certify that</div>
+                <div class="certificate-item"><h2>{{enrollment.userName}}</h2></div>
+                <div class="certificate-item">has successfully completed the course</div>
+                <div class="certificate-item"><h2>{{enrollment.courseName}}</h2></div>
+                <div class="certificate-item">Completion Date:</div>
+                <div class="certificate-item"><h3>{{enrollment.finishDate}}</h3></div>
+                <div class="certificate-item">ID: {{enrollment._id}}</div>
+                <div class="certificate-item">Issue Date: {{enrollment.finishDate}}</div>
+                <div class="certificate-item">Tutor: {{tutorName}}</div>
+            </div>  
+        </div> 
+        <br>
+        <hr>
+    </div>
 </template>
 
 <style>

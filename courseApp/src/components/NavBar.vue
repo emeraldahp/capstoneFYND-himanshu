@@ -28,42 +28,42 @@ export default {
 }
 </script>
 <template>
-<div class = "navbar-container">  
+    <div>
+        <div class = "navbar-container">  
+            <div class="navbar2-home-container">
+                <img class="home-ico" src="../assets/homeico.svg">
+                <RouterLink to="/"> Home </RouterLink> 
+            </div>
 
-    <div class="navbar2-home-container">
-        <img class="home-ico" src="../assets/homeico.svg">
-        <RouterLink to="/"> Home </RouterLink> 
-    </div>
+            <div class="navbar2-container" v-if="this.$store.state.userData.loggedIn == true">
+                <RouterLink to="/quesview"> MyQuestions </RouterLink>
+                <RouterLink to="/profileview">MyProfile</RouterLink>
+                <div class="navbar2-logout-item" >
+                    Welcome {{this.$store.state.userData.userName}}
+                    <button @click="logOut('user')">LogOut</button>
+                </div>
+            </div>
+            <div class="navbar2-container" v-else-if="this.$store.state.tutorData.loggedIn == true">
+                <div class="navbar2-logout-item" >
+                    Welcome {{this.$store.state.tutorData.tutorName}}
+                    <button class="navbar2-logout-item" @click="logOut('tutor')">LogOut</button>
+                </div>
+            </div>
+            <div class="navbar2-container" v-else-if="this.$store.state.adminData.loggedIn == true">
+                <div class="navbar2-logout-item" >
+                    Welcome {{this.$store.state.adminData.adminName}}
+                    <button class="navbar2-logout-item" @click="logOut('admin')">LogOut</button>
+                </div>
+            </div>
 
-    <div class="navbar2-container" v-if="this.$store.state.userData.loggedIn == true">
-        <RouterLink to="/quesview"> MyQuestions </RouterLink>
-        <RouterLink to="/profileview">MyProfile</RouterLink>
-        <div class="navbar2-logout-item" >
-            Welcome {{this.$store.state.userData.userName}}
-            <button @click="logOut('user')">LogOut</button>
+            <div class="navbar2-container" v-if="noOneLog()">
+                <div class="navbar2-login-item">
+                <RouterLink to="/loginview"> Login </RouterLink>
+                </div>
+            </div>
         </div>
+        <hr>
     </div>
-    <div class="navbar2-container" v-else-if="this.$store.state.tutorData.loggedIn == true">
-        <div class="navbar2-logout-item" >
-            Welcome {{this.$store.state.tutorData.tutorName}}
-            <button class="navbar2-logout-item" @click="logOut('tutor')">LogOut</button>
-        </div>
-    </div>
-    <div class="navbar2-container" v-else-if="this.$store.state.adminData.loggedIn == true">
-        <div class="navbar2-logout-item" >
-            Welcome {{this.$store.state.adminData.adminName}}
-            <button class="navbar2-logout-item" @click="logOut('admin')">LogOut</button>
-        </div>
-    </div>
-
-    <div class="navbar2-container" v-if="noOneLog()">
-        <div class="navbar2-login-item">
-        <RouterLink to="/loginview"> Login </RouterLink>
-        </div>
-    </div>
-
-</div>
-<hr>
 </template>
 
 <style>

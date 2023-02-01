@@ -10,5 +10,7 @@ export default {
 }
 </script>
 <template>
-    <my-questions/>
+    <div>
+        <my-questions/>
+    </div>
 </template>

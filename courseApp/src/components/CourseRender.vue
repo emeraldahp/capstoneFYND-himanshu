@@ -119,31 +119,27 @@ export default {
 }
 </script>
 <template>
-    <h3>{{structureData.courseName}}</h3>
-    <div class="course-container">
-        <div class="sections">
-            Sections <br>
-            <div class="section-container">
-                <div class="section-item" v-for="section, index in structureData.sections"  @click="selectSection(index)">
-                    <div v-show="courseProgress.sectionProgress[index]==true" class="section-item-complete"></div>
-                    <div class="section-item-title" >{{section.sectionName}}</div>
+    <div>
+        <h3>{{structureData.courseName}}</h3>
+        <div class="course-container">
+            <div class="sections">
+                Sections <br>
+                <div class="section-container">
+                    <div class="section-item" v-for="section, index in structureData.sections"  @click="selectSection(index)">
+                        <div v-show="courseProgress.sectionProgress[index]==true" class="section-item-complete"></div>
+                        <div class="section-item-title" >{{section.sectionName}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="viewport" v-if="structureData.sections[0].sectionName != null" >
+                {{structureData.sections[currentSection].sectionName}}
+                <div class="sitem-container">
+                <div v-for="item in structureData.sections[currentSection].items">
+                    {{item.content}}
+                </div>
                 </div>
             </div>
         </div>
-        <div class="viewport" v-if="structureData.sections[0].sectionName != null" >
-            {{structureData.sections[currentSection].sectionName}}
-            <div class="sitem-container">
-            <div v-for="item in structureData.sections[currentSection].items">
-                {{item.content}}
-            </div>
-            </div>
-        </div>
-    </div>
-    <div>
-        <hr>
-        debug:{{currentSection}} <br>
-            courseStatus: {{courseProgress}} <br>
-
         <hr>
     </div>
 </template>

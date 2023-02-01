@@ -71,17 +71,19 @@ export default {
 </script>
 
 <template>
-    <div class="login-form">
-        <h3> <span class="login-type-text">{{loginType}}</span> Login </h3>
-        <form @submit.prevent = "">
-            <span class="login-type-text">{{loginType}}</span>name: <br> 
-            <input type="text" placeholder="Enter your name." v-model="this.loginData.name"> <br> <br>
-            Password: <br> 
-            <input type="password" placeholder="Enter your password." v-model="this.loginData.password"> <br> <br>
-            <button v-if="loginType=='user'" v-on:click="userLogin">User Login</button>
-            <button v-if="loginType=='tutor'" v-on:click="tutorLogin">Tutor Login</button>
-            <button v-if="loginType=='admin'" v-on:click="adminLogin">Admin login</button>
-        </form>      
+    <div>
+        <div class="login-form">
+            <h3> <span class="login-type-text">{{loginType}}</span> Login </h3>
+            <form @submit.prevent = "">
+                <span class="login-type-text">{{loginType}}</span>name: <br> 
+                <input type="text" placeholder="Enter your name." v-model="this.loginData.name"> <br> <br>
+                Password: <br> 
+                <input type="password" placeholder="Enter your password." v-model="this.loginData.password"> <br> <br>
+                <button v-if="loginType=='user'" v-on:click="userLogin">User Login</button>
+                <button v-if="loginType=='tutor'" v-on:click="tutorLogin">Tutor Login</button>
+                <button v-if="loginType=='admin'" v-on:click="adminLogin">Admin login</button>
+            </form>      
+        </div>
     </div>
 </template>
 

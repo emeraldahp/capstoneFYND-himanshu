@@ -35,5 +35,6 @@ export default {
             <div><button @click="removeQuestion(question._id)" >Delete</button></div>
             <br>
         </div>
+        <hr>
     </div>
 </template>

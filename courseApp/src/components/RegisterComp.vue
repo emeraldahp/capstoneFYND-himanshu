@@ -128,21 +128,23 @@ export default {
 }
 </script>
 <template>
-    <div class="register-form">
-        <h3> <span class="register-type-text">{{registerType}}</span> Registration </h3>
-        <form @submit.prevent="">
-        Enter <span class="register-type-text">{{registerType}}</span>name <br>
-        <input type="text" placeholder="Enter your name." v-model="this.registerData.name"> <br>Message: {{valid.nameMsg}} <br><br>
-        Enter Email <br>
-        <input type="text" placeholder="Enter your email." v-model="this.registerData.email"> <br> <br>
-        Enter Password <br>
-        <input type="password" placeholder="Enter your password." v-model="this.registerData.password"> <br> <br>
-        Confirm Password <br>
-        <input type="password" placeholder="Confirm password." v-model="this.registerData.password2"> <br> <br>
-        <button v-if="registerType=='user'" @click="userRegister">User Register</button>  
-        <button v-if="registerType=='tutor'" @click="tutorRegister">Tutor Register</button>  
-        <button v-if="registerType=='admin'" @click="adminRegister">Admin Register</button>      
-    </form> 
+    <div>
+        <div class="register-form">
+            <h3> <span class="register-type-text">{{registerType}}</span> Registration </h3>
+            <form @submit.prevent="">
+            Enter <span class="register-type-text">{{registerType}}</span>name <br>
+            <input type="text" placeholder="Enter your name." v-model="this.registerData.name"> <br>Message: {{valid.nameMsg}} <br><br>
+            Enter Email <br>
+            <input type="text" placeholder="Enter your email." v-model="this.registerData.email"> <br> <br>
+            Enter Password <br>
+            <input type="password" placeholder="Enter your password." v-model="this.registerData.password"> <br> <br>
+            Confirm Password <br>
+            <input type="password" placeholder="Confirm password." v-model="this.registerData.password2"> <br> <br>
+            <button v-if="registerType=='user'" @click="userRegister">User Register</button>  
+            <button v-if="registerType=='tutor'" @click="tutorRegister">Tutor Register</button>  
+            <button v-if="registerType=='admin'" @click="adminRegister">Admin Register</button>      
+            </form> 
+        </div>
     </div>
 </template>
 

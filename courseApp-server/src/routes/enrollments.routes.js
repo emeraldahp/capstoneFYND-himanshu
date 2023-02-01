@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get('/', getEnrollments)
 router.post('/', postEnrollment)
-router.get('/course', authorize, getEnrollmentByCourseName)
+router.get('/course', authorize(['user']), getEnrollmentByCourseName)
 router.patch('/', updateEnrollment)
 router.get('/certificate', getEnrollmentById) //will be public
 

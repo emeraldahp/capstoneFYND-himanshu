@@ -1,17 +1,25 @@
 const jwt = require('jsonwebtoken');
 
-const authorize = (req, res, next) => {
-    const token = req.header('Authorization');
+const authorize = (roles) => {
 
-    jwt.verify(token, process.env.JWT_SECRET, function (err, claims) {
-        if (err) {
-            res.status(401).send("Unauthorized: " + err.message)
-        }
-        
-        res.locals.claims = claims;
+    return (req, res, next) => {
+        const token = req.header('Authorization');
 
-        next();
-    });
-};
+        jwt.verify(token, process.env.JWT_SECRET, function (err, claims) {
+            if (err) {
+                res.status(401).send("Unauthorized: " + err.message)
+                return
+            }
+            if(roles.includes(claims.role)) {
+                res.locals.claims = claims;
+                next();
+            }
+            else {
+                res.status(401).send("Unauthorized: resource access denied")
+                return
+            }
+        });
+    }
+}
 
 module.exports = { authorize };

@@ -26,7 +26,7 @@ const userLogin = async (req, res, next) => {
                 jwt.sign(claims, process.env.JWT_SECRET, function (error, token) {
                     // some problem in generating JWT
                     if (error) {
-                        res.status(500).json({status: 'Internal Server Error', data:error})
+                        res.status(500).send("Internal Server Error")
                     }
 
                     info.status = "loginsuccess"

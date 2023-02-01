@@ -77,9 +77,27 @@ const updateEnrollment = async (req, res, next) => {
     
 }
 
+const getEnrollmentById = async (req, res, next) => {
+    const {_id} = req.query
+    let response
+    console.log("hi"+req.query._id)
+    try {
+        response = await Enrollment.findOne({_id})
+        console.log(response)
+        if(response == null) throw new Error('Certificate not found.')
+        else res.status(201).json({status: 'success received', data:response})
+
+    }
+    catch(err) {
+        res.status(201).json({status: 'failed', data:err.message})
+    }
+
+}
+
 module.exports = {
     getEnrollments,
     postEnrollment,
     getEnrollmentByCourseName,
-    updateEnrollment
+    updateEnrollment,
+    getEnrollmentById
 }

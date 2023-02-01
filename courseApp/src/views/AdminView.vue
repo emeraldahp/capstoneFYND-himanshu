@@ -4,13 +4,16 @@ export default {
     name: 'admin',
     components: {
         CourseCreator
+    },
+    created() {
+
     }
 
 }
 </script>
 
 <template>
-<div>
-    <course-creator/>
-</div>
+    <div>
+        <course-creator/>
+    </div>
 </template>

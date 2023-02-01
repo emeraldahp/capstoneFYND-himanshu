@@ -50,6 +50,11 @@ export default {
     methods: {
         async userRegister() {
             console.log("userRegister", this.registerData)
+            const err = this.validate()
+            if(err != 'none'){
+                alert(err)
+                return
+            }
             if(this.valid.nameMsg == 'available') {
                 let userPost = {
                     userName: this.registerData.name,
@@ -57,12 +62,21 @@ export default {
                     password: this.registerData.password
                 }    
                 const response = await axios.post(import.meta.env.VITE_API_URL + '/users/register', userPost)
+                if(response.data.data.status = "success")
+                    alert("User Registered Successfully.")
+                else
+                    alert("Failed.")
                 console.log(response)
                 this.$router.push({name: 'home'})
             }
         },
         async tutorRegister() {
             console.log("tutorRegister", this.registerData)
+            const err = this.validate()
+            if(err != 'none'){
+                alert(err)
+                return
+            }
             if(this.valid.nameMsg == 'available') {
                 let tutorPost = {
                     tutorName: this.registerData.name,
@@ -70,6 +84,10 @@ export default {
                     password: this.registerData.password
                 }    
                 const response = await axios.post(import.meta.env.VITE_API_URL + '/tutors/register', tutorPost)
+                if(response.data.data.status = "success")
+                    alert("Tutor Registered Successfully.")
+                else
+                    alert("Failed.")
                 console.log(response)
                 this.$router.push({name: 'home'})
             }
@@ -88,6 +106,10 @@ export default {
                     password: this.registerData.password
                 }    
                 const response = await axios.post(import.meta.env.VITE_API_URL + '/admins/register', adminPost)
+                if(response.data.data.status = "success")
+                    alert("Admin Registered Successfully.")
+                else
+                    alert("Failed.")
                 console.log(response)
                 this.$router.push({name: 'home'})
             }
@@ -111,6 +133,8 @@ export default {
                 err = "Password didn't match."
             else if (this.registerData.name.trim() == '')
                 err = "Please enter a name."
+            else if (this.registerData.name.length > 30)
+                err = "Name too long. Max Length 30."
             return err
         }
 
@@ -118,21 +142,23 @@ export default {
 }
 </script>
 <template>
-    <div class="register-form">
-        <h3> <span class="register-type-text">{{registerType}}</span> Registration </h3>
-        <form @submit.prevent="">
-        Enter <span class="register-type-text">{{registerType}}</span>name <br>
-        <input type="text" placeholder="Enter your name." v-model="this.registerData.name"> <br>Message: {{valid.nameMsg}} <br><br>
-        Enter Email <br>
-        <input type="text" placeholder="Enter your email." v-model="this.registerData.email"> <br> <br>
-        Enter Password <br>
-        <input type="password" placeholder="Enter your password." v-model="this.registerData.password"> <br> <br>
-        Confirm Password <br>
-        <input type="password" placeholder="Confirm password." v-model="this.registerData.password2"> <br> <br>
-        <button v-if="registerType=='user'" @click="userRegister">User Register</button>  
-        <button v-if="registerType=='tutor'" @click="tutorRegister">Tutor Register</button>  
-        <button v-if="registerType=='admin'" @click="adminRegister">Admin Register</button>      
-    </form> 
+    <div>
+        <div class="register-form">
+            <h3> <span class="register-type-text">{{registerType}}</span> Registration </h3>
+            <form @submit.prevent="">
+            Enter <span class="register-type-text">{{registerType}}</span>name <br>
+            <input type="text" placeholder="Enter your name." v-model="this.registerData.name"> <br>Message: {{valid.nameMsg}} <br><br>
+            Enter Email <br>
+            <input type="text" placeholder="Enter your email." v-model="this.registerData.email"> <br> <br>
+            Enter Password <br>
+            <input type="password" placeholder="Enter your password." v-model="this.registerData.password"> <br> <br>
+            Confirm Password <br>
+            <input type="password" placeholder="Confirm password." v-model="this.registerData.password2"> <br> <br>
+            <button v-if="registerType=='user'" @click="userRegister">User Register</button>  
+            <button v-if="registerType=='tutor'" @click="tutorRegister">Tutor Register</button>  
+            <button v-if="registerType=='admin'" @click="adminRegister">Admin Register</button>      
+            </form> 
+        </div>
     </div>
 </template>
 

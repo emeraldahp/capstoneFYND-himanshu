@@ -12,23 +12,33 @@ export default {
         return {
             askQuestionToggle: false
         }
+    },
+    created() {
+
+        if(this.$store.state.userData.courseName == 'none') {
+            this.$router.push({path:'/'})
+        }
+        
     }
 
 }
 </script>
 <template>
-    <div class="course-view-container">
-        <div class="course-render-comp"><course-render/>
-            <button v-if="askQuestionToggle==false" @click="askQuestionToggle=true">Ask Question</button>
+    <div>
+        <div class="course-view-container">
+            <div class="course-render-comp"><course-render/>
+                <button v-if="askQuestionToggle==false" @click="askQuestionToggle=true">Ask Question</button>
+            </div>
+            <div v-if="askQuestionToggle==true" class="bg-fade"></div>
+            <div class="ask-question-comp" v-if="askQuestionToggle==true">
+                <ask-question/>
+                <div class="ask-question-comp-sepr" ></div>
+                <div class="ask-question-comp-closebtn">
+                    <button  v-if="askQuestionToggle==true" @click="askQuestionToggle=false">Close</button>
+                </div>
+            </div>
         </div>
-        <div v-if="askQuestionToggle==true" class="bg-fade"></div>
-        <div class="ask-question-comp" v-if="askQuestionToggle==true">
-            <ask-question/>
-            <div class="ask-question-comp-closebtn"><button  v-if="askQuestionToggle==true" @click="askQuestionToggle=false">Close</button></div>
-        </div>
-        
     </div>
-
 </template>
 
 <style>
@@ -55,6 +65,7 @@ export default {
     background-color: black;
     opacity: 0.5;
     z-index: 5;
+    animation: fadeInBG .5s;
 }
 
 .ask-question-comp {
@@ -71,9 +82,13 @@ export default {
 }
 
 
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+.ask-question-comp-sepr {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    width: 400px;
+    background-color: var(--theme-color3);
+    padding-bottom: 2px;
 }
 
 .ask-question-comp-closebtn {
@@ -82,7 +97,8 @@ export default {
     place-items: center;
     width: 400px;
     background-color: var(--theme-color2);
-    padding-bottom: 10px;
+    padding: 10px 0px 10px 0px;
 }
+
 
 </style>

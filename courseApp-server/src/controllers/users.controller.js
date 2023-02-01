@@ -1,29 +1,45 @@
 const User = require('../models/User')
+const jwt = require('jsonwebtoken')
 
 const userLogin = async (req, res, next) => {
     const credentials = req.body
     const {userName, password} = credentials
     try {
-    const check = await User.findOne({userName})
-    let info = {
-        status: "",
-        userName: ""
-    }
-    console.log("check", check, "req", req.body)
-    if(check === null){
-        info.status = "No user found"
-    }
-    else{
-        const isMatch = await check.checkPassword(password);
-        if(isMatch) {
-            info.status = "loginsuccess"
-            info.userName = userName
+        const check = await User.findOne({userName})
+        let info = {
+            status: "",
+            userName: "",
+            token: ""
         }
-        else
-            info.status = "wrong password"
-    }
-    console.log(info)
-    res.status(201).json({status: 'success', data:info})
+        console.log("check", check, "req", req.body)
+        if(check === null){
+            info.status = "No user found"
+            res.status(201).json({status: 'success', data:info})
+        }
+        else{
+            const isMatch = await check.checkPassword(password);
+            if(isMatch) {
+                const claims = {
+                    name: check.userName,
+                    role: "user"
+                };
+                jwt.sign(claims, process.env.JWT_SECRET, function (error, token) {
+                    // some problem in generating JWT
+                    if (error) {
+                        res.status(500).send("Internal Server Error")
+                    }
+
+                    info.status = "loginsuccess"
+                    info.userName = check.userName
+                    info.token = token
+                    res.status(201).json({status: 'success', data:info})
+                });
+            }
+            else {
+                info.status = "wrong password"
+                res.status(201).json({status: 'success', data:info})
+            }
+        }
     }
     catch(err) {
         res.status(201).json({status: 'failed', data:err.message})

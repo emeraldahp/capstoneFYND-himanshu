@@ -1,4 +1,5 @@
 const Admin = require('../models/Admin')
+const jwt = require('jsonwebtoken')
 
 const adminLogin = async (req, res, next) => {
     const credentials = req.body
@@ -7,23 +8,38 @@ const adminLogin = async (req, res, next) => {
         const check = await Admin.findOne({adminName})
         let info = {
             status: "",
-            adminName: ""
+            adminName: "",
+            token: ""
         }
         console.log("check", check, "req", req.body)
         if(check === null){
             info.status = "No admin found"
+            res.status(201).json({status: 'success', data:info})
         }
         else{
             const isMatch = await check.checkPassword(password);
             if(isMatch) {
-                info.status = "loginsuccess"
-                info.adminName = adminName
+                const claims = {
+                    name: check.adminName,
+                    role: "admin"
+                };
+                jwt.sign(claims, process.env.JWT_SECRET, function (error, token) {
+                    // some problem in generating JWT
+                    if (error) {
+                        res.status(500).send("Internal Server Error")
+                    }
+
+                    info.status = "loginsuccess"
+                    info.adminName = check.adminName
+                    info.token = token
+                    res.status(201).json({status: 'success', data:info})
+                });
             }
-            else
+            else {
                 info.status = "wrong password"
+                res.status(201).json({status: 'success', data:info})
+            }
         }
-        console.log(info)
-        res.status(201).json({status: 'success', data:info})
     }
     catch(err) {
         res.status(201).json({status: 'failed', data:err.message})

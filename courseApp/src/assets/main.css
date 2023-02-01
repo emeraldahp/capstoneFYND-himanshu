@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
 
+@keyframes fadeInBG {
+    0% { opacity: 0; }
+    100% { opacity: 0.5; }
+}
 
 body {
 
@@ -20,7 +28,7 @@ a {
 
 }
 
-h3, h4 {
+h2, h3, h4 {
     color: var(--theme-color4);
 }
 
@@ -124,6 +132,6 @@ hr {
 
 #app {
     max-width: 1290px;
-    min-width: 650px;
+    min-width: 400px;
     margin: auto;
 }

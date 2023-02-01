@@ -1,4 +1,5 @@
 const Tutor = require('../models/Tutor')
+const jwt = require('jsonwebtoken')
 
 const tutorLogin = async (req, res, next) => {
     const credentials = req.body
@@ -7,23 +8,38 @@ const tutorLogin = async (req, res, next) => {
         const check = await Tutor.findOne({tutorName})
         let info = {
             status: "",
-            tutorName: ""
+            tutorName: "",
+            token: ""
         }
         console.log("check", check, "req", req.body)
         if(check === null){
             info.status = "No tutor found"
+            res.status(201).json({status: 'success', data:info})
         }
         else{
             const isMatch = await check.checkPassword(password);
             if(isMatch) {
-                info.status = "loginsuccess"
-                info.tutorName = tutorName
+                const claims = {
+                    name: check.tutorName,
+                    role: "tutor"
+                };
+                jwt.sign(claims, process.env.JWT_SECRET, function (error, token) {
+                    // some problem in generating JWT
+                    if (error) {
+                        res.status(500).send("Internal Server Error")
+                    }
+
+                    info.status = "loginsuccess"
+                    info.tutorName = check.tutorName
+                    info.token = token
+                    res.status(201).json({status: 'success', data:info})
+                });
             }
-            else
+            else {
                 info.status = "wrong password"
+                res.status(201).json({status: 'success', data:info})
+            }
         }
-        console.log(info)
-        res.status(201).json({status: 'success', data:info})
     }
     catch(err) {
         res.status(201).json({status: 'failed', data:err.message})

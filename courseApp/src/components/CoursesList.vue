@@ -9,6 +9,7 @@ export default {
             enrollmentList: [],
             enrolledCourses: [],
             otherCourses: [],
+            defaultImgUrl: import.meta.env.VITE_DEFAULT_IMG_URL
         }
     },
     mounted() {
@@ -82,32 +83,31 @@ export default {
         <h3 v-if="$store.state.userData.loggedIn==false"> Courses: </h3> <br>
         <div class="hcourse-container" v-if="$store.state.userData.loggedIn==false">
             <div class="hcourse-item" v-for="course in coursesData" :key="course._id" >
-                <h4>{{course.courseName}}</h4> <br>
-                {{course._id}} 
+                <div><img class="hcourse-image" :src="course.courseImage" @error="$event.target.src=defaultImgUrl" ></div>
+                <div class="hcourse-title">{{course.courseName}}</div>
+                <div class="hcourse-desc">{{course.courseDesc}}</div>
+                
             </div>
         </div>
         <div v-else>  
-            <h3>EnrolledCourses</h3> <br>
+            <h3>Enrolled Courses</h3> <br>
             <div class="hcourse-container">
             <div class="hcourse-item" v-for = "course in enrolledCourses" :key="course._id" @click="selectCourse(course.courseName)">
-                {{course.courseName}}
+                <div><img class="hcourse-image" :src="course.courseImage" @error="$event.target.src=defaultImgUrl" ></div>
+                <div class="hcourse-title">{{course.courseName}}</div>
+                <div class="hcourse-desc">{{course.courseDesc}}</div>
             </div>
             </div>
-            <h3>OtherCourses</h3> <br>
+            <div v-if="otherCourses.length != 0"><h3>Other Courses</h3></div> <br>
             <div class="hcourse-container">
             <div class="hcourse-item" v-for = "course in otherCourses" :key="course._id">
-                {{course.courseName}}
+                <div><img class="hcourse-image" :src="course.courseImage" @error="$event.target.src=defaultImgUrl" ></div>
+                <div class="hcourse-title">{{course.courseName}}</div>
                 <button @click="enrollCourse(course.courseName, course.noOfSections)">Enroll</button>
+                <div class="hcourse-desc">{{course.courseDesc}}</div>
             </div>
             </div>
         </div>
-
-    </div>
-    <div>
-        <hr>
-        Debug:Welcome: User: {{this.$store.state.userData.userName}} <br>
-        Status: LoggedIn: {{this.$store.state.userData.loggedIn}} <br>
-        currentCourse: {{this.$store.state.userData.courseName}} <br>
         <hr>
     </div>
 </template>
@@ -122,14 +122,26 @@ export default {
 
 .hcourse-item {
     width: 270px;
-    height: 200px;
+    height: 250px;
     background: var(--theme-color2);
-    transition: all 300ms;
+    transition: 0.5s;
     margin: 10px;
-    padding: 10px;
+    overflow: hidden;
 }
-.course-item:hover {
-    opacity: 0.8;
-}  
+.hcourse-item:hover {
+    opacity: 0.7;
+}
+
+.hcourse-image {
+    width: 270px;
+    height: 120px;
+}
+.hcourse-title {
+    font-size: 20px;
+    margin: 5px;
+}
+.hcourse-desc {
+    margin: 5px;
+}
 
 </style>

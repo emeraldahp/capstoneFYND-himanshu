@@ -22,7 +22,9 @@ export default {
                     }
                 ]
             },
-            courseProgress:{}
+            courseProgress:{
+                sectionProgress:[]
+            }
         }
     },
     mounted() {
@@ -117,30 +119,27 @@ export default {
 }
 </script>
 <template>
-    <h3>{{structureData.courseName}}</h3>
-    <div class="course-container">
-        <div class="sections">
-            Sections <br>
-            <div class="section-container">
-            <div class="section-item" v-for="section, index in structureData.sections"  @click="selectSection(index)">
-                {{section.sectionName}}
-            </div>
-            </div>
-        </div>
-        <div class="viewport" v-if="structureData.sections[0].sectionName != null" >
-            {{structureData.sections[currentSection].sectionName}}
-            <div class="sitem-container">
-            <div v-for="item in structureData.sections[currentSection].items">
-                {{item.content}}
-            </div>
-            </div>
-        </div>
-    </div>
     <div>
-        <hr>
-        debug:{{currentSection}} <br>
-            courseStatus: {{courseProgress}} <br>
-
+        <h3>{{structureData.courseName}}</h3>
+        <div class="course-container">
+            <div class="sections">
+                Sections <br>
+                <div class="section-container">
+                    <div class="section-item" v-for="section, index in structureData.sections"  @click="selectSection(index)">
+                        <div v-show="courseProgress.sectionProgress[index]==true" class="section-item-complete"></div>
+                        <div class="section-item-title" >{{section.sectionName}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="viewport" v-if="structureData.sections[0].sectionName != null" >
+                {{structureData.sections[currentSection].sectionName}}
+                <div class="sitem-container">
+                <div v-for="item in structureData.sections[currentSection].items">
+                    {{item.content}}
+                </div>
+                </div>
+            </div>
+        </div>
         <hr>
     </div>
 </template>
@@ -164,6 +163,8 @@ export default {
     margin-top: 10px;
 }
 .section-item {
+    display: flex;
+    flex-direction: row;
     width: 200px;
     height: 50px;
     background: var(--theme-color2);
@@ -173,6 +174,14 @@ export default {
 .section-item:hover {
     opacity: 0.8;
 }
+.section-item-complete {
+    width: 3px;
+    background-color: var(--theme-color3);
+}
+.section-item-title {
+    margin-left: 3px;
+}
+
 .sitem-container {
     display: flex;
     flex-direction: column;

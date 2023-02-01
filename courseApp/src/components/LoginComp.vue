@@ -24,6 +24,8 @@ export default {
             console.log(response)
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {   
+                localStorage.setItem('token', response.data.data.token)
+                axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
                 this.$store.commit("updateUser", response.data.data.userName)
                 this.$store.commit("userLog", true)
                 this.$router.push({name:'home'})
@@ -39,6 +41,8 @@ export default {
             console.log(response)
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {
+                localStorage.setItem('token', response.data.data.token)
+                axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
                 this.$store.commit("updateTutor", response.data.data.tutorName)
                 this.$store.commit("tutorLog", true)
                 this.$router.push({name:'tutorview'})
@@ -54,9 +58,12 @@ export default {
             console.log(response)
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {
+                localStorage.setItem('token', response.data.data.token)
+                axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
                 this.$store.commit("updateAdmin", response.data.data.adminName)
                 this.$store.commit("adminLog", true)
                 this.$router.push({name:'adminview'})
+                
             }
         }
     }
@@ -64,17 +71,19 @@ export default {
 </script>
 
 <template>
-    <div class="login-form">
-        <h3> <span class="login-type-text">{{loginType}}</span> Login </h3>
-        <form @submit.prevent = "">
-            <span class="login-type-text">{{loginType}}</span>name: <br> 
-            <input type="text" placeholder="Enter your name." v-model="this.loginData.name"> <br> <br>
-            Password: <br> 
-            <input type="password" placeholder="Enter your password." v-model="this.loginData.password"> <br> <br>
-            <button v-if="loginType=='user'" v-on:click="userLogin">User Login</button>
-            <button v-if="loginType=='tutor'" v-on:click="tutorLogin">Tutor Login</button>
-            <button v-if="loginType=='admin'" v-on:click="adminLogin">Admin login</button>
-        </form>      
+    <div>
+        <div class="login-form">
+            <h3> <span class="login-type-text">{{loginType}}</span> Login </h3>
+            <form @submit.prevent = "">
+                <span class="login-type-text">{{loginType}}</span>name: <br> 
+                <input type="text" placeholder="Enter your name." v-model="this.loginData.name"> <br> <br>
+                Password: <br> 
+                <input type="password" placeholder="Enter your password." v-model="this.loginData.password"> <br> <br>
+                <button v-if="loginType=='user'" v-on:click="userLogin">User Login</button>
+                <button v-if="loginType=='tutor'" v-on:click="tutorLogin">Tutor Login</button>
+                <button v-if="loginType=='admin'" v-on:click="adminLogin">Admin login</button>
+            </form>      
+        </div>
     </div>
 </template>
 

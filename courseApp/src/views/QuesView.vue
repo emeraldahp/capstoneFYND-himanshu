@@ -3,9 +3,14 @@ import MyQuestions from '../components/MyQuestions.vue'
 export default {
     components: {
         MyQuestions
+    },
+    created() {
+
     }
 }
 </script>
 <template>
-    <my-questions/>
+    <div>
+        <my-questions/>
+    </div>
 </template>

@@ -9,6 +9,7 @@ export default {
 
     methods: {
         logOut(type) {
+            localStorage.removeItem("token")
             this.$store.dispatch(type + "LogOut")
             this.$router.push({name:'home'})
         },

@@ -1,4 +1,3 @@
-const { update } = require('../models/Question')
 const Question = require('../models/Question')
 const {coursesListByTutor} = require('./courses.controller')
 
@@ -20,7 +19,7 @@ const postQuestion = async (req, res, next) => {
 
 const getQuestionsByTutor = async (req, res, next) => {
     const {tutorName} = req.query
-    console.log(req.query)
+    console.log('Query'+req.query.tutorName)
     try {
         const coursesList = await coursesListByTutor(tutorName)
         console.log("inQues",coursesList)

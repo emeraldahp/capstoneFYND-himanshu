@@ -9,6 +9,7 @@ const enrollmentsApiRouter = require('./routes/enrollments.routes')
 const questionApiRouter = require('./routes/questions.routes')
 const tutorApiRouter = require('./routes/tutor.routes')
 const adminApiRouter = require('./routes/admin.routes')
+const rolesApiRouter = require('./routes/roles.routes')
 
 const notFound = require('./middleware/not-found');
 
@@ -26,7 +27,7 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
-
+app.use('/roles', rolesApiRouter)
 app.use('/courses', coursesApiRouter)
 app.use('/users', usersApiRouter)
 app.use('/structures', structuresApiRouter)

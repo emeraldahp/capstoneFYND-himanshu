@@ -4,6 +4,12 @@ export default {
     name: 'admin',
     components: {
         CourseCreator
+    },
+    created() {
+        if(this.$store.state.adminData.loggedIn == false) {
+            alert("Unauthorized")
+            this.$router.push({path:'/'})
+        }
     }
 
 }

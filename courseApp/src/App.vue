@@ -8,6 +8,7 @@ export default {
     },
     created() {
         const token = localStorage.getItem('token')
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
         console.log('app created')
 
         if(this.$store.state.userData.loggedIn == false && 

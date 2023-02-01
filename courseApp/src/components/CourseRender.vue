@@ -173,6 +173,8 @@ export default {
 .section-item:hover {
     opacity: 0.8;
 }
+
+
 .sitem-container {
     display: flex;
     flex-direction: column;

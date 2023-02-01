@@ -5,10 +5,7 @@ export default {
         MyQuestions
     },
     created() {
-        if(this.$store.state.userData.loggedIn == false) {
-            alert("Unauthorized")
-            this.$router.push({path:'/'})
-        }
+
     }
 }
 </script>

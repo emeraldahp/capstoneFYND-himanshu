@@ -15,13 +15,10 @@ export default {
     },
     created() {
 
-        if(this.$store.state.userData.loggedIn == false) {
-            alert("Unauthorized")
-            this.$router.push({path:'/'})
-        }
         if(this.$store.state.userData.courseName == 'none') {
             this.$router.push({path:'/'})
         }
+        
     }
 
 }

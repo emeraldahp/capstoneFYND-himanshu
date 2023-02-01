@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios'
 import { RouterLink } from 'vue-router'
 export default {
     data() {
@@ -10,6 +11,7 @@ export default {
     methods: {
         logOut(type) {
             localStorage.removeItem("token")
+            axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
             this.$store.dispatch(type + "LogOut")
             this.$router.push({name:'home'})
         },

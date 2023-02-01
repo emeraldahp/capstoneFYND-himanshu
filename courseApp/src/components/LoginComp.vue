@@ -25,6 +25,7 @@ export default {
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {   
                 localStorage.setItem('token', response.data.data.token)
+                axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
                 this.$store.commit("updateUser", response.data.data.userName)
                 this.$store.commit("userLog", true)
                 this.$router.push({name:'home'})
@@ -41,6 +42,7 @@ export default {
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {
                 localStorage.setItem('token', response.data.data.token)
+                axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
                 this.$store.commit("updateTutor", response.data.data.tutorName)
                 this.$store.commit("tutorLog", true)
                 this.$router.push({name:'tutorview'})
@@ -57,6 +59,7 @@ export default {
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {
                 localStorage.setItem('token', response.data.data.token)
+                axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
                 this.$store.commit("updateAdmin", response.data.data.adminName)
                 this.$store.commit("adminLog", true)
                 this.$router.push({name:'adminview'})

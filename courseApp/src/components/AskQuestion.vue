@@ -37,13 +37,13 @@ export default {
 <template>
     <div class="ask-question-container">
         <div class="ask-question-form">
-            <h4>Ask Question:</h4> <br>
+            <h4>Ask Question</h4> <br>
             <div>
-                Question Name: <br>
+                Question Name <br>
                 <input type="text" v-model="this.questionData.questionName"> <br> <br>
             </div>
             <div>
-                Question Description: <br>
+                Question Description <br>
                 <input type="text" v-model="this.questionData.questionDesc"> <br> <br>
             </div>
             <button @click="postQuestion">Submit</button>

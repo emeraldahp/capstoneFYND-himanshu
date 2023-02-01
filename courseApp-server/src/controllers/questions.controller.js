@@ -56,9 +56,21 @@ const getQuestionsByUser = async (req, res, next) => {
     }
 }
 
+const removeQuestionById = async (req, res, next) => {
+    const {_id} = req.query
+    try {
+        response = await Question.deleteOne({_id})
+        res.status(201).json({status:'success delete', data: response})
+    }
+    catch(err) {
+        res.status(201).json({status:'failed', data: err.message})
+    }
+}
+
 module.exports = {
     postQuestion,
     getQuestionsByTutor,
     addAnsById,
-    getQuestionsByUser
+    getQuestionsByUser,
+    removeQuestionById
 }

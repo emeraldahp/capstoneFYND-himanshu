@@ -130,9 +130,12 @@ export default {
     width: 270px;
     height: auto;
     background: var(--theme-color2);
+    transition: 0.5s;
     margin: 10px;
     overflow: hidden;
-
+}
+.hcourse-item:hover {
+    opacity: 0.7;
 }
 
 .hcourse-image {

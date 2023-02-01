@@ -63,7 +63,7 @@ export default{
                     adminName: this.$store.state.adminData.adminName,
                     tutorName: this.courseData.tutorName,
                     courseDesc: this.courseData.courseDesc,
-                    courseImage: this.courseData.courseImage || "default img url",
+                    courseImage: this.courseData.courseImage || "defaultImg",
                     noOfSections: this.structureData.noOfSections
                 }
                 const response1 = await axios.post(import.meta.env.VITE_API_URL + '/courses', coursePost)

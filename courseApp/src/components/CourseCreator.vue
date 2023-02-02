@@ -57,6 +57,10 @@ export default{
     },  
     methods:{     
         async postCourses() {
+            if(this.$store.state.adminData.verified == false){ 
+                alert('NotVerified: Only testing allowed and cannot post courses. Please Contact: SuperAdmin') 
+                return
+            }
             if(this.valid.courseMsg == "available" && this.valid.tutorMsg == "selected" && this.structureData.noOfSections != 0) {
                 let coursePost = {
                     courseName: this.courseData.courseName,

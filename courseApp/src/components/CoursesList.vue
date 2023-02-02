@@ -13,40 +13,53 @@ export default {
         }
     },
     mounted() {
-        this.$store.commit("loadingStatus", true)
         this.load()
 
             
     },
     methods:{
         load(){
-            axios.get(import.meta.env.VITE_API_URL + '/courses').then(res => {
-            //console.log(res.data.data)
-            this.coursesData = res.data.data
-            setTimeout(()=>{this.$store.commit("loadingStatus", false)},500)
-            
-            if(this.$store.state.userData.loggedIn==true) {
-                axios.get(import.meta.env.VITE_API_URL + '/enrollments', {params:{userName: this.$store.state.userData.userName}}).then(res=>{
+            axios.get(import.meta.env.VITE_API_URL + '/courses')
+                .then(res => {
                     //console.log(res.data.data)
-                    this.enrollments = res.data.data
+                    this.coursesData = res.data.data
+                    
+                    
+                    if(this.$store.state.userData.loggedIn==true) {
+                        axios.get(import.meta.env.VITE_API_URL + '/enrollments', {params:{userName: this.$store.state.userData.userName}})
+                            .then(res=>{
+                                //console.log(res.data.data)
+                                this.enrollments = res.data.data
 
-                    this.enrollments.forEach(enrollment => {
-                        this.enrollmentList.push(enrollment.courseName)
-                    })
-                    console.log(this.enrollmentList)
+                                this.enrollments.forEach(enrollment => {
+                                    this.enrollmentList.push(enrollment.courseName)
+                                })
+                                console.log(this.enrollmentList)
 
-                    this.coursesData.forEach(course => {
-                        if(this.enrollmentList.includes(course.courseName))
-                            this.enrolledCourses.push(course)
-                        else
-                            this.otherCourses.push(course)
-                    })
-                    console.log(this.enrolledCourses)
-                    console.log(this.otherCourses)
+                                this.coursesData.forEach(course => {
+                                    if(this.enrollmentList.includes(course.courseName))
+                                        this.enrolledCourses.push(course)
+                                    else
+                                        this.otherCourses.push(course)
+                                })
+                                console.log(this.enrolledCourses)
+                                console.log(this.otherCourses)
+                                this.$store.commit("loadingStatus", false)
+                            })
+                            .catch(err=>{
+                                alert("Error: EnrollmentFetchingFailed.")
+                                this.$store.commit("loadingStatus", false)
+                            })
+                    }
+                    else {
+                        this.$store.commit("loadingStatus", false)
+                    }
+            
                 })
-            }
-        
-            })
+                .catch(err=>{
+                    alert("Error: CourseFetchingFailed.")
+                    this.$store.commit("loadingStatus", false)
+                })
         },
 
         selectCourse(courseName) {

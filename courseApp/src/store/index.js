@@ -12,7 +12,8 @@ export default createStore({
         },
         adminData: {
             loggedIn: false,
-            adminName: "none"
+            adminName: "none",
+            verified: false
         },
         loading: false
     },
@@ -41,6 +42,9 @@ export default createStore({
         },
         loadingStatus(state, payload) {
             state.loading = payload
+        },
+        setAdminVerified(state, payload) {
+            state.adminData.verified = payload
         }
     },
     actions: {

@@ -33,6 +33,7 @@ export default {
                         else if(res.data.data.role=='admin') {
                             this.$store.commit("updateAdmin", res.data.data.name)
                             this.$store.commit("adminLog", true)
+                            this.$store.commit("setAdminVerified", res.data.data.verified)
                         }
                         this.forceRerender()
                         
@@ -65,38 +66,46 @@ import NavBar from './components/NavBar.vue';
 
 <template>   
     <div>
-        <nav-bar/>
-        <div v-if="this.$store.state.loading==true" class="loading">
-            <div>
+        <div class="nav-bar" >
+            <nav-bar/>
+        </div>
+        <div class="router-area" >
+            <div v-if="this.$store.state.loading==true" class="loading-container">
                 <div class="spinner" ></div>
                 <div class="loadtxt" >LOADING</div>
             </div>
-        </div>
-        <div>
-            <RouterView :key="myKey" />
+            <div v-show="this.$store.state.loading==false" class="router-view" >
+                <RouterView :key="myKey" />
+            </div>
         </div>
     </div>
 </template>
 
 <style>
 
-.loading {
-    background-color: var(--theme-color1);
-    position: fixed;
+.nav-bar {
+    height: 50px;
+}
+
+.loading-container {
+    background-color:var(--theme-color1);
     width: 100%;
-    height: 100%;
+    height: auto;
     z-index: 20;
     top: 0;
     left: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-
 }
+
+
 .spinner {
     border: 5px solid var(--theme-color2) ;
     border-bottom: 5px solid var(--theme-color3);
     animation: spin 2s linear infinite;
+    margin-top: 50px;
     margin-bottom: 5px ;
     border-radius: 50%;
     height: 60px;

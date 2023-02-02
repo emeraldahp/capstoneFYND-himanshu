@@ -62,6 +62,8 @@ export default {
                 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
                 this.$store.commit("updateAdmin", response.data.data.adminName)
                 this.$store.commit("adminLog", true)
+                this.$store.commit("setAdminVerified", response.data.data.verified)
+                if(response.data.data.verified==false) alert('NotVerified: Only testing allowed and cannot post courses. Please Contact: SuperAdmin')
                 this.$router.push({name:'adminview'})
                 
             }

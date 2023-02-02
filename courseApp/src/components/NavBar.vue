@@ -44,12 +44,14 @@ export default {
                 </div>
             </div>
             <div class="navbar2-container" v-else-if="this.$store.state.tutorData.loggedIn == true">
+                <RouterLink to="/tutorview">AnsQuestions</RouterLink>
                 <div class="navbar2-logout-item" >
                     Welcome {{this.$store.state.tutorData.tutorName}}
                     <button class="navbar2-logout-item" @click="logOut('tutor')">LogOut</button>
                 </div>
             </div>
             <div class="navbar2-container" v-else-if="this.$store.state.adminData.loggedIn == true">
+                <RouterLink to="/adminview">CourseCreator</RouterLink>
                 <div class="navbar2-logout-item" >
                     Welcome {{this.$store.state.adminData.adminName}}
                     <button class="navbar2-logout-item" @click="logOut('admin')">LogOut</button>

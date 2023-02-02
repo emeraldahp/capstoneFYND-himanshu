@@ -10,13 +10,16 @@
     100% { opacity: 0.5; }
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 body {
 
     --theme-color1:#1e1e1e;
     --theme-color2:#282828;
     --theme-color3:#A5C9CA;
     --theme-color4:#E7F6F2;
-    
 
     background-color: var(--theme-color1);
     color: var(--theme-color3);

@@ -127,7 +127,7 @@ export default {
                 <div class="section-container">
                     <div class="section-item" v-for="section, index in structureData.sections"  @click="selectSection(index)">
                         <div v-show="courseProgress.sectionProgress[index]==true" class="section-item-complete"></div>
-                        <div class="section-item-title" >{{section.sectionName}}</div>
+                        <div class="section-text" >{{section.sectionName}}</div>
                     </div>
                 </div>
             </div>
@@ -135,7 +135,15 @@ export default {
                 {{structureData.sections[currentSection].sectionName}}
                 <div class="sitem-container">
                 <div v-for="item in structureData.sections[currentSection].items">
-                    {{item.content}}
+                    <div v-if="item.type=='text'" class="sitem-text" :class="item.content[0]=='#'? 'sitem-text-title' : '' ">
+                        {{item.content}}
+                    </div>
+                    <div v-if="item.type=='image'" class="sitem-image-cont" >
+                        <img class="sitem-image" :src="item.content" alt="ImageCantBeLoaded">
+                    </div>
+                    <div v-if="item.type=='video'" >
+                        <iframe class="sitem-video" :src="'https://www.youtube.com/embed/'+ item.content"></iframe>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -151,9 +159,16 @@ export default {
 }
 .sections{
     flex-basis: auto;
+    min-width: 250px;
+    max-height: 800px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .viewport{
     flex-grow: 1;
+    max-height: 800px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 
@@ -165,21 +180,29 @@ export default {
 .section-item {
     display: flex;
     flex-direction: row;
-    width: 200px;
+    width: 240px;
     height: 50px;
+    place-items: center;
     background: var(--theme-color2);
     transition: all 300ms;
-    margin: 0px 50px 5px 0px
+    margin: 0px 5px 5px 0px;
+    overflow: hidden;
 }
+
 .section-item:hover {
     opacity: 0.8;
 }
+
 .section-item-complete {
     width: 3px;
+    height: 50px;
     background-color: var(--theme-color3);
 }
-.section-item-title {
-    margin-left: 3px;
+
+.section-text {
+    margin-left: 7px;
+    max-width: 220px;
+    word-wrap: break-word;
 }
 
 .sitem-container {
@@ -188,4 +211,22 @@ export default {
     background: var(--theme-color2);
     margin-top: 10px;
 }
+
+.sitem-text {
+    word-wrap: break-word;
+}
+
+.sitem-text-title {
+    font-size: 20px;
+}
+
+.sitem-image {
+    max-width: 100%;
+}
+.sitem-video {
+    width:1000px;
+    aspect-ratio: 16/9;
+    max-width: 100%;
+}
+
 </style>

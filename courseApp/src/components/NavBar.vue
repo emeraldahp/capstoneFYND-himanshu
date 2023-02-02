@@ -47,7 +47,7 @@ export default {
                 <RouterLink class="navbar2-link-item" @click="panel=false" to="/quesview"> MyQuestions </RouterLink>
                 <RouterLink class="navbar2-link-item" @click="panel=false" to="/profileview">MyProfile</RouterLink>
                 <div class="navbar2-logout-item" >
-                    Welcome {{this.$store.state.userData.userName}}
+                    <div class="navbar2-logout-item-txt">Welcome {{this.$store.state.userData.userName}}</div>
                     <button @click="panel=false; logOut('user')">LogOut</button>
                 </div>
             </div>
@@ -125,6 +125,11 @@ export default {
     place-items: center;
     margin-left: auto; /*to place logout, login send to end*/
     gap: 10px;
+}
+
+.navbar2-logout-item-txt {
+    overflow: hidden;
+    max-width: 150px;
 }
 
 .navbar2opt-container {

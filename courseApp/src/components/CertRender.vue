@@ -55,8 +55,8 @@ export default {
     flex-direction: column;
     place-items: center;
     background-color: var(--theme-color2);
-    width: 800px;
-
+    max-width: 800px;
+    padding: 5% 10% 5% 10%;
 }
 .certificate-item {
     padding: 10px;

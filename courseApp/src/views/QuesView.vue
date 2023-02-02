@@ -5,7 +5,7 @@ export default {
         MyQuestions
     },
     created() {
-
+        
     }
 }
 </script>

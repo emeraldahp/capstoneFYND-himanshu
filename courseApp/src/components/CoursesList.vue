@@ -13,7 +13,9 @@ export default {
         }
     },
     mounted() {
+        this.$store.commit("loadingStatus", true)
         this.load()
+
             
     },
     methods:{
@@ -21,7 +23,8 @@ export default {
             axios.get(import.meta.env.VITE_API_URL + '/courses').then(res => {
             //console.log(res.data.data)
             this.coursesData = res.data.data
-
+            setTimeout(()=>{this.$store.commit("loadingStatus", false)},500)
+            
             if(this.$store.state.userData.loggedIn==true) {
                 axios.get(import.meta.env.VITE_API_URL + '/enrollments', {params:{userName: this.$store.state.userData.userName}}).then(res=>{
                     //console.log(res.data.data)

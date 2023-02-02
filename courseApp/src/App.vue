@@ -34,7 +34,8 @@ export default {
                             this.$store.commit("updateAdmin", res.data.data.name)
                             this.$store.commit("adminLog", true)
                         }
-                        this.ready = true
+                        this.forceRerender()
+                        
                     })
                     .catch((err) => {
                         console.log(err)
@@ -45,7 +46,6 @@ export default {
                     })
 
             }
-            this.ready = true
         }
     },
     methods: {
@@ -66,9 +66,44 @@ import NavBar from './components/NavBar.vue';
 <template>   
     <div>
         <nav-bar/>
-        <div v-if="ready==true" >
+        <div v-if="this.$store.state.loading==true" class="loading">
+            <div>
+                <div class="spinner" ></div>
+                <div class="loadtxt" >LOADING</div>
+            </div>
+        </div>
+        <div>
             <RouterView :key="myKey" />
         </div>
     </div>
 </template>
 
+<style>
+
+.loading {
+    background-color: var(--theme-color1);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.spinner {
+    border: 5px solid var(--theme-color2) ;
+    border-bottom: 5px solid var(--theme-color3);
+    animation: spin 2s linear infinite;
+    margin-bottom: 5px ;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+}
+.loadtxt {
+    animation: fadeIn .5s;
+}
+
+</style>

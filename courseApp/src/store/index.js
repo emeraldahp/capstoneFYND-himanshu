@@ -13,7 +13,8 @@ export default createStore({
         adminData: {
             loggedIn: false,
             adminName: "none"
-        }
+        },
+        loading: false
     },
     getters: {},
     mutations: {
@@ -37,6 +38,9 @@ export default createStore({
         },
         updateAdmin(state, payload) {
             state.adminData.adminName = payload
+        },
+        loadingStatus(state, payload) {
+            state.loading = payload
         }
     },
     actions: {

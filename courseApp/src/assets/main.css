@@ -10,6 +10,11 @@
     100% { opacity: 0.5; }
 }
 
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
@@ -135,6 +140,6 @@ hr {
 
 #app {
     max-width: 1290px;
-    min-width: 400px;
+    min-width: 600px;
     margin: auto;
 }

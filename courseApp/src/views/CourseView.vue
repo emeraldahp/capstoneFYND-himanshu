@@ -10,7 +10,8 @@ export default {
     },
     data() {
         return {
-            askQuestionToggle: false
+            askQuestionToggle: false,
+            ready: false
         }
     },
     created() {
@@ -18,13 +19,16 @@ export default {
         if(this.$store.state.userData.courseName == 'none') {
             this.$router.push({path:'/'})
         }
+        else {
+            this.ready = true
+        }
         
     }
 
 }
 </script>
 <template>
-    <div>
+    <div v-if="ready==true">
         <div class="course-view-container">
             <div class="course-render-comp"><course-render/>
                 <button v-if="askQuestionToggle==false" @click="askQuestionToggle=true">Ask Question</button>

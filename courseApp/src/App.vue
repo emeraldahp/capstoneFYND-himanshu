@@ -3,7 +3,8 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            myKey: 0
+            myKey: 0,
+            ready: false
         }
     },
     created() {
@@ -18,24 +19,33 @@ export default {
             if(token != null) {
                 console.log("token yes")
 
-                axios.get(import.meta.env.VITE_API_URL + '/roles/name',{headers:{Authorization:token}}).then(res =>{
-                    console.log(res)
-                    if(res.data.data.role=='user') {
-                        this.$store.commit("updateUser", res.data.data.name)
-                        this.$store.commit("userLog", true)
-                    }
-                    else if(res.data.data.role=='tutor') {
-                        this.$store.commit("updateTutor", res.data.data.name)
-                        this.$store.commit("tutorLog", true)
-                    }
-                    else if(res.data.data.role=='admin') {
-                        this.$store.commit("updateAdmin", res.data.data.name)
-                        this.$store.commit("adminLog", true)
-                    }
-                    this.forceRerender()
-                })
+                axios.get(import.meta.env.VITE_API_URL + '/roles/name',{headers:{Authorization:token}})
+                    .then(res =>{
+                        console.log(res)
+                        if(res.data.data.role=='user') {
+                            this.$store.commit("updateUser", res.data.data.name)
+                            this.$store.commit("userLog", true)
+                        }
+                        else if(res.data.data.role=='tutor') {
+                            this.$store.commit("updateTutor", res.data.data.name)
+                            this.$store.commit("tutorLog", true)
+                        }
+                        else if(res.data.data.role=='admin') {
+                            this.$store.commit("updateAdmin", res.data.data.name)
+                            this.$store.commit("adminLog", true)
+                        }
+                        this.ready = true
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        alert("Error: login again")
+                        localStorage.removeItem("token")
+                        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
+                        this.$router.push({name:'home'})
+                    })
 
             }
+            this.ready = true
         }
     },
     methods: {
@@ -53,8 +63,12 @@ import NavBar from './components/NavBar.vue';
 </script>
 
 
-<template>    
-    <nav-bar/>
-    <RouterView :key="myKey" />
+<template>   
+    <div>
+        <nav-bar/>
+        <div v-if="ready==true" >
+            <RouterView :key="myKey" />
+        </div>
+    </div>
 </template>
 

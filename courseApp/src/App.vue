@@ -115,4 +115,21 @@ import NavBar from './components/NavBar.vue';
     animation: fadeIn .5s;
 }
 
+@media (max-width: 600px) {
+    .nav-bar {
+        position: fixed;
+        width: 100%;
+        height: 60px;
+        top: 0;
+        left: 0;
+        z-index: 40;
+        padding-top:8px ;
+        padding-left: 8px;
+        background-color: var(--theme-color1);
+    }
+    .router-area {
+        margin-top: 60px;
+    }
+}
+
 </style>

@@ -20,6 +20,7 @@ export default {
                 questionDesc: this.questionData.questionDesc,
                 answer: null
             }
+            this.$store.commit("loadingStatus", true)
             const response = await axios.post(import.meta.env.VITE_API_URL + '/questions', questionPost)
             console.log(response)
             if(response.data.status=="success sent"){ 
@@ -28,6 +29,7 @@ export default {
                 this.questionData.questionDesc = ""
             }
             else if(response.data.status=="failed") alert("Failed to Add Question")
+            this.$store.commit("loadingStatus", false)
         }
     }
 

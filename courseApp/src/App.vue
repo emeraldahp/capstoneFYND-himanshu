@@ -35,7 +35,7 @@ export default {
                             this.$store.commit("adminLog", true)
                             this.$store.commit("setAdminVerified", res.data.data.verified)
                         }
-                        this.forceRerender()
+                        //this.forceRerender()
                         
                     })
                     .catch((err) => {
@@ -43,7 +43,7 @@ export default {
                         alert("Error: login again")
                         localStorage.removeItem("token")
                         axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
-                        this.$router.push({name:'home'})
+                        this.$router.push({name:'home'}) 
                     })
 
             }

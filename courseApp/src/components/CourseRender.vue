@@ -33,20 +33,22 @@ export default {
         axios.get(import.meta.env.VITE_API_URL + '/structures',{params:{currentCourse:this.currentCourse}}).then(res => {
             //console.log(res.data.data)
             this.structureData = res.data.data
+            //for setting course status or progress
+            axios.get(import.meta.env.VITE_API_URL + '/enrollments/course', {params:{userName: this.$store.state.userData.userName, courseName: this.currentCourse }}).then(res=>{
+                console.log(res.data.data)
+                this.courseProgress = res.data.data
+                this.currentSection = this.courseProgress.currentSection
+                //to populate sectionProgress before its used in selectSection
+                if(this.courseProgress.sectionProgress == null) {
+                    this.courseProgress.sectionProgress = [true]
+                    for(let i=1; i<this.courseProgress.noOfSections; i++)
+                        this.courseProgress.sectionProgress.push(false)
+                }
+                console.log(this.currentSection)
+                this.$store.commit("loadingStatus", false)
+            })
         })
-        //for setting course status or progress
-        axios.get(import.meta.env.VITE_API_URL + '/enrollments/course', {params:{userName: this.$store.state.userData.userName, courseName: this.currentCourse }}).then(res=>{
-            console.log(res.data.data)
-            this.courseProgress = res.data.data
-            this.currentSection = this.courseProgress.currentSection
-            //to populate sectionProgress before its used in selectSection
-            if(this.courseProgress.sectionProgress == null) {
-                this.courseProgress.sectionProgress = [true]
-                for(let i=1; i<this.courseProgress.noOfSections; i++)
-                    this.courseProgress.sectionProgress.push(false)
-            }
-            console.log(this.currentSection)
-        })
+        
 
     },
     methods: {

@@ -14,7 +14,14 @@ export default {
             this.enrollment = res.data.data
             axios.get(import.meta.env.VITE_API_URL + '/courses/tutor', {params:{courseName:this.enrollment.courseName}}).then(res=>{
                 this.tutorName = res.data.data
+                this.$store.commit("loadingStatus", false)
+            }).catch(err=>{
+                alert("tutorlist fetching failed")
+                this.$router.push({name:'home'})
             })
+        }).catch(err=>{
+            alert("enrollment fetching failed")
+            this.$router.push({name:'home'})
         })
     
     }

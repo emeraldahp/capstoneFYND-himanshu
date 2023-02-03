@@ -17,6 +17,7 @@ export default {
     },
     methods: {
         load() {
+            this.$store.commit("loadingStatus", true)
             axios.get(import.meta.env.VITE_API_URL + '/questions', {params:{tutorName: this.$store.state.tutorData.tutorName}}).then(res => {
                 this.allQuestions = res.data.data 
                 this.allQuestions.forEach(element => {
@@ -25,6 +26,10 @@ export default {
                     else
                         this.questions.answered.push(element)
                 })
+                this.$store.commit("loadingStatus", false)
+            }).catch(err=>{
+                alert("failed to load questions")
+                this.$router.push({name:'home'})
             })
         },
         async ansQues(questionId) {
@@ -35,11 +40,13 @@ export default {
                     _id: questionId,
                     answer: this.answer
                 }
+                this.$store.commit("loadingStatus", true)
                 const response = await axios.patch(import.meta.env.VITE_API_URL + '/questions', ansData)
                 console.log(response)
                 this.questions.answered = []
                 this.questions.unanswered = []
                 this.answer = null
+                this.$store.commit("loadingStatus", false)
                 this.load()
 
             }
@@ -62,7 +69,8 @@ export default {
         <h3>Answered Questions</h3> <br>
         <div class="question-container">
         <div class="question-item" v-for="question in questions.answered" :key="question._id"> 
-            Question: {{question.questionName}} <br>
+            Question: {{question.questionName}}
+            <hr>
             Answer: {{question.answer}}
         </div>
         </div>
@@ -71,9 +79,7 @@ export default {
 </template>
 
 <style>
-.question-container {
 
-}
 .question-item {
     background-color: var(--theme-color2);
     margin: 5px;

@@ -15,6 +15,7 @@ export default {
     },
     methods: {
         async userLogin(){
+            this.$store.commit("loadingStatus", true)
             console.log("login function")
             const userData = {
                 userName: this.loginData.name,
@@ -28,10 +29,13 @@ export default {
                 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
                 this.$store.commit("updateUser", response.data.data.userName)
                 this.$store.commit("userLog", true)
+                this.$store.commit("loadingStatus", false)
                 this.$router.push({name:'home'})
             }
+            this.$store.commit("loadingStatus", false)
         },
         async tutorLogin() {
+            this.$store.commit("loadingStatus", true)
             console.log("tutor login function")
             const tutorData = {
                 tutorName: this.loginData.name,
@@ -45,8 +49,10 @@ export default {
                 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
                 this.$store.commit("updateTutor", response.data.data.tutorName)
                 this.$store.commit("tutorLog", true)
+                this.$store.commit("loadingStatus", false)
                 this.$router.push({name:'tutorview'})
             }
+            this.$store.commit("loadingStatus", false)
         },
         async adminLogin() {
             console.log("admin login function")

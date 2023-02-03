@@ -8,7 +8,8 @@ export default {
     created() {
         if(this.$store.state.adminData.loggedIn == false)
             this.$router.push({name:'home'})
-
+        this.$store.commit("sectionsPanelStatus",true)
+        this.$store.commit("loadingStatus", true)
     }
 
 }

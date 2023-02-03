@@ -27,7 +27,7 @@ export default {
             this.incompleteCourses.forEach(element=>{
                 if(element.sectionProgress);
             })
-            this.ready = true;
+            this.$store.commit("loadingStatus", false)  
         })
     },
     methods: {

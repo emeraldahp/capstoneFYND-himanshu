@@ -40,10 +40,18 @@ export default{
     mounted(){
         axios.get(import.meta.env.VITE_API_URL + '/tutors/list').then(res => {
             this.check.tutorList = res.data.data
+            axios.get(import.meta.env.VITE_API_URL + '/courses/list').then(res=>{
+                this.check.courseList = res.data.data
+                this.$store.commit("loadingStatus", false)
+                }).catch(err=>{
+                    alert("courselist fetching failed")
+                    this.$router.push({name:'home'})
+                })
+        }).catch(err=>{
+            alert("tutorlist fetching failed")
+            this.$router.push({name:'home'})
         })
-        axios.get(import.meta.env.VITE_API_URL + '/courses/list').then(res=>{
-            this.check.courseList = res.data.data
-        })
+        
     },
     watch: {
         "courseData.courseName": function(value) {
@@ -70,6 +78,7 @@ export default{
                     courseImage: this.courseData.courseImage || import.meta.env.VITE_DEFAULT_IMG_URL,
                     noOfSections: this.structureData.noOfSections
                 }
+                this.$store.commit("loadingStatus", true)
                 const response1 = await axios.post(import.meta.env.VITE_API_URL + '/courses', coursePost)
                 console.log(response1)
                 let structurePost = this.structureData
@@ -78,7 +87,12 @@ export default{
 
                 if(response1.data.status=="success sent" && response2.data.status=="success sent") {
                     alert("Course Added Successfully")
+                    this.$store.commit("loadingStatus", false)
                     this.$router.push({name:'home'})
+                }
+                else {
+                    alert("Retry.")
+                    this.$store.commit("loadingStatus", false)
                 }
             }
         },

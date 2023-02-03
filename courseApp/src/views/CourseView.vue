@@ -22,6 +22,8 @@ export default {
         else {
             this.ready = true
         }
+        this.$store.commit("sectionsPanelStatus",true)
+        this.$store.commit("loadingStatus", true)
         
     }
 

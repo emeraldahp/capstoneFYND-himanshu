@@ -8,6 +8,7 @@ export default {
         
         if(this.$store.state.userData.loggedIn == false)
             this.$router.push({name:'home'})
+        this.$store.commit("loadingStatus", true)  
     }
 }
 </script>

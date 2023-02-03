@@ -13,13 +13,20 @@ export default {
     },
     methods: {
         load() {
+            this.$store.commit("loadingStatus", true)  
             axios.get(import.meta.env.VITE_API_URL + '/questions/user', {params:{userName:this.$store.state.userData.userName}}).then(res => {
                 this.questions = res.data.data
+                this.$store.commit("loadingStatus", false)  
+            }).catch(err=>{
+                alert('failed to load questions')
+                this.$router.push({name:'home'})
             })
         },
         async removeQuestion(_id) {
+            this.$store.commit("loadingStatus", true)  
             const response = await axios.delete(import.meta.env.VITE_API_URL + '/questions', {params:{_id}})
             this.questions= []
+            this.$store.commit("loadingStatus", false)  
             this.load()
         }
     }

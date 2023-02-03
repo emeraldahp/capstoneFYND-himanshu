@@ -7,6 +7,7 @@ export default {
     created() {
         if(this.$route.query._id==null)
             this.$router.push({name:'home'})
+        this.$store.commit("loadingStatus", true)
     }
 }
 

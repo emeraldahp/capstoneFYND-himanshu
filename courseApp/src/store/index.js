@@ -15,7 +15,8 @@ export default createStore({
             adminName: "none",
             verified: false
         },
-        loading: false
+        loading: false,
+        sectionsPanel: false
     },
     getters: {},
     mutations: {
@@ -42,6 +43,9 @@ export default createStore({
         },
         loadingStatus(state, payload) {
             state.loading = payload
+        },
+        sectionsPanelStatus(state, payload) {
+            state.sectionsPanel = payload
         },
         setAdminVerified(state, payload) {
             state.adminData.verified = payload

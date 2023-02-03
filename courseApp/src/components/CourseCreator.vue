@@ -226,17 +226,17 @@ export default{
             </div>
             <h4>Structure Details</h4>
             <div class="cc-course-container">
-            <div class="cc-sections">
+            <div class="cc-sections" :style="this.$store.state.sectionsPanel ? 'display: block' : ''" >
                 SectionSelector <br>
                 <button @click="addSection">AddSection</button>
                 <div  class="cc-section-container" v-if="structureData.sections[0].sectionName != null">
-                <div class="cc-section-item" v-for="section, index in structureData.sections"  @click="selectSection(index)">
+                <div class="cc-section-item" v-for="section, index in structureData.sections"  @click="selectSection(index); this.$store.commit('sectionsPanelStatus', false)">
                     <div> <button v-if="structureData.noOfSections != 0" @click="removeSection(index)">X</button> </div>
                     <div class="cc-section-text">{{section.sectionName}}</div>
                 </div>
                 </div>
             </div>
-            <div class="cc-viewport" v-if="structureData.sections[0].sectionName != null">
+            <div class="cc-viewport" :style="this.$store.state.sectionsPanel ? 'display: none' : ''" v-if="structureData.sections[0].sectionName != null">
                 CourseViewport: {{structureData.sections[currentSection].sectionName}} <br>
                 <form class="cc-type-select" @submit.prevent="">
                     SelectType 
@@ -358,6 +358,12 @@ export default{
 .cc-type-ico{
     width: 30px;
     height: 30px;
+}
+
+@media (max-width: 600px) {
+    .cc-sections {
+        display: none;
+    }
 }
 
 </style>

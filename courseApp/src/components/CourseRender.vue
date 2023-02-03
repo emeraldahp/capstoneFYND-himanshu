@@ -122,16 +122,16 @@ export default {
     <div>
         <h3>{{structureData.courseName}}</h3>
         <div class="course-container">
-            <div class="sections">
+            <div class="sections"  :style="this.$store.state.sectionsPanel ? 'display: block' : ''" >
                 Sections <br>
                 <div class="section-container">
-                    <div class="section-item" v-for="section, index in structureData.sections"  @click="selectSection(index)">
+                    <div class="section-item" v-for="section, index in structureData.sections"  @click="selectSection(index); this.$store.commit('sectionsPanelStatus', false) ">
                         <div v-show="courseProgress.sectionProgress[index]==true" class="section-item-complete"></div>
                         <div class="section-text" >{{section.sectionName}}</div>
                     </div>
                 </div>
             </div>
-            <div class="viewport" v-if="structureData.sections[0].sectionName != null" >
+            <div class="viewport" :style="this.$store.state.sectionsPanel ? 'display: none' : ''" v-if="structureData.sections[0].sectionName != null" >
                 {{structureData.sections[currentSection].sectionName}}
                 <div class="sitem-container">
                 <div v-for="item in structureData.sections[currentSection].items">
@@ -228,5 +228,12 @@ export default {
     aspect-ratio: 16/9;
     max-width: 100%;
 }
+
+@media (max-width: 600px) {
+    .sections {
+        display: none;
+    }
+}
+
 
 </style>

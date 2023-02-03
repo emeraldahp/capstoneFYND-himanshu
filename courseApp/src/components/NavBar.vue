@@ -27,6 +27,9 @@ export default {
                 return true
             else
                 return false
+        },
+        toggleSectionsPanel() {
+            this.$store.commit("sectionsPanelStatus", this.$store.state.sectionsPanel? false : true)
         }
         
     }
@@ -36,7 +39,7 @@ export default {
     <div>
         <div class = "navbar-container">  
             <div class="navbar2-home-container">
-                <div class="navbar2sec-item" v-if="(this.$store.state.userData.loggedIn == true && this.$store.state.userData.courseName != 'none') || this.$store.state.adminData.loggedIn == true  " > 
+                <div class="navbar2sec-item" @click="toggleSectionsPanel" v-if="(this.$store.state.userData.loggedIn == true && this.$store.state.userData.courseName != 'none') || this.$store.state.adminData.loggedIn == true  " > 
                     <img class="sec-ico" src="../assets/secico.svg" > Sections 
                 </div>
                 <img class="home-ico" src="../assets/homeico.svg">

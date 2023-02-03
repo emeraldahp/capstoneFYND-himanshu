@@ -62,7 +62,7 @@ export default {
     },
     methods: {
         async userRegister() {
-            console.log("userRegister", this.registerData)
+          
             const err = this.validate()
             if(err != 'none'){
                 alert(err)
@@ -80,13 +80,13 @@ export default {
                     alert("User Registered Successfully.")
                 else
                     alert("Failed.")
-                console.log(response)
+            
                 this.$store.commit("loadingStatus", false)
                 this.$router.push({name: 'home'})
             }
         },
         async tutorRegister() {
-            console.log("tutorRegister", this.registerData)
+      
             const err = this.validate()
             if(err != 'none'){
                 alert(err)
@@ -104,13 +104,13 @@ export default {
                     alert("Tutor Registered Successfully.")
                 else
                     alert("Failed.")
-                console.log(response)
+          
                 this.$store.commit("loadingStatus", false)  
                 this.$router.push({name: 'home'})
             }
         },
         async adminRegister() {
-            console.log("adminRegister", this.registerData)
+         
             const err = this.validate()
             if(err != 'none'){
                 alert(err)
@@ -128,7 +128,7 @@ export default {
                     alert("Admin Registered Successfully.")
                 else
                     alert("Failed.")
-                console.log(response)
+              
                 this.$store.commit("loadingStatus", true)  
                 this.$router.push({name: 'home'})
             }

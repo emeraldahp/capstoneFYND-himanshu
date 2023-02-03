@@ -47,7 +47,7 @@ adminSchema.pre('save', function (done) {
         });
     });
 
-    console.log('executes immediately');
+    //executes immediately
 });
 
 adminSchema.methods.checkPassword = async function (plainTextPassword) {

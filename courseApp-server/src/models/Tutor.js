@@ -42,7 +42,7 @@ tutorSchema.pre('save', function (done) {
         });
     });
 
-    console.log('executes immediately');
+    //executes immediately
 });
 
 tutorSchema.methods.checkPassword = async function (plainTextPassword) {

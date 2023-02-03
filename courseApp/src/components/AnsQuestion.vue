@@ -34,7 +34,6 @@ export default {
         },
         async ansQues(questionId) {
             this.answer = prompt("Enter Answer")
-            console.log('hi',this.answer)
             if(this.answer != null) {
                 const ansData = {
                     _id: questionId,
@@ -42,7 +41,6 @@ export default {
                 }
                 this.$store.commit("loadingStatus", true)
                 const response = await axios.patch(import.meta.env.VITE_API_URL + '/questions', ansData)
-                console.log(response)
                 this.questions.answered = []
                 this.questions.unanswered = []
                 this.answer = null

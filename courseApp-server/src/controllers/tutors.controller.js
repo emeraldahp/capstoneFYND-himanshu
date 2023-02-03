@@ -11,7 +11,7 @@ const tutorLogin = async (req, res, next) => {
             tutorName: "",
             token: ""
         }
-        console.log("check", check, "req", req.body)
+     
         if(check === null){
             info.status = "No tutor found"
             res.status(201).json({status: 'success', data:info})

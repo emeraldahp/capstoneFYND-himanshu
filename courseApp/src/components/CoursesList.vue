@@ -21,20 +21,18 @@ export default {
         load(){
             axios.get(import.meta.env.VITE_API_URL + '/courses')
                 .then(res => {
-                    //console.log(res.data.data)
                     this.coursesData = res.data.data
                     
                     
                     if(this.$store.state.userData.loggedIn==true) {
                         axios.get(import.meta.env.VITE_API_URL + '/enrollments', {params:{userName: this.$store.state.userData.userName}})
                             .then(res=>{
-                                //console.log(res.data.data)
                                 this.enrollments = res.data.data
 
                                 this.enrollments.forEach(enrollment => {
                                     this.enrollmentList.push(enrollment.courseName)
                                 })
-                                console.log(this.enrollmentList)
+                              
 
                                 this.coursesData.forEach(course => {
                                     if(this.enrollmentList.includes(course.courseName))
@@ -42,8 +40,7 @@ export default {
                                     else
                                         this.otherCourses.push(course)
                                 })
-                                console.log(this.enrolledCourses)
-                                console.log(this.otherCourses)
+                              
                                 this.$store.commit("loadingStatus", false)
                             })
                             .catch(err=>{
@@ -68,7 +65,7 @@ export default {
         },
 
         async enrollCourse(courseName, noOfSections){
-            console.log("enroll", courseName)
+         
             const enrollmentData = {
                 userName: this.$store.state.userData.userName,
                 courseName: courseName,
@@ -79,9 +76,9 @@ export default {
                 joinDate: new Date(),
                 finishDate: null
             }
-            console.log(enrollmentData)
+        
             const response = await axios.post(import.meta.env.VITE_API_URL + '/enrollments', enrollmentData)
-            console.log(response)
+       
 
             this.enrollmentList= [],
             this.enrolledCourses= [],

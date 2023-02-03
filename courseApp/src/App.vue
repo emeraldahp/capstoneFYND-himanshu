@@ -10,18 +10,18 @@ export default {
     created() {
         const token = localStorage.getItem('token')
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
-        console.log('app created')
+     
 
         if(this.$store.state.userData.loggedIn == false && 
             this.$store.state.tutorData.loggedIn == false && 
             this.$store.state.adminData.loggedIn == false) {
-            console.log("noOnelog")
+    
             if(token != null) {
-                console.log("token yes")
+           
 
                 axios.get(import.meta.env.VITE_API_URL + '/roles/name',{headers:{Authorization:token}})
                     .then(res =>{
-                        console.log(res)
+                   
                         if(res.data.data.role=='user') {
                             this.$store.commit("updateUser", res.data.data.name)
                             this.$store.commit("userLog", true)
@@ -39,7 +39,7 @@ export default {
                         
                     })
                     .catch((err) => {
-                        console.log(err)
+              
                         alert("Error: login again")
                         localStorage.removeItem("token")
                         axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')

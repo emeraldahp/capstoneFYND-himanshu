@@ -12,7 +12,7 @@ const adminLogin = async (req, res, next) => {
             token: "",
             verified: false
         }
-        console.log("check", check, "req", req.body)
+      
         if(check === null){
             info.status = "No admin found"
             res.status(201).json({status: 'success', data:info})

@@ -31,11 +31,11 @@ export default {
         //for getting structure for selected course
         this.currentCourse = this.$store.state.userData.courseName
         axios.get(import.meta.env.VITE_API_URL + '/structures',{params:{currentCourse:this.currentCourse}}).then(res => {
-            //console.log(res.data.data)
+           
             this.structureData = res.data.data
             //for setting course status or progress
             axios.get(import.meta.env.VITE_API_URL + '/enrollments/course', {params:{userName: this.$store.state.userData.userName, courseName: this.currentCourse }}).then(res=>{
-                console.log(res.data.data)
+               
                 this.courseProgress = res.data.data
                 this.currentSection = this.courseProgress.currentSection
                 //to populate sectionProgress before its used in selectSection
@@ -44,7 +44,7 @@ export default {
                     for(let i=1; i<this.courseProgress.noOfSections; i++)
                         this.courseProgress.sectionProgress.push(false)
                 }
-                console.log(this.currentSection)
+                
                 this.$store.commit("loadingStatus", false)
             })
         })
@@ -53,7 +53,6 @@ export default {
     },
     methods: {
         async selectSection(index){
-            console.log(index)
             //for frontend
             this.currentSection = index
             
@@ -82,7 +81,7 @@ export default {
 
                     }
                     const response = await axios.patch(import.meta.env.VITE_API_URL + '/enrollments', {type:"firsttime_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
-                    console.log(response)
+                   
                 }
                 else{
                     //if not complete then update currentSection, sectionProgress, 
@@ -93,7 +92,7 @@ export default {
                         sectionProgress: this.courseProgress.sectionProgress
                     }
                     const response = await axios.patch(import.meta.env.VITE_API_URL + '/enrollments', {type:"not_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
-                    console.log(response)
+                   
                 }
             }
             else{
@@ -104,7 +103,7 @@ export default {
                     currentSection: this.courseProgress.currentSection
                 }
                 const response = await axios.patch(import.meta.env.VITE_API_URL + '/enrollments', {type:"already_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
-                console.log(response)
+                
             }
 
         },

@@ -32,7 +32,7 @@ export default {
     },
     methods: {
         viewCertificate(certId) {
-            console.log("certificate "+ typeof certId)
+        
             router.push({
                 name: 'certview',
                 path: '/certview',

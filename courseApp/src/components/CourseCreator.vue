@@ -80,10 +80,8 @@ export default{
                 }
                 this.$store.commit("loadingStatus", true)
                 const response1 = await axios.post(import.meta.env.VITE_API_URL + '/courses', coursePost)
-                console.log(response1)
                 let structurePost = this.structureData
                 const response2 = await axios.post(import.meta.env.VITE_API_URL + '/structures', structurePost) 
-                console.log(response2)
 
                 if(response1.data.status=="success sent" && response2.data.status=="success sent") {
                     alert("Course Added Successfully")
@@ -133,7 +131,6 @@ export default{
 
         },
         addItem(){
-            console.log("addItem")
             let promptText
             if(this.itemType=="text") promptText = "Enter text content." 
             else if(this.itemType=="image") promptText = "Enter image url."

@@ -130,6 +130,7 @@ export default {
 .navbar2-logout-item-txt {
     overflow: hidden;
     max-width: 150px;
+    text-align: right;
 }
 
 .navbar2opt-container {
@@ -187,6 +188,7 @@ export default {
         align-items: flex-end;
         width: 100%;
         height: 100%;
+        min-width: var(--min-width-nav);
         top: 60px;
         left: 0;
         z-index: 1;

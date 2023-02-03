@@ -122,13 +122,14 @@ import NavBar from './components/NavBar.vue';
         height: 60px;
         top: 0;
         left: 0;
+        min-width: var(--min-width-nav);
         z-index: 40;
         padding-top:8px ;
         padding-left: 8px;
         background-color: var(--theme-color1);
     }
     .router-area {
-        margin-top: 60px;
+        margin-top: 58px;
     }
 }
 

@@ -15,6 +15,8 @@
     100% { transform: rotate(360deg); }
 }
 
+
+
 ::-webkit-scrollbar {
     display: none;
 }
@@ -25,11 +27,20 @@ body {
     --theme-color2:#282828;
     --theme-color3:#A5C9CA;
     --theme-color4:#E7F6F2;
+    --min-width:599px;
+    --min-width-nav: 400px;
 
     background-color: var(--theme-color1);
     color: var(--theme-color3);
     font-family: 'Poppins', sans-serif;
 }
+
+#app {
+    max-width: 1290px;
+    min-width: var(--min-width);
+    margin: auto;
+}
+
 a {
     text-decoration: underline;
     color: var(--theme-color3);
@@ -138,8 +149,3 @@ hr {
 }
 
 
-#app {
-    max-width: 1290px;
-    min-width: 599px;
-    margin: auto;
-}

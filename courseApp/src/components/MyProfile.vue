@@ -39,7 +39,6 @@ export default {
 </script>
 <template>
     <div>
-        MyProfile <br>
         <h4>Completed Courses</h4>
         <div v-for="course in completedCourses" :key="course._id" >
             {{course.courseName}} 

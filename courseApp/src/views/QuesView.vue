@@ -5,6 +5,7 @@ export default {
         MyQuestions
     },
     created() {
+        this.$store.commit("updateCourse", 'none')
         if(this.$store.state.userData.loggedIn == false)
             this.$router.push({name:'home'})
     }

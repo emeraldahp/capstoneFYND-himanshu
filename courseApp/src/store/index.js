@@ -12,8 +12,11 @@ export default createStore({
         },
         adminData: {
             loggedIn: false,
-            adminName: "none"
-        }
+            adminName: "none",
+            verified: false
+        },
+        loading: false,
+        sectionsPanel: false
     },
     getters: {},
     mutations: {
@@ -37,6 +40,15 @@ export default createStore({
         },
         updateAdmin(state, payload) {
             state.adminData.adminName = payload
+        },
+        loadingStatus(state, payload) {
+            state.loading = payload
+        },
+        sectionsPanelStatus(state, payload) {
+            state.sectionsPanel = payload
+        },
+        setAdminVerified(state, payload) {
+            state.adminData.verified = payload
         }
     },
     actions: {

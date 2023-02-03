@@ -8,6 +8,7 @@ router.get('/name', authorize(['user','tutor','admin']), async (req, res, err) =
         name: res.locals.claims.name,
         role: res.locals.claims.role
     }
+    if(data.role=='admin') data.verified = res.locals.claims.verified
     res.status(201).json({status:"success", data:data})
 })
 

@@ -10,7 +10,8 @@ export default {
     },
     data() {
         return {
-            askQuestionToggle: false
+            askQuestionToggle: false,
+            ready: false
         }
     },
     created() {
@@ -18,13 +19,18 @@ export default {
         if(this.$store.state.userData.courseName == 'none') {
             this.$router.push({path:'/'})
         }
+        else {
+            this.ready = true
+        }
+        this.$store.commit("sectionsPanelStatus",true)
+        this.$store.commit("loadingStatus", true)
         
     }
 
 }
 </script>
 <template>
-    <div>
+    <div v-if="ready==true">
         <div class="course-view-container">
             <div class="course-render-comp"><course-render/>
                 <button v-if="askQuestionToggle==false" @click="askQuestionToggle=true">Ask Question</button>
@@ -100,5 +106,10 @@ export default {
     padding: 10px 0px 10px 0px;
 }
 
+@media (max-width: 600px) {
+    .course-view-container {
+        margin-top: 77px;
+    }
+}
 
 </style>

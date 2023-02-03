@@ -17,6 +17,7 @@ export default {
     },
     methods: {
         load() {
+            this.$store.commit("loadingStatus", true)
             axios.get(import.meta.env.VITE_API_URL + '/questions', {params:{tutorName: this.$store.state.tutorData.tutorName}}).then(res => {
                 this.allQuestions = res.data.data 
                 this.allQuestions.forEach(element => {
@@ -25,21 +26,25 @@ export default {
                     else
                         this.questions.answered.push(element)
                 })
+                this.$store.commit("loadingStatus", false)
+            }).catch(err=>{
+                alert("failed to load questions")
+                this.$router.push({name:'home'})
             })
         },
         async ansQues(questionId) {
             this.answer = prompt("Enter Answer")
-            console.log('hi',this.answer)
             if(this.answer != null) {
                 const ansData = {
                     _id: questionId,
                     answer: this.answer
                 }
+                this.$store.commit("loadingStatus", true)
                 const response = await axios.patch(import.meta.env.VITE_API_URL + '/questions', ansData)
-                console.log(response)
                 this.questions.answered = []
                 this.questions.unanswered = []
                 this.answer = null
+                this.$store.commit("loadingStatus", false)
                 this.load()
 
             }
@@ -50,18 +55,20 @@ export default {
 </script>
 <template>
     <div>
-        <h4>Answer Questions</h4> <br>
+        <h3>Answer Questions</h3> <br>
         <div class="question-container">
         <div class="question-item" v-for="question in questions.unanswered" :key="question._id"> 
-            {{question.questionName}}
-            <button @click="ansQues(question._id)">AnswerThisQuestion</button><br>
+            Question: {{question.questionName}} <br>
+            Description: {{question.questionDesc}}
+            <hr>
+            <button @click="ansQues(question._id)">Answer This Question</button><br>
         </div>
         </div>
-        <hr>
-        <h4>Answered Questions</h4> <br>
+        <h3>Answered Questions</h3> <br>
         <div class="question-container">
         <div class="question-item" v-for="question in questions.answered" :key="question._id"> 
-            Question: {{question.questionName}} <br>
+            Question: {{question.questionName}}
+            <hr>
             Answer: {{question.answer}}
         </div>
         </div>
@@ -70,12 +77,11 @@ export default {
 </template>
 
 <style>
-.question-container {
-    display: flex;
-    flex-direction: column;
-}
+
 .question-item {
     background-color: var(--theme-color2);
     margin: 5px;
+    padding: 5px;
+    word-wrap: break-word;
 }
 </style>

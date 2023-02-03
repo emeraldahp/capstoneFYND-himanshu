@@ -5,12 +5,26 @@ export default {
         MyProfile
     },
     created() {
-
+        this.$store.commit("updateCourse", 'none')
+        if(this.$store.state.userData.loggedIn == false)
+            this.$router.push({name:'home'})
+        this.$store.commit("loadingStatus", true)  
     }
 }
 </script>
 <template>
     <div>
-        <my-profile/>
+        <div class="profile-view-container">
+            <my-profile/> 
+        </div>
     </div>
 </template>
+
+<style>
+
+@media (max-width: 600px) {
+    .profile-view-container {
+        margin-top: 77px;
+    }
+}
+</style>

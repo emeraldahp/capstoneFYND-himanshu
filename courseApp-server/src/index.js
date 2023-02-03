@@ -27,6 +27,8 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
+//app.use((req, res, next) => setTimeout(next, 2000)) //for testing latency
+
 app.use('/roles', rolesApiRouter)
 app.use('/courses', coursesApiRouter)
 app.use('/users', usersApiRouter)
@@ -38,6 +40,15 @@ app.use('/admins', adminApiRouter)
 
 app.use(notFound);
 
-connectDB(process.env.MONGO_URI)
-port = process.env.PORT || 8531
-app.listen(port)
+const port = process.env.PORT || 8531
+
+const start = async () => {
+    try {
+        await connectDB(process.env.MONGO_URI)
+        app.listen(port, console.log("server listening on port " + port))
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+start()

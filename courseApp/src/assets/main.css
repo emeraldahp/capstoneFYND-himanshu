@@ -10,18 +10,40 @@
     100% { opacity: 0.5; }
 }
 
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+
+
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 body {
 
     --theme-color1:#1e1e1e;
     --theme-color2:#282828;
     --theme-color3:#A5C9CA;
     --theme-color4:#E7F6F2;
-    
+    --min-width:599px;
+    --min-width-nav: 400px;
 
     background-color: var(--theme-color1);
     color: var(--theme-color3);
     font-family: 'Poppins', sans-serif;
 }
+
+#app {
+    max-width: 1290px;
+    min-width: var(--min-width);
+    margin: auto;
+}
+
 a {
     text-decoration: underline;
     color: var(--theme-color3);
@@ -130,8 +152,3 @@ hr {
 }
 
 
-#app {
-    max-width: 1290px;
-    min-width: 400px;
-    margin: auto;
-}

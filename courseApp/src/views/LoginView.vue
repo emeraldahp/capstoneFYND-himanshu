@@ -16,6 +16,10 @@ export default {
                 for: 'user'
             }
         }
+    },
+    created() {
+        if(localStorage.getItem('token')!=null)
+            this.$router.push({name:'home'})
     }
 }
 
@@ -83,4 +87,11 @@ export default {
     padding: 10px 10px 10px 10px;
     margin: 5px;
 }
+
+@media (max-width: 600px) {
+    .login-container {
+        margin-top: 77px;
+    }
+}
+
 </style>

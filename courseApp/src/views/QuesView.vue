@@ -5,12 +5,25 @@ export default {
         MyQuestions
     },
     created() {
-
+        this.$store.commit("updateCourse", 'none')
+        if(this.$store.state.userData.loggedIn == false)
+            this.$router.push({name:'home'})
     }
 }
 </script>
 <template>
     <div>
-        <my-questions/>
+        <div class="ques-view-container">
+            <my-questions/>
+        </div>
     </div>
 </template>
+
+<style>
+@media (max-width: 600px) {
+    .ques-view-container{
+        margin-top: 77px;
+    }
+}
+
+</style>

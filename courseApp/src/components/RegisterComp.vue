@@ -23,14 +23,27 @@ export default {
         }
     },
     mounted() {
+        this.$store.commit("loadingStatus", true)
         if(this.registerType == "user") axios.get(import.meta.env.VITE_API_URL + '/users/list').then(res => {
             this.check.typeList = res.data.data
+            this.$store.commit("loadingStatus", false)
+        }).catch(err=>{
+            alert('failed to get userlist')
+            this.$router.push({name:'home'})
         })
         else if(this.registerType == "tutor") axios.get(import.meta.env.VITE_API_URL + '/tutors/list').then(res => {
             this.check.typeList = res.data.data
+            this.$store.commit("loadingStatus", false)
+        }).catch(err=>{
+            alert('failed to get tutor list')
+            this.$router.push({name:'home'})
         })
         else if(this.registerType == "admin")axios.get(import.meta.env.VITE_API_URL + '/admins/list').then(res => {
             this.check.typeList = res.data.data
+            this.$store.commit("loadingStatus", false)
+        }).catch(err=>{
+            alert('failed to get admin list')
+            this.$router.push({name:'home'})
         })
     },
     watch: {
@@ -49,7 +62,7 @@ export default {
     },
     methods: {
         async userRegister() {
-            console.log("userRegister", this.registerData)
+          
             const err = this.validate()
             if(err != 'none'){
                 alert(err)
@@ -60,18 +73,20 @@ export default {
                     userName: this.registerData.name,
                     email: this.registerData.email,
                     password: this.registerData.password
-                }    
+                } 
+                this.$store.commit("loadingStatus", true)  
                 const response = await axios.post(import.meta.env.VITE_API_URL + '/users/register', userPost)
                 if(response.data.data.status = "success")
                     alert("User Registered Successfully.")
                 else
                     alert("Failed.")
-                console.log(response)
+            
+                this.$store.commit("loadingStatus", false)
                 this.$router.push({name: 'home'})
             }
         },
         async tutorRegister() {
-            console.log("tutorRegister", this.registerData)
+      
             const err = this.validate()
             if(err != 'none'){
                 alert(err)
@@ -82,18 +97,20 @@ export default {
                     tutorName: this.registerData.name,
                     email: this.registerData.email,
                     password: this.registerData.password
-                }    
+                } 
+                this.$store.commit("loadingStatus", true)   
                 const response = await axios.post(import.meta.env.VITE_API_URL + '/tutors/register', tutorPost)
                 if(response.data.data.status = "success")
                     alert("Tutor Registered Successfully.")
                 else
                     alert("Failed.")
-                console.log(response)
+          
+                this.$store.commit("loadingStatus", false)  
                 this.$router.push({name: 'home'})
             }
         },
         async adminRegister() {
-            console.log("adminRegister", this.registerData)
+         
             const err = this.validate()
             if(err != 'none'){
                 alert(err)
@@ -105,12 +122,14 @@ export default {
                     email: this.registerData.email,
                     password: this.registerData.password
                 }    
+                this.$store.commit("loadingStatus", true)  
                 const response = await axios.post(import.meta.env.VITE_API_URL + '/admins/register', adminPost)
                 if(response.data.data.status = "success")
                     alert("Admin Registered Successfully.")
                 else
                     alert("Failed.")
-                console.log(response)
+              
+                this.$store.commit("loadingStatus", true)  
                 this.$router.push({name: 'home'})
             }
             

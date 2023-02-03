@@ -42,7 +42,7 @@ userSchema.pre('save', function (done) {
         });
     });
 
-    console.log('executes immediately');
+    //executes immediately
 });
 
 userSchema.methods.checkPassword = async function (plainTextPassword) {

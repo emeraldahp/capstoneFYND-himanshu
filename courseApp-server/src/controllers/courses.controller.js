@@ -5,7 +5,7 @@ const Course = require('../models/Course');
 const getAllCourses = async (req, res, next) => {
     try{
         const courses= await Course.find({})
-        //console.log(courses)
+       
         res.status(201).json({ status: 'success received', data:courses });
     }
     catch(err) {
@@ -31,11 +31,11 @@ const coursesListByTutor = async (tutorName) => {
     let coursesList = new Set()
     try {
         const courses = await Course.find({tutorName})
-        console.log(courses)
+      
         courses.forEach(element => {
             coursesList.add(element.courseName)
         })
-        console.log("coursesList:", coursesList)
+      
         return Array.from(coursesList)
     }
     catch(err) {
@@ -62,7 +62,7 @@ const getTutorNameByCourse = async (req, res, next) => {
     let course
     try {
         course = await Course.findOne({courseName})
-        console.log(course)
+    
         res.status(201).json({status:"success received", data: course.tutorName})
     }
     catch(err) {

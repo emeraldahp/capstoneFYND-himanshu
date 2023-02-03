@@ -15,53 +15,61 @@ export default {
     },
     methods: {
         async userLogin(){
-            console.log("login function")
+            this.$store.commit("loadingStatus", true)
+    
             const userData = {
                 userName: this.loginData.name,
                 password: this.loginData.password
             } 
             const response = await axios.post(import.meta.env.VITE_API_URL + '/users/login', userData)
-            console.log(response)
+   
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {   
                 localStorage.setItem('token', response.data.data.token)
                 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
                 this.$store.commit("updateUser", response.data.data.userName)
                 this.$store.commit("userLog", true)
+                this.$store.commit("loadingStatus", false)
                 this.$router.push({name:'home'})
             }
+            this.$store.commit("loadingStatus", false)
         },
         async tutorLogin() {
-            console.log("tutor login function")
+            this.$store.commit("loadingStatus", true)
+        
             const tutorData = {
                 tutorName: this.loginData.name,
                 password: this.loginData.password
             }
             const response = await axios.post(import.meta.env.VITE_API_URL + '/tutors/login', tutorData)
-            console.log(response)
+  
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {
                 localStorage.setItem('token', response.data.data.token)
                 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
                 this.$store.commit("updateTutor", response.data.data.tutorName)
                 this.$store.commit("tutorLog", true)
+                this.$store.commit("loadingStatus", false)
                 this.$router.push({name:'tutorview'})
             }
+            this.$store.commit("loadingStatus", false)
         },
         async adminLogin() {
-            console.log("admin login function")
+         
             const adminData = {
                 adminName: this.loginData.name,
                 password: this.loginData.password
             }
             const response = await axios.post(import.meta.env.VITE_API_URL + '/admins/login', adminData)
-            console.log(response)
+      
             alert(response.data.data.status)
             if(response.data.data.status == "loginsuccess") {
                 localStorage.setItem('token', response.data.data.token)
                 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
                 this.$store.commit("updateAdmin", response.data.data.adminName)
                 this.$store.commit("adminLog", true)
+                this.$store.commit("setAdminVerified", response.data.data.verified)
+                if(response.data.data.verified==false) alert('NotVerified: Only testing allowed and cannot post courses. Please Contact: SuperAdmin')
                 this.$router.push({name:'adminview'})
                 
             }

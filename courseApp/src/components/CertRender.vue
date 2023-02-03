@@ -4,7 +4,7 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            enrollment: {},
+            enrollment: { finishDate: "" },
             tutorName: ""
         }
     },
@@ -14,8 +14,16 @@ export default {
             this.enrollment = res.data.data
             axios.get(import.meta.env.VITE_API_URL + '/courses/tutor', {params:{courseName:this.enrollment.courseName}}).then(res=>{
                 this.tutorName = res.data.data
+                this.$store.commit("loadingStatus", false)
+            }).catch(err=>{
+                alert("tutorlist fetching failed")
+                this.$router.push({name:'home'})
             })
+        }).catch(err=>{
+            alert("enrollment fetching failed")
+            this.$router.push({name:'home'})
         })
+    
     }
 }
 
@@ -30,9 +38,9 @@ export default {
                 <div class="certificate-item">has successfully completed the course</div>
                 <div class="certificate-item"><h2>{{enrollment.courseName}}</h2></div>
                 <div class="certificate-item">Completion Date:</div>
-                <div class="certificate-item"><h3>{{enrollment.finishDate}}</h3></div>
+                <div class="certificate-item"><h3>{{enrollment.finishDate.slice(0,10)}}</h3></div>
                 <div class="certificate-item">ID: {{enrollment._id}}</div>
-                <div class="certificate-item">Issue Date: {{enrollment.finishDate}}</div>
+                <div class="certificate-item">Issue Date: {{enrollment.finishDate.slice(0,10)}}</div>
                 <div class="certificate-item">Tutor: {{tutorName}}</div>
             </div>  
         </div> 
@@ -55,8 +63,8 @@ export default {
     flex-direction: column;
     place-items: center;
     background-color: var(--theme-color2);
-    width: 800px;
-
+    max-width: 800px;
+    padding: 5% 10% 5% 10%;
 }
 .certificate-item {
     padding: 10px;

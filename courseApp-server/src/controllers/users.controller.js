@@ -11,7 +11,7 @@ const userLogin = async (req, res, next) => {
             userName: "",
             token: ""
         }
-        console.log("check", check, "req", req.body)
+      
         if(check === null){
             info.status = "No user found"
             res.status(201).json({status: 'success', data:info})

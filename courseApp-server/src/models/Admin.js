@@ -14,6 +14,11 @@ const adminSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true]
+    },
+    verified: {
+        type: Boolean,
+        required: [false],
+        default: false
     }
 })
 
@@ -42,7 +47,7 @@ adminSchema.pre('save', function (done) {
         });
     });
 
-    console.log('executes immediately');
+    //executes immediately
 });
 
 adminSchema.methods.checkPassword = async function (plainTextPassword) {

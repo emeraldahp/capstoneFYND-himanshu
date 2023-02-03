@@ -9,9 +9,10 @@ const adminLogin = async (req, res, next) => {
         let info = {
             status: "",
             adminName: "",
-            token: ""
+            token: "",
+            verified: false
         }
-        console.log("check", check, "req", req.body)
+      
         if(check === null){
             info.status = "No admin found"
             res.status(201).json({status: 'success', data:info})
@@ -21,17 +22,18 @@ const adminLogin = async (req, res, next) => {
             if(isMatch) {
                 const claims = {
                     name: check.adminName,
-                    role: "admin"
+                    role: "admin",
+                    verified: check.verified
                 };
                 jwt.sign(claims, process.env.JWT_SECRET, function (error, token) {
                     // some problem in generating JWT
                     if (error) {
                         res.status(500).send("Internal Server Error")
                     }
-
                     info.status = "loginsuccess"
                     info.adminName = check.adminName
                     info.token = token
+                    info.verified = check.verified
                     res.status(201).json({status: 'success', data:info})
                 });
             }

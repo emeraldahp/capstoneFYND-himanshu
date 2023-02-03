@@ -50,15 +50,16 @@ export default {
 </script>
 <template>
     <div>
-        <h4>Answer Questions</h4> <br>
+        <h3>Answer Questions</h3> <br>
         <div class="question-container">
         <div class="question-item" v-for="question in questions.unanswered" :key="question._id"> 
-            {{question.questionName}}
-            <button @click="ansQues(question._id)">AnswerThisQuestion</button><br>
+            Question: {{question.questionName}} <br>
+            Description: {{question.questionDesc}}
+            <hr>
+            <button @click="ansQues(question._id)">Answer This Question</button><br>
         </div>
         </div>
-        <hr>
-        <h4>Answered Questions</h4> <br>
+        <h3>Answered Questions</h3> <br>
         <div class="question-container">
         <div class="question-item" v-for="question in questions.answered" :key="question._id"> 
             Question: {{question.questionName}} <br>
@@ -71,11 +72,12 @@ export default {
 
 <style>
 .question-container {
-    display: flex;
-    flex-direction: column;
+
 }
 .question-item {
     background-color: var(--theme-color2);
     margin: 5px;
+    padding: 5px;
+    word-wrap: break-word;
 }
 </style>

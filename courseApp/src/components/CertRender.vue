@@ -4,7 +4,7 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            enrollment: {},
+            enrollment: { finishDate: "" },
             tutorName: ""
         }
     },
@@ -16,6 +16,7 @@ export default {
                 this.tutorName = res.data.data
             })
         })
+    
     }
 }
 
@@ -30,9 +31,9 @@ export default {
                 <div class="certificate-item">has successfully completed the course</div>
                 <div class="certificate-item"><h2>{{enrollment.courseName}}</h2></div>
                 <div class="certificate-item">Completion Date:</div>
-                <div class="certificate-item"><h3>{{enrollment.finishDate}}</h3></div>
+                <div class="certificate-item"><h3>{{enrollment.finishDate.slice(0,10)}}</h3></div>
                 <div class="certificate-item">ID: {{enrollment._id}}</div>
-                <div class="certificate-item">Issue Date: {{enrollment.finishDate}}</div>
+                <div class="certificate-item">Issue Date: {{enrollment.finishDate.slice(0,10)}}</div>
                 <div class="certificate-item">Tutor: {{tutorName}}</div>
             </div>  
         </div> 

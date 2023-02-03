@@ -83,4 +83,11 @@ export default {
     padding: 10px 10px 10px 10px;
     margin: 5px;
 }
+
+@media (max-width: 600px) {
+    .login-container {
+        margin-top: 77px;
+    }
+}
+
 </style>

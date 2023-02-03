@@ -5,7 +5,8 @@ export default {
         MyQuestions
     },
     created() {
-        
+        if(this.$store.state.userData.loggedIn == false)
+            this.$router.push({name:'home'})
     }
 }
 </script>

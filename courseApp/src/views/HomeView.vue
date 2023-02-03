@@ -16,6 +16,16 @@ export default {
 
 <template>
     <div>
-        <courses-list/>
+        <div class="home-view-container">
+            <courses-list/>
+        </div>
     </div>
 </template>
+
+<style>
+@media (max-width: 600px) {
+    .home-view-container {
+        margin-top: 77px;
+    }
+}
+</style>

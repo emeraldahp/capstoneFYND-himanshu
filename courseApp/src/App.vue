@@ -128,9 +128,10 @@ import NavBar from './components/NavBar.vue';
         padding-left: 8px;
         background-color: var(--theme-color1);
     }
-    .router-area {
-        margin-top: 58px;
+    .loading-container {
+        margin-top: 77px;
     }
+
 }
 
 </style>

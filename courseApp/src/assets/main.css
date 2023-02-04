@@ -39,7 +39,7 @@ body {
 }
 
 #app {
-    max-width: 1290px;
+    max-width: 1455px;
     min-width: var(--min-width);
     margin: auto;
 }

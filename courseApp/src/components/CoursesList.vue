@@ -76,10 +76,9 @@ export default {
                 joinDate: new Date(),
                 finishDate: null
             }
-        
+            this.$store.commit("loadingStatus", true)
             const response = await axios.post(import.meta.env.VITE_API_URL + '/enrollments', enrollmentData)
-       
-
+            
             this.enrollmentList= [],
             this.enrolledCourses= [],
             this.otherCourses= [],
@@ -93,7 +92,7 @@ export default {
 <template>
     <div>
         
-        <h3 v-if="$store.state.userData.loggedIn==false"> Courses: </h3> <br>
+        <h3 v-if="$store.state.userData.loggedIn==false"> Courses: </h3>
         <div class="hcourse-container" v-if="$store.state.userData.loggedIn==false">
             <div class="hcourse-item" v-for="course in coursesData" :key="course._id" >
                 <div><img class="hcourse-image" :src="course.courseImage" @error="$event.target.src=defaultImgUrl" ></div>
@@ -148,6 +147,7 @@ export default {
 .hcourse-image {
     width: 270px;
     height: 120px;
+    background-image: url(../assets/imgloadb.svg)
 }
 .hcourse-title {
     font-size: 20px;

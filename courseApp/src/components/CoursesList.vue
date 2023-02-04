@@ -9,6 +9,8 @@ export default {
             enrollmentList: [],
             enrolledCourses: [],
             otherCourses: [],
+            coursePreview: false,
+            coursePreviewData: {}
         }
     },
     mounted() {
@@ -82,6 +84,11 @@ export default {
             this.enrolledCourses= [],
             this.otherCourses= [],
             this.load()
+        },
+
+        selectCoursePreview(course) {
+            this.coursePreview=true
+            this.coursePreviewData=course
         }
 
     }
@@ -93,7 +100,7 @@ export default {
         
         <h3 v-if="$store.state.userData.loggedIn==false"> Courses: </h3>
         <div class="hcourse-container" v-if="$store.state.userData.loggedIn==false">
-            <div class="hcourse-item" v-for="course in coursesData" :key="course._id" >
+            <div class="hcourse-item" v-for="course in coursesData" :key="course._id" @click="selectCoursePreview(course)" >
                 <div class="hcourse-image-container" ><img class="hcourse-image" :src="course.courseImage" @error="$event.target.remove()" ></div>
                 <div class="hcourse-title">{{course.courseName}}</div>
                 <div class="hcourse-desc">{{course.courseDesc}}</div>
@@ -120,6 +127,21 @@ export default {
             </div>
         </div>
         <hr>
+        <div></div>
+        <div class="course-preview-container" v-if="$store.state.userData.loggedIn==false && coursePreview==true" >
+            <div class="bg-fade" @click="coursePreview=false" ></div>
+            <div class="course-preview-item" >
+                <div class="course-preview-image-container" ><img class="course-preview-image" :src="coursePreviewData.courseImage" @error="$event.target.remove()" ></div>
+                <div class="course-preview-title" >CourseName: {{coursePreviewData.courseName}}</div>
+                <div class="course-preview-desc" >CourseDescription: {{coursePreviewData.courseDesc}}</div>
+                <div class="course-preview-foot">
+                    <hr>
+                    LOGIN AS USER TO ENROLL
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
     </div>
 </template>
 
@@ -138,6 +160,7 @@ export default {
     transition: 0.5s;
     margin: 10px;
     overflow: hidden;
+    word-wrap: break-word;
 }
 .hcourse-item:hover {
     opacity: 0.7;
@@ -156,10 +179,77 @@ export default {
 
 .hcourse-title {
     font-size: 20px;
-    margin: 5px;
+    margin: 5px 5px 0px 5px;
 }
 .hcourse-desc {
     margin: 5px;
+    line-height: 1.8em;
+    max-height: 3.6em;
+    overflow: hidden;
+}
+.course-preview-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    place-items: center;
+    justify-content: center;
+}
+.course-preview-item {
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    width: 810px;
+    height: 700px;
+    background-color: var(--theme-color2);
+    animation: fadeIn .5s;
+}
+
+.course-preview-image,
+.course-preview-image-container {
+    width: 810px;
+    height: 360px;
+}
+
+.course-preview-image-container {
+    background-image: url(../assets/defimgfull.svg);
+    background-size: cover;
+    background-position: center;
+}
+
+.course-preview-foot {
+    margin: 10px;
+    margin-top: auto;
+
+}
+
+.course-preview-title {
+    font-size: 20px;
+    margin: 10px;
+}
+
+.course-preview-desc {
+    margin: 10px;
+    line-height: 1.8em;
+    max-height: 14.4em;
+    word-wrap: break-word;
+    overflow: scroll;
+}
+
+@media (max-width: 850px) {
+    .course-preview-item {
+        width: 540px;
+        height: 600px;
+    }
+
+    .course-preview-image,
+    .course-preview-image-container {
+        width: 540px;
+        height: 240px;
+    }
+    
 }
 
 </style>

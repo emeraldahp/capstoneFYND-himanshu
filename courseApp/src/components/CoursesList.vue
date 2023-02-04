@@ -9,7 +9,6 @@ export default {
             enrollmentList: [],
             enrolledCourses: [],
             otherCourses: [],
-            defaultImgUrl: import.meta.env.VITE_DEFAULT_IMG_URL
         }
     },
     mounted() {
@@ -95,7 +94,7 @@ export default {
         <h3 v-if="$store.state.userData.loggedIn==false"> Courses: </h3>
         <div class="hcourse-container" v-if="$store.state.userData.loggedIn==false">
             <div class="hcourse-item" v-for="course in coursesData" :key="course._id" >
-                <div><img class="hcourse-image" :src="course.courseImage" @error="$event.target.src=defaultImgUrl" ></div>
+                <div class="hcourse-image-container" ><img class="hcourse-image" :src="course.courseImage" @error="$event.target.remove()" ></div>
                 <div class="hcourse-title">{{course.courseName}}</div>
                 <div class="hcourse-desc">{{course.courseDesc}}</div>
                 
@@ -105,7 +104,7 @@ export default {
             <h3>Enrolled Courses</h3> <br>
             <div class="hcourse-container">
             <div class="hcourse-item" v-for = "course in enrolledCourses" :key="course._id" @click="selectCourse(course.courseName)">
-                <div><img class="hcourse-image" :src="course.courseImage" @error="$event.target.src=defaultImgUrl" ></div>
+                <div class="hcourse-image-container" ><img class="hcourse-image" :src="course.courseImage" @error="$event.target.remove()" ></div>
                 <div class="hcourse-title">{{course.courseName}}</div>
                 <div class="hcourse-desc">{{course.courseDesc}}</div>
             </div>
@@ -113,7 +112,7 @@ export default {
             <div v-if="otherCourses.length != 0"><h3>Other Courses</h3></div> <br>
             <div class="hcourse-container">
             <div class="hcourse-item" v-for = "course in otherCourses" :key="course._id">
-                <div><img class="hcourse-image" :src="course.courseImage" @error="$event.target.src=defaultImgUrl" ></div>
+                <div class="hcourse-image-container" ><img class="hcourse-image" :src="course.courseImage" @error="$event.target.remove()" ></div>
                 <div class="hcourse-title">{{course.courseName}}</div>
                 <button @click="enrollCourse(course.courseName, course.noOfSections)">Enroll</button>
                 <div class="hcourse-desc">{{course.courseDesc}}</div>
@@ -144,11 +143,17 @@ export default {
     opacity: 0.7;
 }
 
-.hcourse-image {
+.hcourse-image,
+.hcourse-image-container {
     width: 270px;
     height: 120px;
-    background-image: url(../assets/imgloadb.svg)
 }
+
+.hcourse-image-container {
+    background-image: url(../assets/defimgfull.svg);
+    background-size: cover;
+}
+
 .hcourse-title {
     font-size: 20px;
     margin: 5px;

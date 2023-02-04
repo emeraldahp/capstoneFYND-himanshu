@@ -1,6 +1,14 @@
 <script>
 import axios from 'axios'
+import { RouterView } from 'vue-router'
+import NavBar from './components/NavBar.vue';
+
 export default {
+
+    components: {
+        NavBar
+    },
+
     data() {
         return {
             myKey: 0,
@@ -57,11 +65,6 @@ export default {
 }
 </script>
 
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import NavBar from './components/NavBar.vue';
-
-</script>
 
 
 <template>   

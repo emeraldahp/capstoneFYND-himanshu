@@ -235,6 +235,10 @@ export default{
                     <input type="text" placeholder="Enter image server url." v-model="courseData.courseImage"> <br> <br>
                 </div>
             </div>
+            <div v-if="courseData.courseImage!=''"  >
+                <h4>Image Preview</h4>
+                <div ><img title="AspectRatio 9:4" :src="courseData.courseImage" alt="imageUnavailable" height="240" width="540"></div>
+            </div>
             <h4>Structure Details</h4>
             <div class="cc-course-container">
             <div class="cc-sections" :style="this.$store.state.sectionsPanel ? 'display: block' : ''" >

@@ -51,7 +51,10 @@ export default{
             alert("tutorlist fetching failed")
             this.$router.push({name:'home'})
         })
-        
+        this.$store.commit("setSectionsBtn", true)
+    },
+    beforeUnmount() {
+        this.$store.commit("setSectionsBtn", false)
     },
     watch: {
         "courseData.courseName": function(value) {
@@ -379,11 +382,16 @@ export default{
     .cc-sections {
         display: none;
     }
-    .cc-section-text {
-        font-size: 18px;
+    .cc-section-item {
+        width: 540px;
+        justify-content: center;
     }
-
-    
+    .cc-section-text {
+        font-size: 20px;
+        max-width: 400px;
+        flex-grow: 1;
+        text-align: center;
+    }
 }
 
 @media (max-width: 630px) {

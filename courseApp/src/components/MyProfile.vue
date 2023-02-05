@@ -69,7 +69,7 @@ export default {
             <div class="inprogresscourse-item" v-for="course,index in incompleteCourses" :key="course._id" >
                 Course Name: {{course.courseName}} 
                 <hr>
-                <div >Progress: {{coursePercent(course)}}%</div>
+                <div >Progress: {{Math.trunc(coursePercent(course))}}%</div>
                 <div class="inprogresscourse-item-progressbar" :style="{width:coursePercent(course)+'%'}" ></div>
             </div>
         </div>

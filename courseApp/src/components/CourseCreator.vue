@@ -51,7 +51,10 @@ export default{
             alert("tutorlist fetching failed")
             this.$router.push({name:'home'})
         })
-        
+        this.$store.commit("setSectionsBtn", true)
+    },
+    beforeUnmount() {
+        this.$store.commit("setSectionsBtn", false)
     },
     watch: {
         "courseData.courseName": function(value) {
@@ -235,6 +238,10 @@ export default{
                     <input type="text" placeholder="Enter image server url." v-model="courseData.courseImage"> <br> <br>
                 </div>
             </div>
+            <div v-if="courseData.courseImage!=''"  >
+                <h4>Image Preview</h4>
+                <div ><img title="AspectRatio 9:4" :src="courseData.courseImage" alt="imageUnavailable" height="240" width="540"></div>
+            </div>
             <h4>Structure Details</h4>
             <div class="cc-course-container">
             <div class="cc-sections" :style="this.$store.state.sectionsPanel ? 'display: block' : ''" >
@@ -284,7 +291,7 @@ export default{
 
 .cc-course-details-container {
     background: var(--theme-color2);
-    padding: 10px 10px 10px 10px;
+    padding: 10px;
     margin: 5px;
     display: flex;
     flex-wrap: wrap;
@@ -374,6 +381,23 @@ export default{
 @media (max-width: 600px) {
     .cc-sections {
         display: none;
+    }
+    .cc-section-item {
+        width: 540px;
+        justify-content: center;
+    }
+    .cc-section-text {
+        font-size: 20px;
+        max-width: 400px;
+        flex-grow: 1;
+        text-align: center;
+    }
+}
+
+@media (max-width: 630px) {
+    .cc-course-details-container {
+        padding:5px;
+        gap:5px;
     }
 }
 

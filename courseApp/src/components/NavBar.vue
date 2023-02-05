@@ -4,7 +4,6 @@ import { RouterLink } from 'vue-router'
 export default {
     data() {
         return {
-            path: "",
             panel: false //using this to add disp flex in nav2-cont 
                          //...while its none in script tag media query (while width less then given px)
                          //since inline priority is more it will be applied regardless
@@ -39,7 +38,7 @@ export default {
     <div>
         <div class = "navbar-container">  
             <div class="navbar2-home-container">
-                <div class="navbar2sec-item" @click="toggleSectionsPanel" v-if="(this.$store.state.userData.loggedIn == true && this.$store.state.userData.courseName != 'none') || this.$store.state.adminData.loggedIn == true  " > 
+                <div class="navbar2sec-item" @click="toggleSectionsPanel" v-if="(this.$store.state.userData.loggedIn == true && this.$store.state.userData.courseName != 'none') || (this.$store.state.adminData.loggedIn == true && this.$store.state.sectionsBtn == true )  " > 
                     <img class="sec-ico" src="../assets/secico.svg" > Sections 
                 </div>
                 <img class="home-ico" src="../assets/homeico.svg">

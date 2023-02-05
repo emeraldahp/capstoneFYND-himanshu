@@ -40,8 +40,8 @@ export default {
                 this.currentSection = this.courseProgress.currentSection
                 //to populate sectionProgress before its used in selectSection
                 if(this.courseProgress.sectionProgress == null) {
-                    this.courseProgress.sectionProgress = [true]
-                    for(let i=1; i<this.courseProgress.noOfSections; i++)
+                    this.courseProgress.sectionProgress = []
+                    for(let i=0; i<this.courseProgress.noOfSections; i++)
                         this.courseProgress.sectionProgress.push(false)
                 }
                 
@@ -215,9 +215,12 @@ export default {
 
 .sitem-text {
     word-wrap: break-word;
+    padding: 5px 0px 5px 0px;
+    line-height: 1.3em;
 }
 
 .sitem-text-title {
+    padding-top: 10px;
     font-size: 20px;
 }
 

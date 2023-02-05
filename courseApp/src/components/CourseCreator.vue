@@ -284,7 +284,7 @@ export default{
 
 .cc-course-details-container {
     background: var(--theme-color2);
-    padding: 10px 10px 10px 10px;
+    padding: 10px;
     margin: 5px;
     display: flex;
     flex-wrap: wrap;
@@ -374,6 +374,18 @@ export default{
 @media (max-width: 600px) {
     .cc-sections {
         display: none;
+    }
+    .cc-section-text {
+        font-size: 18px;
+    }
+
+    
+}
+
+@media (max-width: 630px) {
+    .cc-course-details-container {
+        padding:5px;
+        gap:5px;
     }
 }
 

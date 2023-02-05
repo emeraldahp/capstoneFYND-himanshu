@@ -237,6 +237,9 @@ export default {
     .sections {
         display: none;
     }
+    .section-text {
+        font-size: 18px;
+    }
 }
 
 

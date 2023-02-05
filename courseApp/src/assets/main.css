@@ -84,7 +84,7 @@ select {
     padding-inline: 0.5em;
     padding-block: 0.75em;
     color: #FFF;
-    width:300px;
+    width:280px;
     opacity: 0.8;
     -webkit-appearance: none;
 }
@@ -94,7 +94,7 @@ input[type=text], input[type=password] {
     font-family: inherit;
     font-size: 16px;
     background-color: transparent;
-    width: 300px;
+    width: 280px;
     box-sizing: border-box;
     padding-inline: 0.5em;
     padding-block: 0.7em;

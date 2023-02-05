@@ -86,9 +86,10 @@ export default {
             this.load()
         },
 
-        selectCoursePreview(course) {
+        selectCoursePreview(course, message) {
             this.coursePreview=true
             this.coursePreviewData=course
+            this.coursePreviewData.message=message
         }
 
     }
@@ -100,7 +101,7 @@ export default {
         
         <h3 v-if="$store.state.userData.loggedIn==false"> Courses: </h3>
         <div class="hcourse-container" v-if="$store.state.userData.loggedIn==false">
-            <div class="hcourse-item" v-for="course in coursesData" :key="course._id" @click="selectCoursePreview(course)" >
+            <div class="hcourse-item" v-for="course in coursesData" :key="course._id" @click="selectCoursePreview(course, 'LOGIN AS USER TO ENROLL')" >
                 <div class="hcourse-image-container" ><img class="hcourse-image" :src="course.courseImage" @error="$event.target.remove()" ></div>
                 <div class="hcourse-title">{{course.courseName}}</div>
                 <div class="hcourse-desc">{{course.courseDesc}}</div>
@@ -122,13 +123,14 @@ export default {
                 <div class="hcourse-image-container" ><img class="hcourse-image" :src="course.courseImage" @error="$event.target.remove()" ></div>
                 <div class="hcourse-title">{{course.courseName}}</div>
                 <button @click="enrollCourse(course.courseName, course.noOfSections)">Enroll</button>
+                <button @click="selectCoursePreview(course, 'PRESS ENROLL TO CONTINUE')">Preview</button>
                 <div class="hcourse-desc">{{course.courseDesc}}</div>
             </div>
             </div>
         </div>
         <hr>
         <div></div>
-        <div class="course-preview-container" v-if="$store.state.userData.loggedIn==false && coursePreview==true" >
+        <div class="course-preview-container" v-if="coursePreview==true" >
             <div class="bg-fade" @click="coursePreview=false" ></div>
             <div class="course-preview-item" >
                 <div class="course-preview-image-container" ><img class="course-preview-image" :src="coursePreviewData.courseImage" @error="$event.target.remove()" ></div>
@@ -136,7 +138,7 @@ export default {
                 <div class="course-preview-desc" >CourseDescription: {{coursePreviewData.courseDesc}}</div>
                 <div class="course-preview-foot">
                     <hr>
-                    LOGIN AS USER TO ENROLL
+                    {{coursePreviewData.message}}
                     <hr>
                 </div>
                 
@@ -175,6 +177,10 @@ export default {
 .hcourse-image-container {
     background-image: url(../assets/defimgfull.svg);
     background-size: cover;
+}
+
+.hcourse-image {
+    background: var(--theme-color3);
 }
 
 .hcourse-title {
@@ -219,6 +225,10 @@ export default {
     background-position: center;
 }
 
+.course-preview-image {
+    background: var(--theme-color3);
+}
+
 .course-preview-foot {
     margin: 10px;
     margin-top: auto;
@@ -251,5 +261,19 @@ export default {
     }
     
 }
+
+@media (max-height: 750px) {
+    .course-preview-item {
+        width: 540px;
+        height: 360px;
+    }
+
+    .course-preview-image,
+    .course-preview-image-container {
+        display: none;
+    }
+}
+
+
 
 </style>

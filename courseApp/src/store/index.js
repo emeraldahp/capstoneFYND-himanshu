@@ -16,7 +16,8 @@ export default createStore({
             verified: false
         },
         loading: false,
-        sectionsPanel: false
+        sectionsPanel: false,
+        sectionsBtn: false,
     },
     getters: {},
     mutations: {
@@ -49,6 +50,9 @@ export default createStore({
         },
         setAdminVerified(state, payload) {
             state.adminData.verified = payload
+        },
+        setSectionsBtn(state, payload) {
+            state.sectionsBtn = payload
         }
     },
     actions: {

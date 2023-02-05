@@ -237,6 +237,15 @@ export default {
     .sections {
         display: none;
     }
+    .section-item {
+        width: 540px;
+    }
+    .section-text {
+        font-size: 20px;
+        max-width: 520px;
+        flex-grow: 1;
+        text-align: center;
+    }
 }
 
 

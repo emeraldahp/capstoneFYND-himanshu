@@ -62,17 +62,7 @@ export default {
     left: 0;
 }
 
-.bg-fade{
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    background-color: black;
-    opacity: 0.5;
-    z-index: 5;
-    animation: fadeInBG .5s;
-}
+
 
 .ask-question-comp {
     width: 100%;

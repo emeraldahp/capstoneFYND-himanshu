@@ -75,7 +75,7 @@ export default{
                     adminName: this.$store.state.adminData.adminName,
                     tutorName: this.courseData.tutorName,
                     courseDesc: this.courseData.courseDesc,
-                    courseImage: this.courseData.courseImage || import.meta.env.VITE_DEFAULT_IMG_URL,
+                    courseImage: this.courseData.courseImage || "noimage",
                     noOfSections: this.structureData.noOfSections
                 }
                 this.$store.commit("loadingStatus", true)

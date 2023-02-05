@@ -55,7 +55,7 @@ export default {
             this.$store.commit("loadingStatus", false)
         },
         async adminLogin() {
-         
+            this.$store.commit("loadingStatus", true)
             const adminData = {
                 adminName: this.loginData.name,
                 password: this.loginData.password
@@ -73,6 +73,7 @@ export default {
                 this.$router.push({name:'adminview'})
                 
             }
+            this.$store.commit("loadingStatus", false)
         }
     }
 }

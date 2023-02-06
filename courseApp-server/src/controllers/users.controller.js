@@ -42,7 +42,7 @@ const userLogin = async (req, res, next) => {
         }
     }
     catch(err) {
-        res.status(201).json({status: 'failed', data:err.message})
+        res.status(401).json({status: 'failed', data:err.message})
     }
 }
 
@@ -56,7 +56,7 @@ const getUserList = async (req, res, next) => {
         res.status(201).json({status: "success", data: userList})
     }
     catch(err) {
-        res.status(201).json({status: "failed", data: err.message})
+        res.status(401).json({status: "failed", data: err.message})
     }
 }
 
@@ -67,7 +67,7 @@ const postUser = async (req, res, next) => {
         res.status(201).json({status: "success", data: userData})
     }
     catch(err) {
-        res.status(201).json({status: "failed", data: err.message})
+        res.status(401).json({status: "failed", data: err.message})
     }
 }
 

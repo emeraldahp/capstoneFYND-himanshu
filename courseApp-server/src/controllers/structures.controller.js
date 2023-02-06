@@ -9,7 +9,7 @@ const getStructure = async (req, res, next) => {
         res.status(201).json({ status: 'success received', data:structure });
     }
     catch(err) {
-        res.status(201).json({ status: 'failed', data:err.message });
+        res.status(401).json({ status: 'failed', data:err.message });
     }
 }
 
@@ -21,7 +21,7 @@ const postStructure = async (req, res, next) => {
         res.status(201).json({status:'success sent', data:structureData})
     }
     catch(err) {
-        res.status(201).json({status:'failed', data:err.message})
+        res.status(401).json({status:'failed', data:err.message})
     }
 
 }

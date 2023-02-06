@@ -69,20 +69,30 @@ export default {
                 return
             }
             if(this.valid.nameMsg == 'available') {
-                let userPost = {
-                    userName: this.registerData.name,
-                    email: this.registerData.email,
-                    password: this.registerData.password
-                } 
-                this.$store.commit("loadingStatus", true)  
-                const response = await axios.post(import.meta.env.VITE_API_URL + '/users/register', userPost)
-                if(response.data.data.status = "success")
-                    alert("User Registered Successfully.")
-                else
-                    alert("Failed.")
-            
-                this.$store.commit("loadingStatus", false)
-                this.$router.push({name: 'home'})
+                this.$store.commit("loadingStatus", true) 
+                try {
+                    let userPost = {
+                        userName: this.registerData.name,
+                        email: this.registerData.email,
+                        password: this.registerData.password
+                    } 
+                    
+                    const response = await axios.post(import.meta.env.VITE_API_URL + '/users/register', userPost)
+                    if(response.data.data.status = "success") {
+                        alert("User Registered Successfully.")
+                        this.$store.commit("loadingStatus", false)
+                        this.$router.push({name: 'home'})
+                    }
+                    else{
+                        alert("Failed.")
+                        this.$store.commit("loadingStatus", false)
+                    }
+                }
+                catch(err){
+                    alert(err.message)
+                    this.$store.commit("loadingStatus", false)
+                }
+                
             }
         },
         async tutorRegister() {
@@ -93,20 +103,28 @@ export default {
                 return
             }
             if(this.valid.nameMsg == 'available') {
-                let tutorPost = {
-                    tutorName: this.registerData.name,
-                    email: this.registerData.email,
-                    password: this.registerData.password
-                } 
-                this.$store.commit("loadingStatus", true)   
-                const response = await axios.post(import.meta.env.VITE_API_URL + '/tutors/register', tutorPost)
-                if(response.data.data.status = "success")
-                    alert("Tutor Registered Successfully.")
-                else
-                    alert("Failed.")
-          
-                this.$store.commit("loadingStatus", false)  
-                this.$router.push({name: 'home'})
+                this.$store.commit("loadingStatus", true)  
+                try {
+                    let tutorPost = {
+                        tutorName: this.registerData.name,
+                        email: this.registerData.email,
+                        password: this.registerData.password
+                    } 
+                    const response = await axios.post(import.meta.env.VITE_API_URL + '/tutors/register', tutorPost)
+                    if(response.data.data.status = "success") {
+                        alert("Tutor Registered Successfully.")
+                        this.$store.commit("loadingStatus", false)  
+                        this.$router.push({name: 'home'})
+                    }
+                    else {
+                        alert("Failed.")
+                        this.$store.commit("loadingStatus", false) 
+                    }
+                }
+                catch(err){
+                    alert(err.message)
+                    this.$store.commit("loadingStatus", false)
+                }
             }
         },
         async adminRegister() {
@@ -117,20 +135,29 @@ export default {
                 return
             }
             if(this.valid.nameMsg == 'available') {
-                let adminPost = {
-                    adminName: this.registerData.name,
-                    email: this.registerData.email,
-                    password: this.registerData.password
-                }    
-                this.$store.commit("loadingStatus", true)  
-                const response = await axios.post(import.meta.env.VITE_API_URL + '/admins/register', adminPost)
-                if(response.data.data.status = "success")
-                    alert("Admin Registered Successfully.")
-                else
-                    alert("Failed.")
-              
-                this.$store.commit("loadingStatus", true)  
-                this.$router.push({name: 'home'})
+                this.$store.commit("loadingStatus", true) 
+                try {
+                    let adminPost = {
+                        adminName: this.registerData.name,
+                        email: this.registerData.email,
+                        password: this.registerData.password
+                    }    
+                     
+                    const response = await axios.post(import.meta.env.VITE_API_URL + '/admins/register', adminPost)
+                    if(response.data.data.status = "success") {
+                        alert("Admin Registered Successfully.")
+                        this.$store.commit("loadingStatus", false)  
+                        this.$router.push({name: 'home'})
+                    }
+                    else {
+                        alert("Failed.")
+                        this.$store.commit("loadingStatus", false) 
+                    }
+                }
+                catch(err){
+                    alert(err.message)
+                    this.$store.commit("loadingStatus", false)
+                }
             }
             
         },

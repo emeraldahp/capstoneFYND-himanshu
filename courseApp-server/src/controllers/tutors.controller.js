@@ -42,7 +42,7 @@ const tutorLogin = async (req, res, next) => {
         }
     }
     catch(err) {
-        res.status(201).json({status: 'failed', data:err.message})
+        res.status(401).json({status: 'failed', data:err.message})
     }
 }
 
@@ -56,7 +56,7 @@ const getTutorList = async (req, res, next) => {
         res.status(201).json({status: "success", data: tutorList})
     }
     catch(err) {
-        res.status(201).json({status: "failed", data: err.message})
+        res.status(401).json({status: "failed", data: err.message})
 
     }
 }
@@ -68,7 +68,7 @@ const postTutor = async (req, res, next) => {
         res.status(201).json({status: "success", data: tutorData})
     }
     catch(err) {
-        res.status(201).json({status: "failed", data: err.message})
+        res.status(401).json({status: "failed", data: err.message})
     }
 }
 

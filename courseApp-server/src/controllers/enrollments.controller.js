@@ -9,7 +9,7 @@ const getEnrollments = async (req, res, next) => {
         res.status(201).json({status: 'success received', data:enrollments})
     }
     catch(err) {
-        res.status(201).json({status: 'failed', data:err.message})
+        res.status(401).json({status: 'failed', data:err.message})
     }
 }
 
@@ -21,7 +21,7 @@ const postEnrollment = async (req, res, next) => {
         res.status(201).json({status: 'success sent', data:enrollmentData})
     }
     catch(err) {
-        res.status(201).json({status: 'failed', data:err.message})
+        res.status(401).json({status: 'failed', data:err.message})
     }
 }
 //for course status
@@ -30,12 +30,12 @@ const getEnrollmentByCourseName = async (req, res, next) => {
   
     const {userName, courseName} = data
     try{
-    const enrollment = await Enrollment.findOne({userName, courseName})
-  
-    res.status(201).json({status: 'success received', data:enrollment})
+        const enrollment = await Enrollment.findOne({userName, courseName})
+    
+        res.status(201).json({status: 'success received', data:enrollment})
     }
     catch(err) {
-        res.status(201).json({status: 'failed', data:err.message})
+        res.status(401).json({status: 'failed', data:err.message})
     }
 
 }
@@ -72,7 +72,7 @@ const updateEnrollment = async (req, res, next) => {
     }
     catch(err){
      
-        res.status(201).json({status: 'failed', data:err.message})
+        res.status(401).json({status: 'failed', data:err.message})
     }
     
 }
@@ -89,7 +89,7 @@ const getEnrollmentById = async (req, res, next) => {
 
     }
     catch(err) {
-        res.status(201).json({status: 'failed', data:err.message})
+        res.status(401).json({status: 'failed', data:err.message})
     }
 
 }

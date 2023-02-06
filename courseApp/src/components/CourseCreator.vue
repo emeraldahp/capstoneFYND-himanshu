@@ -73,28 +73,37 @@ export default{
                 return
             }
             if(this.valid.courseMsg == "available" && this.valid.tutorMsg == "selected" && this.structureData.noOfSections != 0) {
-                let coursePost = {
-                    courseName: this.courseData.courseName,
-                    adminName: this.$store.state.adminData.adminName,
-                    tutorName: this.courseData.tutorName,
-                    courseDesc: this.courseData.courseDesc,
-                    courseImage: this.courseData.courseImage || "noimage",
-                    noOfSections: this.structureData.noOfSections
-                }
                 this.$store.commit("loadingStatus", true)
-                const response1 = await axios.post(import.meta.env.VITE_API_URL + '/courses', coursePost)
-                let structurePost = this.structureData
-                const response2 = await axios.post(import.meta.env.VITE_API_URL + '/structures', structurePost) 
+                try{
+                    let coursePost = {
+                        courseName: this.courseData.courseName,
+                        adminName: this.$store.state.adminData.adminName,
+                        tutorName: this.courseData.tutorName,
+                        courseDesc: this.courseData.courseDesc,
+                        courseImage: this.courseData.courseImage || "noimage",
+                        noOfSections: this.structureData.noOfSections
+                    }
+                    const response1 = await axios.post(import.meta.env.VITE_API_URL + '/courses', coursePost)
+                    let structurePost = this.structureData
+                    const response2 = await axios.post(import.meta.env.VITE_API_URL + '/structures', structurePost) 
 
-                if(response1.data.status=="success sent" && response2.data.status=="success sent") {
-                    alert("Course Added Successfully")
-                    this.$store.commit("loadingStatus", false)
-                    this.$router.push({name:'home'})
+                    if(response1.data.status=="success sent" && response2.data.status=="success sent") {
+                        alert("Course Added Successfully")
+                        this.$store.commit("loadingStatus", false)
+                        this.$router.push({name:'home'})
+                    }
+                    else {
+                        alert("Retry.")
+                        this.$store.commit("loadingStatus", false)
+                    }
                 }
-                else {
-                    alert("Retry.")
+                catch(err) {
+                    alert(err.message)
                     this.$store.commit("loadingStatus", false)
                 }
+            }
+            else {
+                alert("validation failed: check Msg status or/and courseStructure cant be empty")
             }
         },
         selectSection(index) {

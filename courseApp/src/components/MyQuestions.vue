@@ -24,7 +24,12 @@ export default {
         },
         async removeQuestion(_id) {
             this.$store.commit("loadingStatus", true)  
-            const response = await axios.delete(import.meta.env.VITE_API_URL + '/questions', {params:{_id}})
+            try {
+                const response = await axios.delete(import.meta.env.VITE_API_URL + '/questions', {params:{_id}})
+            }
+            catch(err) {
+                alert("failed to delete question")
+            }
             this.questions= []
             this.$store.commit("loadingStatus", false)  
             this.load()

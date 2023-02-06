@@ -21,13 +21,18 @@ export default {
                 answer: null
             }
             this.$store.commit("loadingStatus", true)
-            const response = await axios.post(import.meta.env.VITE_API_URL + '/questions', questionPost)
-            if(response.data.status=="success sent"){ 
-                alert("Question Added Successfully") 
-                this.questionData.questionName = ""
-                this.questionData.questionDesc = ""
+            try{
+                const response = await axios.post(import.meta.env.VITE_API_URL + '/questions', questionPost)
+                if(response.data.status=="success sent"){ 
+                    alert("Question Added Successfully") 
+                    this.questionData.questionName = ""
+                    this.questionData.questionDesc = ""
+                }
             }
-            else if(response.data.status=="failed") alert("Failed to Add Question")
+            catch(err) {
+                if(err.response.data.status=="failed") alert(err.response.data.data)
+                else alert(err.message)
+            }
             this.$store.commit("loadingStatus", false)
         }
     }

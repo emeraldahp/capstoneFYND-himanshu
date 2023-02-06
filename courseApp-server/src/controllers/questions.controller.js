@@ -10,7 +10,7 @@ const postQuestion = async (req, res, next) => {
         res.status(201).json({status:'success sent', data:questionData})
     }
     catch(err) {
-        res.status(201).json({status:'failed', data:err.message})
+        res.status(401).json({status:'failed', data:err.message})
     }
 
 }
@@ -27,7 +27,7 @@ const getQuestionsByTutor = async (req, res, next) => {
         res.status(201).json({status:'success received', data: questionData})
     }
     catch(err) {
-        res.status(201).json({status:'failed', data: err.message})
+        res.status(401).json({status:'failed', data: err.message})
     }
 }
 
@@ -40,7 +40,7 @@ const addAnsById = async (req, res, next) => {
         res.status(201).json({status:'success sent', data:response})
     }
     catch(err) {
-        res.status(201).json({status:'failed', data:err.message})
+        res.status(401).json({status:'failed', data:err.message})
     }
 }
 
@@ -52,7 +52,7 @@ const getQuestionsByUser = async (req, res, next) => {
         res.status(201).json({status:'success received', data:response})
     }
     catch(err) {
-        res.status(201).json({status:'failed', data:err.message})
+        res.status(401).json({status:'failed', data:err.message})
     }
 }
 
@@ -63,7 +63,7 @@ const removeQuestionById = async (req, res, next) => {
         res.status(201).json({status:'success delete', data: response})
     }
     catch(err) {
-        res.status(201).json({status:'failed', data: err.message})
+        res.status(401).json({status:'failed', data: err.message})
     }
 }
 

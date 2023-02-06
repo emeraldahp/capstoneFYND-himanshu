@@ -34,13 +34,23 @@ export default {
         },
         async ansQues(questionId) {
             this.answer = prompt("Enter Answer")
+
             if(this.answer != null) {
+                if(this.answer.length == 0) { 
+                    alert("Please give an answer.")
+                    return
+                }
                 const ansData = {
                     _id: questionId,
                     answer: this.answer
                 }
                 this.$store.commit("loadingStatus", true)
-                const response = await axios.patch(import.meta.env.VITE_API_URL + '/questions', ansData)
+                try {
+                    await axios.patch(import.meta.env.VITE_API_URL + '/questions', ansData)
+                }
+                catch(err) {
+                    alert(err.message)
+                }
                 this.questions.answered = []
                 this.questions.unanswered = []
                 this.answer = null

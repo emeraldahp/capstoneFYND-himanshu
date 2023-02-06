@@ -28,6 +28,10 @@ export default {
                 if(element.sectionProgress);
             })
             this.$store.commit("loadingStatus", false)  
+        }).catch(err=>{
+            alert("failed to load enrollments")
+            this.$store.commit("loadingStatus", false)
+            this.$router.push({name:'home'})
         })
     },
     methods: {

@@ -9,7 +9,7 @@ const getAllCourses = async (req, res, next) => {
         res.status(201).json({ status: 'success received', data:courses });
     }
     catch(err) {
-        res.status(201).json({status: 'failed', data:err.message})
+        res.status(401).json({status: "failed", data:err.message})
     }
     
 }
@@ -21,7 +21,7 @@ const postCourses = async (req, res, next) => {
         res.status(201).json({status: 'success sent', data:courseData})
     }
     catch(err) {
-        res.status(201).json({status: 'failed', data:err.message})
+        res.status(401).json({status: "failed", data:err.message})
     }
     
 
@@ -53,7 +53,7 @@ const getCourseList = async (req, res, next) => {
         res.status(201).json({status:"success", data: courseList})
     }
     catch(err) {
-        res.status(201).json({status:"failed", data: err.message})
+        res.status(401).json({status:"failed", data: err.message})
     }
 }
 
@@ -66,7 +66,7 @@ const getTutorNameByCourse = async (req, res, next) => {
         res.status(201).json({status:"success received", data: course.tutorName})
     }
     catch(err) {
-        res.status(201).json({status:"failed", data: err.message})
+        res.status(401).json({status:"failed", data: err.message})
     }
 }
 

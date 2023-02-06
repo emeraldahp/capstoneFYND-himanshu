@@ -44,7 +44,7 @@ const adminLogin = async (req, res, next) => {
         }
     }
     catch(err) {
-        res.status(201).json({status: 'failed', data:err.message})
+        res.status(401).json({status: "failed", data:err.message})
     }
 }
 
@@ -58,7 +58,7 @@ const getAdminList = async (req, res, next) => {
         res.status(201).json({status: "success", data: adminList})
     }
     catch(err) {
-        res.status(201).json({status: "failed", data: err.message})
+        res.status(401).json({status: "failed", data: err.message})
 
     }
 }
@@ -70,7 +70,7 @@ const postAdmin = async (req, res, next) => {
         res.status(201).json({status: "success", data: adminData})
     }
     catch(err) {
-        res.status(201).json({status: "failed", data: err.message})
+        res.status(401).json({status: "failed", data: err.message})
     }
 }
 

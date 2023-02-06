@@ -46,8 +46,14 @@ export default {
                 }
                 
                 this.$store.commit("loadingStatus", false)
+            }).catch(err=>{
+                alert("failed to load enrollments")
+                this.$router.push({name:'home'})
             })
-        })
+        }).catch(err=>{
+            alert("failed to load questions structure")
+            this.$router.push({name:'home'})
+        }) 
         
 
     },
@@ -80,7 +86,12 @@ export default {
                         finishDate: this.courseProgress.finishDate
 
                     }
-                    const response = await axios.patch(import.meta.env.VITE_API_URL + '/enrollments', {type:"firsttime_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                    try {
+                        const response = await axios.patch(import.meta.env.VITE_API_URL + '/enrollments', {type:"firsttime_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                    }
+                    catch(err) {
+                        alert(err.message)
+                    }
                    
                 }
                 else{
@@ -91,8 +102,12 @@ export default {
                         currentSection: this.courseProgress.currentSection,
                         sectionProgress: this.courseProgress.sectionProgress
                     }
-                    const response = await axios.patch(import.meta.env.VITE_API_URL + '/enrollments', {type:"not_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
-                   
+                    try{
+                        const response = await axios.patch(import.meta.env.VITE_API_URL + '/enrollments', {type:"not_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                    }
+                    catch(err) {
+                        alert(err.message)
+                    }
                 }
             }
             else{
@@ -102,8 +117,12 @@ export default {
                     courseName: this.courseProgress.courseName,
                     currentSection: this.courseProgress.currentSection
                 }
-                const response = await axios.patch(import.meta.env.VITE_API_URL + '/enrollments', {type:"already_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
-                
+                try {
+                    const response = await axios.patch(import.meta.env.VITE_API_URL + '/enrollments', {type:"already_complete", data:courseProgressPatch}, {params:{_id:this.courseProgress._id}})
+                }
+                catch(err) {
+                    alert(err.message)
+                }
             }
 
         },

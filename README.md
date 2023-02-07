@@ -32,7 +32,7 @@
 6. They can view their asked questions from MyQuestions page.
 
 - Tutors once logged in are able to answer question from their assigned courses.
-- Admin ance logged in and verified are able to create courses for users to view and assign tutors.
+- Admin once logged in and verified are able to create courses for users to view and assign tutors.
 
 
 

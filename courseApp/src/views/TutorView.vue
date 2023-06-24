@@ -17,12 +17,3 @@ export default {
         </div>
     </div>
 </template>
-
-<style>
-
-@media (max-width: 600px) {
-    .tutor-view-container {
-        margin-top: 77px;
-    }
-}
-</style>

@@ -95,11 +95,4 @@ export default {
     background-color: var(--theme-color2);
     padding: 10px 0px 10px 0px;
 }
-
-@media (max-width: 600px) {
-    .course-view-container {
-        margin-top: 77px;
-    }
-}
-
 </style>

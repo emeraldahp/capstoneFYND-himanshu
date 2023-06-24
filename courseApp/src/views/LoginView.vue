@@ -88,10 +88,4 @@ export default {
     margin: 5px;
 }
 
-@media (max-width: 600px) {
-    .login-container {
-        margin-top: 77px;
-    }
-}
-
 </style>

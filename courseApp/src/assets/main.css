@@ -32,6 +32,8 @@ body {
     --theme-color4:#E7F6F2;
     --min-width:599px;
     --min-width-nav: 400px;
+    --min-width-input: 280px;
+    --max-width:1455px;
 
     background-color: var(--theme-color1);
     color: var(--theme-color3);
@@ -39,7 +41,7 @@ body {
 }
 
 #app {
-    max-width: 1455px;
+    max-width: var(--max-width);
     min-width: var(--min-width);
     margin: auto;
 }
@@ -84,7 +86,8 @@ select {
     padding-inline: 0.5em;
     padding-block: 0.75em;
     color: #FFF;
-    width:280px;
+    min-width: var(--min-width-input);
+    width: 100%;
     opacity: 0.8;
     -webkit-appearance: none;
 }
@@ -94,7 +97,8 @@ input[type=text], input[type=password] {
     font-family: inherit;
     font-size: 16px;
     background-color: transparent;
-    width: 280px;
+    min-width: var(--min-width-input);
+    width: 100%;
     box-sizing: border-box;
     padding-inline: 0.5em;
     padding-block: 0.7em;

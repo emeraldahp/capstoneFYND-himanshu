@@ -10,7 +10,11 @@ export default{
             },
             check:{
                 tutorList: [],
-                courseList: []
+                courseList: [],
+                showCourseDetails: true,
+                showStructureDetails: true,
+                showCourseImage: false,
+                errorCourseImageLoad: false,
             },
             courseData: {
                 courseName: "",
@@ -63,7 +67,11 @@ export default{
         },
         "courseData.tutorName": function(value) {
             this.validateTutorName(value)
-        }
+        },
+        "courseData.courseImage": function(value) {
+            this.check.showCourseImage = false;
+            this.check.errorCourseImageLoad = false;
+        },
         
     },  
     methods:{     
@@ -80,7 +88,7 @@ export default{
                         adminName: this.$store.state.adminData.adminName,
                         tutorName: this.courseData.tutorName,
                         courseDesc: this.courseData.courseDesc,
-                        courseImage: this.courseData.courseImage || "noimage",
+                        courseImage: this.courseData.courseImage || "",
                         noOfSections: this.structureData.noOfSections
                     }
                     const response1 = await axios.post(import.meta.env.VITE_API_URL + '/courses', coursePost)
@@ -220,17 +228,20 @@ export default{
 }
 </script>
 <template>
-    <div>
-        <h3>CourseCreator</h3> <br>
-        <div>
-            <h4>Course Details</h4>
-            <div class="cc-course-details-container">
-                <div>
+    <div class="cc-container">
+        <div class="cc-content">
+            <h3>CourseCreator</h3>
+            <h4 title="Show/Hide Course Details" 
+                @click="this.check.showCourseDetails = this.check.showCourseDetails ? false : true " >
+                Course Details <span v-if="!check.showCourseDetails" style="opacity: 50%;" >Collapsed</span> 
+            </h4>
+            <div v-show="check.showCourseDetails" class="cc-course-details-container">
+                <div class="cc-course-details-items" >
                     Course Name: <br>
                     <input type="text" placeholder="Enter course name." v-model="courseData.courseName"> <br> 
                     Msg: {{valid.courseMsg}}<br> <br>
                 </div>
-                <div>
+                <div class="cc-course-details-items">
                     Tutor Name: <br>
                     <select v-model="courseData.tutorName">
                         <option disabled value="">Select an option.</option>
@@ -238,58 +249,100 @@ export default{
                     </select> <br>
                     Msg: {{valid.tutorMsg}}<br> <br>
                 </div>
-                <div>
+                <div class="cc-course-details-items">
                     Course Desc: <br>
                     <input type="text" placeholder="Enter course description." v-model="courseData.courseDesc"> <br> <br>
                 </div>
-                <div>
+                <div class="cc-course-details-items">
                     Course Image: <br>
-                    <input type="text" placeholder="Enter image server url." v-model="courseData.courseImage"> <br> <br>
+                    <input type="text" placeholder="Enter image server url." v-model.lazy="courseData.courseImage"> <br> <br>
                 </div>
             </div>
-            <div v-if="courseData.courseImage!=''"  >
-                <h4>Image Preview</h4>
-                <div ><img title="AspectRatio 9:4" :src="courseData.courseImage" alt="imageUnavailable" height="240" width="540"></div>
+            <div v-show="check.showCourseDetails">
+                <h4 v-if="courseData.courseImage">Image Preview</h4>
+                <h5 v-if="check.errorCourseImageLoad && courseData.courseImage" style="margin-left: 5px;">Error Loading Image !</h5>
+                <h5 v-if="!check.showCourseImage && !check.errorCourseImageLoad && courseData.courseImage " style="margin-left: 5px;" >Image Preview Loading ...</h5>
+                <div v-show="check.showCourseImage" >
+                    <div>
+                        <img v-if="courseData.courseImage"
+                            title="AspectRatio 9:4" 
+                            :src="courseData.courseImage" 
+                            @load="check.showCourseImage = true; check.errorCourseImageLoad = false" 
+                            @error="check.errorCourseImageLoad = true"
+                            alt="imageUnavailable" 
+                            height="240" 
+                            width="540"
+                            style="margin:5px;"
+                        >
+                    </div>
+                </div>
             </div>
-            <h4>Structure Details</h4>
-            <div class="cc-course-container">
+            
+
+            <h4 title="Show/Hide Course Structure Details" 
+                @click="this.check.showStructureDetails = this.check.showStructureDetails ? false : true " >
+                Structure Details <span v-if="!check.showStructureDetails" style="opacity: 50%;" >Collapsed</span>
+            </h4>
+            <div v-show="check.showStructureDetails" class="cc-course-container">
             <div class="cc-sections" :style="this.$store.state.sectionsPanel ? 'display: block' : ''" >
-                SectionSelector <br>
-                <button @click="addSection">AddSection</button>
-                <div  class="cc-section-container" v-if="structureData.sections[0].sectionName != null">
-                <div class="cc-section-item" v-for="section, index in structureData.sections"  @click="selectSection(index); this.$store.commit('sectionsPanelStatus', false)">
-                    <div> <button v-if="structureData.noOfSections != 0" @click="removeSection(index)">X</button> </div>
-                    <div class="cc-section-text">{{section.sectionName}}</div>
+                <div class="cc-sections-head">
+                    Section Selector <br>
+                    <button @click="addSection">Add Section</button>
                 </div>
+                <div class="cc-sections-body">
+                    <div  class="cc-section-container" v-if="structureData.sections[0].sectionName != null">
+                    <div class="cc-section-item" v-for="section, index in structureData.sections"  >
+                        <div> <button v-if="structureData.noOfSections != 0" @click="removeSection(index)">X</button> </div>
+                        <div @click="selectSection(index); this.$store.commit('sectionsPanelStatus', false)" class="cc-section-text"><div class="cc-section-text-p">{{section.sectionName}}</div></div>
+                    </div>
+                    </div>
                 </div>
+                
             </div>
             <div class="cc-viewport" :style="this.$store.state.sectionsPanel ? 'display: none' : ''" v-if="structureData.sections[0].sectionName != null">
-                CourseViewport: {{structureData.sections[currentSection].sectionName}} <br>
-                <form class="cc-type-select" @submit.prevent="">
-                    SelectType 
-                    <img class="cc-type-ico" src="../assets/textico.svg"> <input type="radio" value="text" v-model="itemType">
-                    <img class="cc-type-ico" src="../assets/imageico.svg"> <input type="radio" value="image" v-model="itemType">
-                    <img class="cc-type-ico" src="../assets/videoico.svg"> <input type="radio" value="video" v-model="itemType">
-                    <button @click="addItem">AddItem</button>
-                </form>
-                
-                <div class="cc-sitem-container">
-                <div v-for="item, index in structureData.sections[currentSection].items">
-                    <button v-if="structureData.sections[currentSection].noOfItems != 0" @click="removeItem(index)">X</button> <br>
-                    <div v-if="item.type=='text'" class="cc-sitem-text" :class="item.content[0]=='#'? 'cc-sitem-text-title' : '' " >
-                        {{item.content}}
-                    </div>
-                    <div v-if="item.type=='image'" class="cc-sitem-image-cont" >
-                        <img class="cc-sitem-image" :src="item.content" alt="ImageCantBeLoaded">
-                    </div>
-                    <div v-if="item.type=='video'" >
-                        <iframe class="cc-sitem-video" :src="'https://www.youtube.com/embed/'+ item.content"></iframe>
-                    </div>
-                    
+                <div class="cc-viewport-head" >
+                    Course Viewport: {{structureData.sections[currentSection] ? structureData.sections[currentSection].sectionName : ""}} <br>
+                    <form class="cc-type-select" @submit.prevent="">
+                        Select Type 
+                        <div class="cc-type-item-container">
+                            <label class="cc-type-ico" for="text-item" >
+                                <img src="../assets/textico.svg">
+                            </label>
+                            <input type="radio" value="text" id="text-item" v-model="itemType">
+                        </div>
+                        <div class="cc-type-item-container">
+                            <label class="cc-type-ico" for="image-item" >
+                                <img src="../assets/imageico.svg">
+                            </label>
+                            <input type="radio" value="image" id="image-item" v-model="itemType">
+                        </div>
+                        <div class="cc-type-item-container">
+                            <label class="cc-type-ico" for="video-item" >
+                                <img src="../assets/videoico.svg">
+                            </label>
+                            <input type="radio" value="video" id="video-item" v-model="itemType">
+                        </div>
+                        <button @click="addItem">Add Item</button>
+                    </form>
                 </div>
+                <div class="cc-viewport-body cc-sitem-container">
+                    <div v-for="item, index in structureData.sections[currentSection] ? structureData.sections[currentSection].items : []">
+                        <button v-if="structureData.sections[currentSection].noOfItems != 0" @click="removeItem(index)">X</button> <br>
+                        <div v-if="item.type=='text'" class="cc-sitem-text" :class="item.content[0]=='#'? 'cc-sitem-text-title' : '' " >
+                            {{item.content}}
+                        </div>
+                        <div v-if="item.type=='image'" class="cc-sitem-image-cont" >
+                            <img class="cc-sitem-image" :src="item.content" alt="ImageCantBeLoaded">
+                        </div>
+                        <div v-if="item.type=='video'" >
+                            <iframe class="cc-sitem-video" :src="'https://www.youtube.com/embed/'+ item.content"></iframe>
+                        </div>
+                    </div>
                 </div>
             </div>
             </div>
+        </div>
+        <div class="cc-footer" >
             <hr>
             <button @click="postCourses">Post Course</button>
         </div>
@@ -297,6 +350,23 @@ export default{
 </template>
 
 <style>
+
+.cc-content {
+    margin-bottom: 70px;
+}
+
+.cc-footer {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 100%;
+    max-width: var(--max-width);
+    z-index: 40;
+    padding-bottom:8px ;
+    padding-left: 8px;
+    background-color: var(--theme-color1);
+}
 
 .cc-course-details-container {
     background: var(--theme-color2);
@@ -308,6 +378,11 @@ export default{
     gap: 20px;
 }
 
+.cc-course-details-items {
+    flex: 1 0 var(--min-width-input);
+    min-width: var(--min-width-input); 
+}
+
 .cc-course-container {
     display: flex;
     flex-direction: row;
@@ -316,13 +391,27 @@ export default{
 .cc-sections{
     flex-basis: auto;
     min-width: 250px;
-    max-height: 800px;
+    
+}
+.cc-sections-head {
+    margin-bottom: 5px;
+
+}
+.cc-sections-body{
+    max-height: calc(100vh - 150px);
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
 .cc-viewport{
     flex-grow: 1;
-    max-height: 800px;
+    
+}
+.cc-viewport-head{
+    margin-bottom: 5px;
+}
+.cc-viewport-body{
+    max-height: calc(100vh - 150px);
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -349,8 +438,14 @@ export default{
 }
 
 .cc-section-text {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.cc-section-text-p {
+    width: 100%;
     margin-left: 5px;
-    max-width: 160px;
     word-wrap: break-word;
 }
 
@@ -380,8 +475,14 @@ export default{
     display: flex;
     flex-wrap: wrap;
     place-items: center;
-    gap: 2px;
+    gap: 5px;
 }
+
+.cc-type-item-container {
+    border: 1px solid var(--theme-color3);
+    display: flex; place-items: center; 
+}
+
 .cc-type-ico{
     width: 30px;
     height: 30px;
@@ -396,17 +497,18 @@ export default{
         justify-content: center;
     }
     .cc-section-text {
+        flex-grow: 1;  
+    }
+    .cc-section-text-p {
         font-size: 20px;
-        max-width: 400px;
-        flex-grow: 1;
         text-align: center;
     }
-}
 
-@media (max-width: 630px) {
-    .cc-course-details-container {
-        padding:5px;
-        gap:5px;
+    .cc-sections-body{
+        max-height: calc(100vh - 210px);
+    }
+    .cc-viewport-body{
+        max-height: calc(100vh - 210px);
     }
 }
 

@@ -10,7 +10,12 @@ export default {
             this.$router.push({name:'home'})
         this.$store.commit("sectionsPanelStatus",true)
         this.$store.commit("loadingStatus", true)
-    }
+    },
+    methods: {
+        toggleNavBar() {
+            this.$emit('toggleNavBar');
+        }
+    },
 
 }
 </script>
@@ -18,7 +23,7 @@ export default {
 <template>
     <div>
         <div class="admin-view-container">
-            <course-creator/>
+            <course-creator @toggleNavBar="toggleNavBar" />
         </div>
     </div>
 </template>

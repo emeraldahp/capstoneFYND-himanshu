@@ -15,6 +15,7 @@ export default{
                 showStructureDetails: true,
                 showCourseImage: false,
                 errorCourseImageLoad: false,
+                focusMode: false,
             },
             courseData: {
                 courseName: "",
@@ -222,6 +223,13 @@ export default{
                 this.valid.tutorMsg ="selected"
             else
                 this.valid.tutorMsg ="notSelected"
+        },
+        toggleFocusMode() {
+            this.$emit('toggleNavBar');
+            this.check.focusMode = this.check.focusMode ? false : true;
+        },
+        toggleSectionsPanel() {
+            this.$store.commit("sectionsPanelStatus", this.$store.state.sectionsPanel? false : true)
         }
 
     }
@@ -230,19 +238,22 @@ export default{
 <template>
     <div class="cc-container">
         <div class="cc-content">
-            <h3>CourseCreator</h3>
-            <h4 title="Show/Hide Course Details" 
+            <div v-show="!check.focusMode" >
+            <h3>Course Creator</h3>
+            <h4 class="cc-section-title" title="Show/Hide Course Details" 
                 @click="this.check.showCourseDetails = this.check.showCourseDetails ? false : true " >
-                Course Details <span v-if="!check.showCourseDetails" style="opacity: 50%;" >Collapsed</span> 
+                <div class="arrow" :style="{transform: this.check.showCourseDetails ? 'rotate(0deg)' : 'rotate(-90deg)' }">&#9660;</div>
+                Course Details 
+                <span v-if="!check.showCourseDetails" style="opacity: 50%;" >Collapsed</span> 
             </h4>
             <div v-show="check.showCourseDetails" class="cc-course-details-container">
                 <div class="cc-course-details-items" >
-                    Course Name: <br>
+                    Course Name <br>
                     <input type="text" placeholder="Enter course name." v-model="courseData.courseName"> <br> 
                     Msg: {{valid.courseMsg}}<br> <br>
                 </div>
                 <div class="cc-course-details-items">
-                    Tutor Name: <br>
+                    Tutor Name <br>
                     <select v-model="courseData.tutorName">
                         <option disabled value="">Select an option.</option>
                         <option v-for="tutor in check.tutorList">{{tutor}}</option>
@@ -250,11 +261,11 @@ export default{
                     Msg: {{valid.tutorMsg}}<br> <br>
                 </div>
                 <div class="cc-course-details-items">
-                    Course Desc: <br>
+                    Course Description <br>
                     <input type="text" placeholder="Enter course description." v-model="courseData.courseDesc"> <br> <br>
                 </div>
                 <div class="cc-course-details-items">
-                    Course Image: <br>
+                    Course Image <br>
                     <input type="text" placeholder="Enter image server url." v-model.lazy="courseData.courseImage"> <br> <br>
                 </div>
             </div>
@@ -279,21 +290,33 @@ export default{
             </div>
             
 
-            <h4 title="Show/Hide Course Structure Details" 
+            <h4 class="cc-section-title" title="Show/Hide Course Structure Details" 
                 @click="this.check.showStructureDetails = this.check.showStructureDetails ? false : true " >
-                Structure Details <span v-if="!check.showStructureDetails" style="opacity: 50%;" >Collapsed</span>
+                <div class="arrow" :style="{transform: this.check.showStructureDetails ? 'rotate(0deg)' : 'rotate(-90deg)' }">&#9660;</div>
+                Structure Details 
+                <span v-if="!check.showStructureDetails" style="opacity: 50%;" >Collapsed</span>
             </h4>
+
+
+            </div>
             <div v-show="check.showStructureDetails" class="cc-course-container">
+            <div class="cc-focus">
+                <div @click="toggleFocusMode" >Focus</div>
+                <div v-if="check.focusMode" @click="toggleSectionsPanel" >Sections</div>
+            </div>
+           
             <div class="cc-sections" :style="this.$store.state.sectionsPanel ? 'display: block' : ''" >
                 <div class="cc-sections-head">
                     Section Selector <br>
                     <button @click="addSection">Add Section</button>
                 </div>
-                <div class="cc-sections-body">
+                <div class="cc-sections-body" :class="!check.focusMode ? 'cc-sections-body-not-focus' : ''">
                     <div  class="cc-section-container" v-if="structureData.sections[0].sectionName != null">
                     <div class="cc-section-item" v-for="section, index in structureData.sections"  >
-                        <div> <button v-if="structureData.noOfSections != 0" @click="removeSection(index)">X</button> </div>
-                        <div @click="selectSection(index); this.$store.commit('sectionsPanelStatus', false)" class="cc-section-text"><div class="cc-section-text-p">{{section.sectionName}}</div></div>
+                        <div class="cc-section-cross"> <button v-if="structureData.noOfSections != 0" @click="removeSection(index)">X</button> </div>
+                        <div class="cc-section-text" @click="selectSection(index); this.$store.commit('sectionsPanelStatus', false)" >
+                            <div class="cc-section-text-p">{{section.sectionName}}</div>
+                        </div>
                     </div>
                     </div>
                 </div>
@@ -303,7 +326,6 @@ export default{
                 <div class="cc-viewport-head" >
                     Course Viewport: {{structureData.sections[currentSection] ? structureData.sections[currentSection].sectionName : ""}} <br>
                     <form class="cc-type-select" @submit.prevent="">
-                        Select Type 
                         <div class="cc-type-item-container">
                             <label class="cc-type-ico" for="text-item" >
                                 <img src="../assets/textico.svg">
@@ -325,7 +347,7 @@ export default{
                         <button @click="addItem">Add Item</button>
                     </form>
                 </div>
-                <div class="cc-viewport-body cc-sitem-container">
+                <div class="cc-viewport-body cc-sitem-container" :class="!check.focusMode ? 'cc-viewport-body-not-focus' : ''">
                     <div v-for="item, index in structureData.sections[currentSection] ? structureData.sections[currentSection].items : []">
                         <button v-if="structureData.sections[currentSection].noOfItems != 0" @click="removeItem(index)">X</button> <br>
                         <div v-if="item.type=='text'" class="cc-sitem-text" :class="item.content[0]=='#'? 'cc-sitem-text-title' : '' " >
@@ -349,7 +371,19 @@ export default{
     </div>
 </template>
 
-<style>
+<style scoped>
+
+.cc-section-title {
+    background-color: var(--theme-color2);
+    cursor: pointer;
+}
+
+.arrow {
+    display: inline-block; 
+    height: 20px; 
+    width: 20px; 
+    opacity: 50%;
+}
 
 .cc-content {
     margin-bottom: 70px;
@@ -386,8 +420,18 @@ export default{
 .cc-course-container {
     display: flex;
     flex-direction: row;
-    
+    position: relative;
 }
+
+.cc-focus {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 30;
+    border: 1px solid var(--theme-color3);
+    cursor: pointer;
+}
+
 .cc-sections{
     flex-basis: auto;
     min-width: 250px;
@@ -437,8 +481,14 @@ export default{
     opacity: 0.8;
 }
 
+.cc-section-cross {
+    width: 70px;
+    flex: none;
+}
+
 .cc-section-text {
     display: flex;
+    flex: 1;
     align-items: center;
     width: 100%;
     height: 100%;
@@ -476,6 +526,7 @@ export default{
     flex-wrap: wrap;
     place-items: center;
     gap: 5px;
+    margin-right: 75px;
 }
 
 .cc-type-item-container {
@@ -490,25 +541,30 @@ export default{
 
 @media (max-width: 600px) {
     .cc-sections {
+        width: 100%;
         display: none;
+        margin-right: 10%;
     }
     .cc-section-item {
-        width: 540px;
+        width: 100%;
         justify-content: center;
     }
     .cc-section-text {
         flex-grow: 1;  
+        max-width: 75%;
+        margin-left: auto;
+        margin-right: 5%;
     }
     .cc-section-text-p {
         font-size: 20px;
         text-align: center;
     }
 
-    .cc-sections-body{
-        max-height: calc(100vh - 210px);
+    .cc-sections-body-not-focus{
+        max-height: calc(100vh - 220px);
     }
-    .cc-viewport-body{
-        max-height: calc(100vh - 210px);
+    .cc-viewport-body-not-focus{
+        max-height: calc(100vh - 220px);
     }
 }
 

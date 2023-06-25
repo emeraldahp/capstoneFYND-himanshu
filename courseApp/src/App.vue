@@ -12,7 +12,8 @@ export default {
     data() {
         return {
             myKey: 0,
-            ready: false
+            ready: false,
+            showNavBar: true,
         }
     },
     created() {
@@ -60,6 +61,9 @@ export default {
     methods: {
         forceRerender() {
             this.myKey++
+        },
+        toggleNavBar() {
+            this.showNavBar = this.showNavBar ? false : true ;
         }
     }
 }
@@ -69,16 +73,16 @@ export default {
 
 <template>   
     <div>
-        <div class="nav-bar" >
+        <div v-show="this.showNavBar" class="nav-bar" >
             <nav-bar/>
         </div>
-        <div class="router-area" >
+        <div :class="this.showNavBar ? 'router-area-resp' : ''" >
             <div v-if="this.$store.state.loading==true" class="loading-container">
                 <div class="spinner" ></div>
                 <div class="loadtxt" >LOADING</div>
             </div>
             <div v-show="this.$store.state.loading==false" class="router-view" >
-                <RouterView :key="myKey" />
+                <RouterView @toggleNavBar="toggleNavBar" :key="myKey" />
             </div>
         </div>
     </div>
@@ -132,7 +136,7 @@ export default {
         background-color: var(--theme-color1);
     }
 
-    .router-area {
+    .router-area-resp {
         margin-top: 77px;
     }
 
